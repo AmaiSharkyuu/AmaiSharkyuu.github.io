@@ -1,0 +1,353 @@
+{
+    "Minecon Capes": [
+        {
+            "name": "2011 Minecon Cape",
+            "description": "The 2011 Minecon Cape was given to all attendees of the 2011 Minecon convention.",
+            "image": "https://minecraft.wiki/images/MINECON_2011_Cape.png?9ff5e",
+            "Obtainable": false,
+            "version": "Java"
+        },
+        {
+            "name": "2012 Minecon Cape",
+            "description": "The 2012 Minecon Cape was given to all attendees of the 2012 Minecon convention.",
+            "image": "https://minecraft.wiki/images/MINECON_2012_Cape.png?9ff5e",
+            "Obtainable": false,
+            "version": "Java"
+        },
+        {
+            "name": "2013 Minecon Cape",
+            "description": "The 2013 Minecon Cape was given to all attendees of the 2013 Minecon convention.",
+            "image": "https://minecraft.wiki/images/MINECON_2013_Cape.png?9ff5e",
+            "Obtainable": false,
+            "version": "Java"
+        },
+        {
+            "name": "2015 Minecon Cape",
+            "description": "The 2015 Minecon Cape was given to all attendees of the 2015 Minecon convention.",
+            "image": "https://minecraft.wiki/images/MINECON_2015_Cape.png?9ff5e",
+            "Obtainable": false,
+            "version": "Java"
+        },
+        {
+            "name": "2016 Minecon Cape",
+            "description": "The 2016 Minecon Cape was given to all attendees of the 2016 Minecon convention.",
+            "image": "https://minecraft.wiki/images/MINECON_2016_Cape.png?9ff5e",
+            "Obtainable": false,
+            "version": "Java"
+        },
+        {
+            "name": "Minecraft Experience Cape",
+            "description": "Players can receive this cape by redeeming a code rewarded after completing the experience.",
+            "image": "https://minecraft.wiki/images/Minecraft_Experience_Cape_JE.png?95ef2",
+            "Obtainable": true,
+            "version": "Java and Bedrock",
+            "date": "20/07/2024"
+        },
+        {
+            "name": "Moonlight Trail Cape",
+            "description": "Players can receive this cape by redeeming a code sent by e-mail within 72 hours after completing the experience.",
+            "image": "https://minecraft.wiki/images/Moonlight_Trail_Cape_JE.png?8468e",
+            "Obtainable": true,
+            "date": "15/05/2026",
+            "version": "Java and Bedrock"
+        },
+        {
+            "name": "Crafter Cape",
+            "description": "This cape could be obtained at the in-person TwitchCon 2026 event in Rotterdam",
+            "image": "https://minecraft.wiki/images/Crafter_Cape_JE.png?5960d",
+            "date": "30/05/2026 - 31/05/2026",
+            "Obtainable": false,
+            "version": "Java and Bedrock"
+        }
+    ],
+    "Social Media Capes": [
+        {
+            "name": "Builder Cape",
+            "description": "The Builder Cape was given to viewers who watched a Minecraft TikTok or Twitch livestream for at least 3 minutes on Tiktok and 5 minutes on Twitch.",
+            "image": "https://minecraft.wiki/images/Builder_Cape_JE.png?c2652",
+            "date": "30/05/2026 - 22/06/2026",
+            "Obtainable": true,
+            "version": "Java and Bedrock"
+        },
+        {
+            "name": "Purple Heart Cape",
+            "description": "The Purple Heart Cape was given to viewers who watched a Minecraft Twitch stream for at least 10 minutes.",
+            "image": "https://minecraft.wiki/images/Purple_Heart_Cape_JE.png?6b4f5",
+            "date": "15/05/2024 - 31/05/2024",
+            "Obtainable": false,
+            "version": "Java and Bedrock"
+        },
+        {
+            "name": "Follower's Cape",
+            "description": "The Follower's Cape was given to viewers who watched a Minecraft TikTok live stream for at least 3 minutes.",
+            "image": "https://minecraft.wiki/images/Follower%27s_Cape_JE.png?baa3a",
+            "date": "18/05/2024 - 18/06/2024",
+            "Obtainable": false,
+            "version": "Java and Bedrock"
+        },
+        {
+            "name": "Menace Cape",
+            "description": "The Menace Cape was given to viewers who watched a Minecraft TikTok livestream for at least 3 minutes.",
+            "image": "https://minecraft.wiki/images/Menace_Cape_JE.png?c7b8f",
+            "date" :"18/03/2025 - 06/04/2025",
+            "Obtainable" : false,
+            "version" :"Java and Bedrock"
+        },
+        {
+            "name": "Home Cape",
+            "description": "The Home Cape was given to viewers who watched a Minecraft Twitch livestream for at least 3 minutes.",
+            "image": "https://minecraft.wiki/images/Home_Cape_JE.png?2312e",
+            "date": "18/03/2025 - 06/04/2025",
+            "Obtainable": false,
+            "version": "Java and Bedrock"
+        }
+
+    ],
+    "Event Capes": [
+        {
+            "name": "Zombie Horse Cape",
+            "description": "The Zombie Horse Cape could be obtained as a reward for the \"Spear Mayhem\" challenge",
+            "image": "https://minecraft.wiki/images/Zombie_Horse_Cape_JE.png?e4bb6",
+            "date": "12/12/2025 - 15/12/2025",
+            "Obtainable": false,
+            "version": "Java and Bedrock"
+        },
+        {
+            "name": "Copper Cape",
+            "description": "The Copper Cape could be obtained as the final reward of a special three-part community challenge known as \"The Copper Cape Quest\"",
+            "date": "13/10/2025 - 20/10/2025",
+            "image": "https://minecraft.wiki/images/Copper_Cape_JE.png?00587",
+            "Obtainable": false,
+            "version": "Java and Bedrock"
+        },
+        {
+            "name": "Yearn Cape",
+            "description": "The Yearn Cape was obtained by completing all 6 quests in the \"A Minecraft Movie Live Event\"",
+            "date": "25/03/2025 - 14/04/2025",
+            "image": "https://minecraft.wiki/images/Yearn_Cape_JE.png?00587",
+            "Obtainable": false,
+            "version": "Java and Bedrock"
+        },
+        {
+            "name": "Mojang Office Cape",
+            "description": "The Mojang Office cape was obtained by completing all five daily challenges in the Eerie Mojang Office Party event server.",
+            "image": "https://minecraft.wiki/images/Mojang_Office_Cape_JE.png?6088b",
+            "date": "13/12/2024 - 20/12/2024",
+            "Obtainable": false,
+            "version": "Java and Bedrock"
+        },
+        {
+            "name": "MCC 15th Year Cape",
+            "description": "The MCC 15th Year Cape was given to those who participated in the Minecraft Championship event celebrating 15 years of Minecraft.",
+            "image": "https://minecraft.wiki/images/MCC_15th_Year_Cape_JE.png?411cb",
+            "version": "Java and Bedrock",
+            "date": "28/07/2024 - 05/08/2024",
+            "Obtainable": false
+        },
+        {
+            "name": "15th Anniversary Cape",
+            "description": "In order to get the cape, users had to go to Minecraft.net and claim it from a section on the 15th anniversary page.",
+            "image": "https://minecraft.wiki/images/15th_Anniversary_Cape_JE.png?134e6",
+            "version": "Java and Bedrock",
+            "date" : "17/05/2024 - 21/06/2024",
+            "Obtainable": false
+        },
+        {
+            "name": "Founder's Cape",
+            "description": "The Founder's Cape was available for free on the Minecraft Bedrock Marketplace for a limited time.",
+            "image": "https://minecraft.wiki/images/Founder%27s_Cape_JE.png?c5e48",
+            "version": "Java and Bedrock",
+            "date" : "28/07/2019 - 28/10/2019",
+            "Obtainable": false
+        },
+        {
+            "name": "Cherry Blossom Cape",
+            "description": "The Cherry Blossom Cape was given to players who cast their vote during the 2023 Mob Vote.",
+            "image": "https://minecraft.wiki/images/Cherry_Blossom_Cape_JE.png?c11dd",
+            "version": "Java and Bedrock",
+            "date" : "10/10/2023",
+            "Obtainable": false
+        }
+    ],
+    "Pride Capes": [
+        {
+            "name": "Pan Cape",
+            "description": "The Pan Cape was available for free on the Minecraft Bedrock Marketplace for a limited time on.",
+            "image": "https://minecraft.wiki/images/Pan_Cape_JE.png?02645",
+            "version": "Java and Bedrock",
+            "Obtainable": false,
+            "date": "10/12/2021 - 31/12/2021"
+        },
+        {
+            "name": "Progress Pride Cape",
+            "description": "The Progress Pride Cape was available for free on the Minecraft Bedrock Marketplace for a limited time.",
+            "image": "https://minecraft.wiki/images/Progress_Pride_Cape_rv3.png?89e63",
+            "date": "01/08/2023 - 19/09/2023",
+            "Obtainable": false,
+            "version": "Bedrock"
+        }
+    ],
+    "Special Capes": [
+        {
+            "name": "Migrator Cape",
+            "description": "The Migrator Cape was given to players who successfully migrated their Mojang account to a Microsoft account.",
+            "image": "https://minecraft.wiki/images/Migrator_Cape.png?5f85a",
+            "obtainable": false,
+            "version": "Java",
+            "date": "24/06/2021 - 19/09/2023"
+        },
+        {
+            "name": "Vanilla Cape",
+            "description": "Players were able to obtain the cape under the condition that both Java Edition and Bedrock Edition for Windows are owned in the same Microsoft account.",
+            "image": "https://minecraft.wiki/images/Vanilla_Cape.png?847e0",
+            "obtainable": false,
+            "version": "Java and Bedrock",
+            "date": "31/08/2022"
+        },
+        {
+            "name": "Common Cape",
+            "description": "The Common Cape was given to players who used their Microsoft account to log into Bedrock Edition on any platform during the distribution period.",
+            "image": "https://minecraft.wiki/images/Common_Cape_JE.png?f072d",
+            "obtainable": false,
+            "version": "Java and Bedrock",
+            "date": "18/03/2025 - 06/04/2025"
+        }
+    ],
+    "Personalized Capes": [
+        {
+            "name": "Bacon Cape",
+            "description": "This cape was given to Miclee by Notch for his idea of adding pigmen.",
+            "image": "https://minecraft.wiki/images/Bacon_Cape.png?47941"
+        },
+        {
+            "name": "Millionth Customer Cape",
+            "description": "This cape was given to akronman1, who purchased the 1,000,000th copy of the game.",
+            "image": "https://minecraft.wiki/images/Millionth_Customer_Cape.png?5afcb"
+        },
+        {
+            "name": "dB Cape",
+            "description": "This cape was given to the video game music composer dannyBstyle as Notch was a fan of his music.",
+            "image": "https://minecraft.wiki/images/DannyBstyle%27s_Cape.png?cc016"
+        },
+        {
+            "name": "Snowman Cape",
+            "description": "This cape was given to JulianClark as a reward for making a meme about how he brought Ray Cokes to Notch because of a joke splash text that was in Minecraft at the time.",
+            "image": "https://minecraft.wiki/images/JulianClark%27s_Cape.png?413c3"
+        },
+        {
+            "name": "cheapsh0t's Cape",
+            "description": "The cape is almost identical to the Translator Cape, but depicts a Japanese flag on its underside.",
+            "image": "https://minecraft.wiki/images/Translator_Cape.png?87d01"
+        },
+        {
+            "name": "Spade Cape",
+            "description": "This cape was given to MrMessiah as gratitude for developing the BetterLight mod, which got integrated into the game and was responsible for Minecraft's lighting and grass features.",
+            "image": "https://minecraft.wiki/images/MrMessiah%27s_Cape.png?87383"
+        },
+        {
+            "name": "Prismarine Cape",
+            "description": "This cape was given to Drullkus by Jeb as appreciation for creating his own prismarine block texture for the Chisel mod instead of modifying Mojang's textures.",
+            "image": "https://minecraft.wiki/images/Prismarine_Cape.png?d0f89"
+        },
+        {
+            "name": "Turtle Cape",
+            "description": "This cape was given to billyK_ for his suggestion of turtles, which was implemented into the game.",
+            "image": "https://minecraft.wiki/images/Turtle_Cape.png?4dce4"
+        },
+        {
+            "name":"Birthday Cape",
+            "description": "This cape was given to the account Gr8Bizzo, which is the account of Todd Baldwin.",
+            "image": "https://minecraft.wiki/images/Birthday_Cape.png?5f85a"
+        },
+        {
+            "name": "Valentine Cape",
+            "description": "This cape was given to LolFoxy2 by a Mojang employee, Ekkelangelo who started to become friends with LolFoxy2 and resolved their migration problems with their alternative account.",
+            "image": "https://minecraft.wiki/images/Valentine_Cape.png?59f69"
+        },
+        {
+            "name": "Oxeye Cape",
+            "description": "This cape was randomly given to the player iSxckk, presumably by accident, then removed the next day.",
+            "image": "https://minecraft.wiki/images/OxeyeCape.png?f4daf"
+        },
+        {
+            "name": "Blueprint Cape",
+            "description": "This cape was given to SupaCookiebrat and then removed.",
+            "image": "https://minecraft.wiki/images/UnknownCape.png?15446"
+        }
+    ],
+    "Staff Capes": [
+        {
+            "name": "4J Studios Cape",
+            "description": "This cape was presumably given out to 4J Studios developers on Xbox 360 Edition through the \"Title Managed Storage\" developer feature. However, it may simply be an unused asset, as no reliable sources have acknowledged the cape outside of the data dump that revealed it.",
+            "image": "https://minecraft.wiki/images/4J_Studios_Cape.png?5f85a"
+        },
+        {
+            "name": "Mojang Cape",
+            "description": "The Classic Mojang Cape was given to those employed by Mojang at any point.",
+            "image": "https://minecraft.wiki/images/Mojang_Cape.png?8dbe4",
+            "version": "Java",
+            "date": "20/12/2010 - 07/10/2015"
+        },
+        {
+            "name": "Mojang Studios Cape",
+            "description": "The Mojang Studios Cape is exclusively given to Mojang Studios employees.",
+            "image": "https://minecraft.wiki/images/Mojang_Studios_Cape.png?5f85a"
+        },
+        {
+            "name" : "Xbox Cape",
+            "image" : "https://minecraft.wiki/images/MicrosoftXbox360_Cape.png?675f9",
+            "description" : "This cape was given out to Microsoft employees, who were also given the ability to toggle the cape's visibility."
+        }
+    ],
+        "Volunteer Capes": [
+        {
+            "name": "Moderator Cape",
+            "description": "This cape is given to current and past moderators on Mojira.",
+            "image": "https://minecraft.wiki/images/MicrosoftXbox360_Cape.png?675f9",
+            "version": "Java"
+        },
+        {
+            "name": "Realms MapMaker Cape",
+            "description": "The design is based on the logo for the Atlas submission portal, the web interface used by invited creators to upload their maps for review.",
+            "image": "https://minecraft.wiki/images/Realms_MapMaker_Cape.png?c2b29",
+            "version": "Java",
+            "date": "20/12/2010 - 07/10/2015"
+        },
+        {
+            "name": "Translator Cape",
+            "description": "The Translator Cape is given to volunteers who have contributed translations for Minecraft.",
+            "image": "https://minecraft.wiki/images/Translator_Cape.png?87d01",
+            "version": "Java"
+        }
+    ],
+    "Temporary Capes": [
+        {
+            "name": "Christmas Cape",
+            "description": "The Christmas Cape was temporarily given to players who logged in during the Christmas season of 2010.",
+            "image": "https://minecraft.wiki/images/Christmas_2010_Cape.png?9157c",
+            "version": "Java",
+            "Obtainable": false
+        },
+        {
+            "name": "New Year 2011 Cape",
+            "description": "The New Year 2011 Cape was temporarily given to players who logged in during the New Year season of 2011.",
+            "image": "https://minecraft.wiki/images/New_Years_2011_Cape.png?01746",
+            "version": "Java",
+            "Obtainable": false
+        },
+        {
+            "name": "Scrolls Champion Cape",
+            "description": "The Scrolls Champion Cape was given to players who won the Scrolls Championship in 2015.",
+            "image": "https://minecraft.wiki/images/Scrolls_Champion_Cape.png?1219d",
+            "version": "Java",
+            "Obtainable": false
+        },
+        {
+            "name": "Xbox 1st Birthday Cape",
+            "description": "The Xbox 1st Birthday Cape was temporarily shown on all players to celebrate the first anniversary of the Xbox 360 Edition.",
+            "image": "https://minecraft.wiki/images/Xbox_1st_Birthday_Cape.png?b08be",
+            "version": "Xbox 360 Edition",
+            "Obtainable": false
+        }
+    ]
+}

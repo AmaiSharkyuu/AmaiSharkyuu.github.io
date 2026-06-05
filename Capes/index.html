@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AmaiCraft - Capes</title>
+    <link rel="icon" type="image/png" href="../Icon.png">
+    <style>
+        /* POLICE */
+        @font-face {
+            font-family: 'Minecraftia';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Minecraftia'), url('../Minecraftia.woff') format('woff');
+        }
+        :root {
+            --mc-bg: #313233;
+            --mc-gui-panel: #c6c6c6;
+            --mc-gui-button: #7e7e7e;
+            --mc-gui-light: #ffffff;
+            --mc-gui-shadow: #555555;
+            --mc-button-hover: #7a7a7a;
+            --mc-link: #52a4ff;
+            --mc-text-shadow: #3f3f3f;
+        }
+        body {
+            font-family: 'Minecraftia', 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            background-image: url('TinyTakeOver.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            user-select: none;
+            padding-bottom: 100px;
+            scrollbar-width: none;
+        }
+        html::-webkit-scrollbar { display: none; }
+        html {
+            scrollbar-width: none;
+            overflow-y: scroll;
+        }
+        
+        /* HEADER */
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 4px solid #000;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 70px;
+        }
+        header img {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            width: auto;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            text-shadow: 3px 3px 0px #3f3f3f;
+            letter-spacing: 2px;
+        }
+
+        /* NAV */
+        .nav {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .nav a {
+            background: #555;
+            border: 2px solid #000;
+            border-top-color: #ababab;
+            border-left-color: #ababab;
+            padding: 8px 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .nav a:hover {
+            background: #8b8b8b;
+            border-top-color: #dbdbdb;
+            border-left-color: #dbdbdb;
+        }
+        a { text-decoration: none; }
+
+        /* PAGE TITLE */
+        .page-title {
+            text-align: center;
+            text-shadow: 2px 2px 0px #3f3f3f;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        /* CATEGORIE */
+        .category-block {
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 3px solid #000;
+            box-shadow: inset 3px 3px 0px #ffffff33, inset -3px -3px 0px #00000066;
+        }
+
+        .category-header {
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 3px solid #000;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .category-header h2 {
+            margin: 0;
+            font-size: 15px;
+            text-shadow: 2px 2px 0px #3f3f3f;
+            letter-spacing: 1px;
+            color: #ffff55;
+            text-shadow: 2px 2px 0px #3f3f15;
+        }
+        .category-count {
+            font-size: 10px;
+            color: #aaa;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid #555;
+            padding: 2px 7px;
+        }
+
+        /* GRILLE DES CAPES */
+        .capes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            padding: 18px;
+        }
+
+        /* CARTE CAPE */
+        .cape-card {
+            background: #8b8b8b;
+            border: 2px solid #000;
+            box-shadow: inset 2px 2px 0px #ffffff55, inset -2px -2px 0px #00000077;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 14px 10px 12px;
+            cursor: default;
+            transition: transform 0.1s;
+            position: relative;
+        }
+        .cape-card:hover {
+            background: #9e9e9e;
+            transform: translateY(-2px);
+        }
+
+        /* CAPE IMAGE (fallback pixel art frame) */
+        .cape-img-wrap {
+            width: 64px;
+            height: 96px;
+            background: #555;
+            border: 2px solid #000;
+            box-shadow: inset 1px 1px 0px #ffffff33, inset -1px -1px 0px #00000055;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            overflow: hidden;
+            image-rendering: pixelated;
+        }
+        .cape-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+        }
+        .cape-img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Pixel art cape silhouette (SVG inline) */
+        .cape-img-placeholder svg {
+            width: 38px;
+            height: 58px;
+            image-rendering: pixelated;
+            opacity: 0.5;
+        }
+
+        .cape-name {
+            font-size: 10px;
+            color: #ffffff;
+            text-shadow: 1px 1px 0px #3f3f3f;
+            text-align: center;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        /* TOOLTIP description */
+        .cape-card:hover .cape-tooltip {
+            display: block;
+        }
+        .cape-tooltip {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #c6c6c6;
+            border: 2px solid #000;
+            box-shadow: inset 2px 2px 0px #ffffff, inset -2px -2px 0px #555555;
+            color: #3f3f3f;
+            font-size: 9px;
+            padding: 7px 9px;
+            width: 170px;
+            z-index: 100;
+            line-height: 1.6;
+            pointer-events: none;
+        }
+        .cape-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #000;
+        }
+
+        /* CAPE VIDE (placeholder) */
+        .cape-card.empty {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .cape-img-wrap { position: relative; }
+
+        /* VERSION TAG */
+        .cape-version {
+            font-size: 8px;
+            padding: 2px 5px;
+            margin-top: 4px;
+            border: 1px solid #000;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+        .version-java    { background: #1a3a1a; border-color: #2a6a2a; color: #7cff7c; }
+        .version-bedrock { background: #1a1a3a; border-color: #2a2a8a; color: #7c9fff; }
+        .version-other   { background: #2a1a00; border-color: #7a4a00; color: #ffcc7c; }
+
+        /* OBTAINABLE TAG */
+        .cape-obtainable {
+            font-size: 8px;
+            padding: 2px 5px;
+            margin-top: 3px;
+            border: 1px solid #000;
+            letter-spacing: 0.5px;
+        }
+        .obtainable-yes { background: #003a00; border-color: #006600; color: #55ff55; }
+        .obtainable-no  { background: #3a0000; border-color: #880000; color: #ff5555; }
+
+        /* BADGE disponibilite */
+        .cape-badge {
+            font-size: 8px;
+            padding: 2px 5px;
+            margin-top: 5px;
+            border: 1px solid #000;
+            letter-spacing: 0.5px;
+        }
+        .badge-exclusive { background: #7c3a00; color: #ffb347; border-color: #b35c00; }
+        .badge-event     { background: #003a7c; color: #7ec8ff; border-color: #005cb3; }
+        .badge-social    { background: #2a003a; color: #d47cff; border-color: #6a00b3; }
+        .badge-minecon   { background: #003a1a; color: #7cffa0; border-color: #00b350; }
+        .badge-pride     { background: #3a2200; color: #ffde7c; border-color: #b37c00; }
+        .badge-special   { background: #3a0000; color: #ff7c7c; border-color: #b30000; }
+        .badge-employees { background: #1a1a1a; color: #c6c6c6; border-color: #555; }
+        .badge-physical  { background: #2a1a3a; color: #d4a0ff; border-color: #7a3ab3; }
+
+        /* SOUS-CATEGORIES (Physical / Virtual) */
+        .subcategory-block {
+            margin: 0;
+        }
+        .subcategory-header {
+            background: rgba(0,0,0,0.35);
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
+            padding: 7px 18px 7px 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .subcategory-header h3 {
+            margin: 0;
+            font-size: 12px;
+            color: #c6c6c6;
+            text-shadow: 1px 1px 0 #3f3f3f;
+            letter-spacing: 1px;
+        }
+        .subcategory-header .sub-icon {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            background-color: #1a1a1a;
+            color: #aaaaaa;
+            border-top: 4px solid #000;
+            z-index: 2000;
+        }
+        summary:hover span {
+            text-decoration: underline;
+            color: #85b6ee !important;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AMAICRAFT</h1>
+    <img src="../parrotparty.gif" alt="Parrot Party">
+</header>
+
+<div class="nav">
+    <a href="../">HOME</a>
+    <a href="https://minecraft.wiki" target="_blank" rel="noopener noreferrer">WIKI</a>
+    <a href="https://www.minecraft.net/fr-fr/minecraft-tips-for-beginners" target="_blank" rel="noopener noreferrer">GUIDES</a>
+</div>
+
+<h2 class="page-title">Every Minecraft Cape</h2>
+
+<div class="container" id="capes-container">
+    <!-- Généré par JS -->
+</div>
+
+<footer>
+    <a href="https://ko-fi.com/amaicraft" target="_blank" style="color: #13c3ff; text-decoration: none;" rel="noopener noreferrer" id="Don">
+        ☕ Buy me a Coffee
+    </a> <br>
+
+    <details style="user-select: none; -webkit-user-select: none; display: inline-block;">
+        <summary style="cursor: pointer; list-style: none; outline: none; font-size: 12px;">
+            <strong>Community Page 
+            <a href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer" style="color: #85b6ee; text-decoration: none; pointer-events: auto;">Minecraft</a></strong> 
+            — Unofficial website <span style="color: #5977af; font-size: 10px;">See Info</span>
+        </summary>
+        <div style="position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: #c6c6c6; border: 3px solid #000; box-shadow: inset 3px 3px 0px #ffffff, inset -3px -3px 0px #555555; padding: 10px; z-index: 2001; cursor: default;">
+            <div style="background: #8b8b8b; border: 2px solid #000; box-shadow: inset 2px 2px 0px #373737, inset -2px -2px 0px #ffffff; padding: 15px; text-align: left; color: #3f3f3f;">
+                <h3 style="font-size: 14px; color: #ffff55; text-shadow: 2px 2px 0px #3f3f15; margin-top: 0;">AmaiCraft: Quick Reference Guide</h3>
+                <p style="font-size: 12px; margin-bottom: 10px;">
+                    Looking for specific <strong>Minecraft crafting recipes</strong>? AmaiCraft offers a direct <strong>craft list</strong> to help you build items quickly.
+                </p>
+                <p style="font-size: 12px; margin-bottom: 10px;">
+                    Our tool includes <strong>basic Minecraft commands</strong> for <strong>admin items and cheats</strong>, as well as a dedicated <strong>Jukebox</strong> section for <strong>music discs</strong>.
+                </p>
+                <p style="font-size: 12px; margin-bottom: 10px;">
+                    You can also explore and play all hurt <strong>mob sounds</strong> from the game or take a break with the integrated <strong>mining mini-game</strong>.
+                </p>
+                <p style="font-size: 11px; margin-bottom: 10px;">Simple, but <strong>unofficial</strong> Website.</p>
+                <p style="font-size: 12px; margin: 0; color: #ffff55; text-shadow: 1px 1px 0px #3f3f15;">
+                    <strong style="color: #ff5555;">NEW!</strong> Cape Collection: Discover the history and availability of all Minecraft capes.
+                </p>
+            </div>
+        </div>
+    </details>
+</footer>
+
+<script>
+// ─── SVG silhouette cape placeholder ───────────────────────────────────────
+const CAPE_SVG = `<svg viewBox="0 0 38 58" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <rect x="6" y="0" width="26" height="4" fill="#888"/>
+  <rect x="4" y="4" width="30" height="2" fill="#888"/>
+  <rect x="2" y="6" width="34" height="46" fill="#888"/>
+  <rect x="4" y="52" width="30" height="4" fill="#777"/>
+  <rect x="6" y="56" width="26" height="2" fill="#666"/>
+</svg>`;
+
+// ─── Badge par catégorie ────────────────────────────────────────────────────
+const BADGE_INFO = {
+    "Minecon Capes":     { label: "MINECON",   cls: "badge-minecon"   },
+    "Social Media Capes":{ label: "SOCIAL",    cls: "badge-social"    },
+    "Event Capes":       { label: "EVENT",     cls: "badge-event"     },
+    "Pride Capes":       { label: "PRIDE",     cls: "badge-pride"     },
+    "Special Capes":     { label: "SPECIAL",   cls: "badge-special"   },
+    "Exclusive Capes":   { label: "EXCLUSIVE", cls: "badge-exclusive" },
+    "Employees Capes":   { label: "EMPLOYEES", cls: "badge-employees" },
+};
+
+// Capes qui gardent le badge MINECON (les 5 conventions historiques)
+const MINECON_NAMES = new Set([
+    "2011 Minecon Cape", "2012 Minecon Cape", "2013 Minecon Cape",
+    "2015 Minecon Cape", "2016 Minecon Cape"
+]);
+
+// ─── Catégories fusionnées sous Event ──────────────────────────────────────
+const PHYSICAL_CATS = ["Minecon Capes"];
+const VIRTUAL_CATS  = ["Social Media Capes", "Event Capes", "Pride Capes"];
+const EVENT_CATS    = new Set([...PHYSICAL_CATS, ...VIRTUAL_CATS]);
+
+// ─── Tri par date (plus récent en premier, sans date = à la fin) ───────────
+function parseDate(str) {
+    if (!str) return null;
+    const first = str.split('-')[0].trim();
+    const [d, m, y] = first.split('/');
+    if (!d || !m || !y) return null;
+    return new Date(+y, +m - 1, +d);
+}
+
+function sortByDate(capes) {
+    return [...capes].sort((a, b) => {
+        const da = parseDate(a.date);
+        const db = parseDate(b.date);
+        if (!da && !db) return 0;
+        if (!da) return 1;
+        if (!db) return -1;
+        return db - da;
+    });
+}
+
+// ─── Charge le JSON et construit la page ────────────────────────────────────
+fetch('Capes.json')
+    .then(r => r.json())
+    .then(data => buildPage(data))
+    .catch(() => {
+        document.getElementById('capes-container').innerHTML = `
+            <div style="background:#8b8b8b;border:2px solid #000;box-shadow:inset 2px 2px 0 #373737,inset -2px -2px 0 #fff;padding:20px;text-align:center;color:#ff5555;font-size:13px;">
+                ✖ Could not load <strong>Capes.json</strong><br>
+                <span style="font-size:10px;color:#aaa;">Make sure the file is in the same folder as this page.</span>
+            </div>`;
+    });
+
+function buildPage(data) {
+    const container = document.getElementById('capes-container');
+    container.innerHTML = '';
+
+    let eventBlockInserted = false;
+
+    for (const [category, capes] of Object.entries(data)) {
+
+        // Catégories absorbées dans Event → on les regroupe une seule fois
+        if (EVENT_CATS.has(category)) {
+            if (eventBlockInserted) continue;
+            eventBlockInserted = true;
+
+            // Collecter Physical et Virtual
+            const physical = PHYSICAL_CATS.flatMap(c => (data[c] || []).filter(x => x.name && x.name.trim() !== ''));
+            const virtual  = VIRTUAL_CATS.flatMap(c  => (data[c] || []).filter(x => x.name && x.name.trim() !== ''));
+            const total    = physical.length + virtual.length;
+
+            const block = document.createElement('div');
+            block.className = 'category-block';
+
+            // Header Event
+            block.innerHTML = `
+                <div class="category-header">
+                    <h2>Event Capes</h2>
+                    <span class="category-count">${total} cape${total !== 1 ? 's' : ''}</span>
+                </div>`;
+
+            // Sous-catégorie Physical
+            block.appendChild(buildSubcategory('⛏ Physical', physical, { label: 'MINECON', cls: 'badge-minecon' }));
+            // Sous-catégorie Virtual
+            block.appendChild(buildSubcategory('🌐 Virtual', virtual, { label: 'EVENT', cls: 'badge-event' }));
+
+            container.appendChild(block);
+            continue;
+        }
+
+        // Catégories normales
+        const validCapes = capes.filter(c => c.name && c.name.trim() !== '');
+        const badge = BADGE_INFO[category] || { label: category.toUpperCase(), cls: 'badge-special' };
+
+        const block = document.createElement('div');
+        block.className = 'category-block';
+
+        const hdr = document.createElement('div');
+        hdr.className = 'category-header';
+        hdr.innerHTML = `
+            <h2>${category}</h2>
+            <span class="category-count">${validCapes.length} cape${validCapes.length !== 1 ? 's' : ''}</span>`;
+        block.appendChild(hdr);
+
+        const grid = document.createElement('div');
+        grid.className = 'capes-grid';
+
+        const sortedCapes = sortByDate(validCapes);
+        if (sortedCapes.length === 0) {
+            grid.innerHTML = `<div style="color:#aaa;font-size:10px;padding:10px;">No capes listed yet.</div>`;
+        } else {
+            for (const cape of sortedCapes) grid.appendChild(buildCard(cape, badge));
+        }
+
+        block.appendChild(grid);
+        container.appendChild(block);
+    }
+}
+
+function buildSubcategory(label, capes, badge) {
+    const sub = document.createElement('div');
+    sub.className = 'subcategory-block';
+
+    const hdr = document.createElement('div');
+    hdr.className = 'subcategory-header';
+    hdr.innerHTML = `<h3>${label}</h3><span class="category-count">${capes.length} cape${capes.length !== 1 ? 's' : ''}</span>`;
+    sub.appendChild(hdr);
+
+    const grid = document.createElement('div');
+    grid.className = 'capes-grid';
+
+    const sorted = sortByDate(capes);
+    if (sorted.length === 0) {
+        grid.innerHTML = `<div style="color:#aaa;font-size:10px;padding:10px;">No capes listed yet.</div>`;
+    } else {
+        for (const cape of sorted) {
+            // Badge MINECON uniquement pour les 5 conventions historiques
+            const cardBadge = (badge.cls === 'badge-minecon' && !MINECON_NAMES.has(cape.name))
+                ? { label: 'PHYSICAL', cls: 'badge-physical' }
+                : badge;
+            grid.appendChild(buildCard(cape, cardBadge));
+        }
+    }
+
+    sub.appendChild(grid);
+    return sub;
+}
+
+function buildCard(cape, badge) {
+    const card = document.createElement('div');
+    card.className = 'cape-card';
+
+    // Image ou placeholder
+    const imgWrap = document.createElement('div');
+    imgWrap.className = 'cape-img-wrap';
+
+    const isRealImage = cape.image && !cape.image.includes('example.com');
+    if (isRealImage) {
+        const img = document.createElement('img');
+        img.src = cape.image;
+        img.alt = cape.name;
+        img.onerror = () => { imgWrap.innerHTML = `<div class="cape-img-placeholder">${CAPE_SVG}</div>`; };
+        imgWrap.appendChild(img);
+    } else {
+        imgWrap.innerHTML = `<div class="cape-img-placeholder">${CAPE_SVG}</div>`;
+    }
+
+    // Nom
+    const name = document.createElement('div');
+    name.className = 'cape-name';
+    name.textContent = cape.name;
+
+    // Badge catégorie
+    const badgeEl = document.createElement('div');
+    badgeEl.className = `cape-badge ${badge.cls}`;
+    badgeEl.textContent = badge.label;
+
+    // Version tag (optionnel)
+    let versionEl = null;
+    if (cape.version) {
+        versionEl = document.createElement('div');
+        versionEl.className = 'cape-version';
+        const v = cape.version.toLowerCase();
+        if (v === 'java') {
+            versionEl.classList.add('version-java');
+        } else if (v === 'bedrock') {
+            versionEl.classList.add('version-bedrock');
+        } else {
+            versionEl.classList.add('version-other');
+        }
+        versionEl.textContent = cape.version;
+    }
+
+    // Obtainable tag
+    const obtEl = document.createElement('div');
+    obtEl.className = 'cape-obtainable';
+    const obtainable = cape.Obtainable ?? cape.obtainable;
+    if (obtainable === false) {
+        obtEl.classList.add('obtainable-no');
+        obtEl.textContent = '✖ Unobtainable';
+        card.classList.add('not-obtainable');
+    } else if (obtainable === true) {
+        obtEl.classList.add('obtainable-yes');
+        obtEl.textContent = '✔ Obtainable';
+    }
+
+    // Tooltip description + date
+    const tooltip = document.createElement('div');
+    tooltip.className = 'cape-tooltip';
+
+    const date = cape.date || null;
+    let desc = cape.description || 'No description available.';
+    if (date) desc = desc.replace(/\{DATE\}/g, date);
+    tooltip.innerHTML = desc;
+    if (date) {
+        tooltip.innerHTML += `<div style="margin-top:6px;padding-top:5px;border-top:1px solid #aaa;font-size:9px;"><strong style="color:rgb(255,0,0);text-shadow:1px 1px 0px #8B0000;">${date}</strong></div>`;
+    }
+
+    card.appendChild(tooltip);
+    card.appendChild(imgWrap);
+    card.appendChild(name);
+    card.appendChild(badgeEl);
+    if (versionEl) card.appendChild(versionEl);
+    if (obtainable !== undefined) card.appendChild(obtEl);
+
+    return card;
+}
+
+// ─── Ko-fi rainbow letters ──────────────────────────────────────────────────
+window.onload = function () {
+    const Coff = document.getElementById('Don');
+    const text = Coff.innerText;
+    Coff.innerHTML = '';
+    for (let char of text) {
+        const span = document.createElement('span');
+        span.innerText = char;
+        const hue = Math.floor(Math.random() * 360);
+        const color = `hsl(${hue}, 100%, 80%)`;
+        span.style.color = color;
+        span.style.textDecoration = 'underline';
+        span.style.textDecorationColor = color;
+        span.style.textDecorationThickness = '2px';
+        Coff.appendChild(span);
+    }
+};
+</script>
+</body>
+</html>

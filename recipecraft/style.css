@@ -23,9 +23,10 @@ body {
     flex-direction: column;
     overflow: hidden;
     background-color: #1e1e1e;
-    background-image: url('assets/background/Blackstone.webp');
-    background-repeat: repeat;
-    background-size: 48px;
+    background-image: url('assets/background/back.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     image-rendering: pixelated;
     font-family: 'Minecraftia', sans-serif;
     color: white;
