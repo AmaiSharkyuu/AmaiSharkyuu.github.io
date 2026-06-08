@@ -201,12 +201,14 @@
 
         .hotbar {
             display: flex;
+            flex-wrap: wrap; /* Autorise les éléments à passer à la ligne */
             gap: 5px;
-            margin-top: 20px;
+            margin: 20px auto 0 auto; /* Centre la barre dans le panel */
             background: #8b8b8b;
             padding: 5px;
             border: 3px solid #373737;
             justify-content: center;
+            max-width: 422px; /* Largeur exacte pour 7 cases (56px/case + 5px d'espacement) */
         }
 
         .slot {
@@ -220,12 +222,16 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            touch-action: none;
         }
 
         .slot img {
             width: 32px;
             height: 32px;
             image-rendering: pixelated;
+            pointer-events: none; /* L'image devient "transparente" aux clics */
+            user-select: none; /* Empêche la sélection bleue */
+            -webkit-user-drag: none; /* Empêche le comportement par défaut de glisser l'image */
         }
 
         .slot .count {
@@ -328,27 +334,74 @@
 </footer>
 
 <script>
-    const blockData = [
-        { id: "grass", name: "Grass Block", hits: 3, img: "Blocks/Grass_Block.png" },
-        { id: "dirt", name: "Dirt", hits: 3, img: "Blocks/Dirt.png" },
-        { id: "stone", name: "Stone", hits: 6, img: "../recipecraft/assets/items/stone.png" },
-        { id: "oak", name: "Oak Log", hits: 5, img: "../recipecraft/assets/items/oak_log.png" },
-        { id: "coal", name: "Coal", hits: 8, img: "Blocks/Coal_Ore.png" },
-        { id: "iron", name: "Iron", hits: 10, img: "Blocks/Iron_Ore.png" },
-        { id: "diamond", name: "Diamond", hits: 15, img: "../recipecraft/assets/items/diamond_ore.png" }
+const blockData = [
+        { id: "sand", name: "Sand", hits: 2, img: "../recipecraft/assets/items/sand.webp", weight: 55 },
+        { id: "grass", name: "Grass Block", hits: 3, img: "Blocks/Grass_Block.png", weight: 60 },
+        { id: "dirt", name: "Dirt", hits: 3, img: "Blocks/Dirt.png", weight: 50 },
+        { id: "stone", name: "Stone", hits: 6, img: "../recipecraft/assets/items/stone.png", weight: 45 },
+        { id: "oak", name: "Oak Log", hits: 5, img: "../recipecraft/assets/items/oak_log.png", weight: 35 },
+        { id: "coal", name: "Coal", hits: 8, img: "Blocks/Coal_Ore.png", weight: 25 },
+        { id: "iron", name: "Iron", hits: 10, img: "Blocks/Iron_Ore.png", weight: 18 },
+        { id: "diamond", name: "Diamond", hits: 15, img: "../recipecraft/assets/items/diamond_ore.png", weight: 5 },
+        { id: "amethyst", name: "Amethyst", hits: 20, img: "Blocks/Amethyst.png", weight: 4 },
+        { id: "netherrack", name: "Netherrack", hits: 1, img: "https://static.wikia.nocookie.net/minecraft_fr_gamepedia/images/7/72/Netherrack.png/revision/latest?cb=20210920162900", weight: 20 },
+        { id: "ancient_debris", name: "Ancient Debris", hits: 25, img: "Blocks/Ancient_Debris.png", weight: 1 },
+        { id: "end_stone", name: "End Stone", hits: 3, img: "Blocks/End_Stone.png", weight: 10 },
+        { id: "obsidian", name: "Obsidian", hits: 50, img: "../recipecraft/assets/items/obsidian.png", weight: 2 },
+        { id: "bedrock", name: "Bedrock", hits: 40, img: "Blocks/Bedrock.png", weight: 0.5 }
     ];
 
     let currentBlockIndex = 0;
     let currentHits = 0;
-    let inventory = JSON.parse(localStorage.getItem('amaicraft_inv')) || {};
+    
+    // Initialisation d'un inventaire de 14 cases vides (2 lignes de 7)
+    let inventory = Array(14).fill(null); 
+
+    // Récupération et conversion automatique de l'ancienne sauvegarde si nécessaire
+    const savedInv = localStorage.getItem('amaicraft_inv');
+    if (savedInv) {
+        try {
+            const parsed = JSON.parse(savedInv);
+            if (Array.isArray(parsed)) {
+                inventory = parsed;
+            } else {
+                // Migration de l'ancien format objet vers le nouveau format tableau
+                let index = 0;
+                Object.keys(parsed).forEach(id => {
+                    if (index < 14 && parsed[id] > 0) {
+                        inventory[index] = { id: id, count: parsed[id] };
+                        index++;
+                    }
+                });
+                localStorage.setItem('amaicraft_inv', JSON.stringify(inventory));
+            }
+        } catch(e) {
+            console.error("Erreur de chargement de l'inventaire", e);
+        }
+    }
 
     function init() {
         spawnRandomBlock();
         updateInventoryUI();
     }
 
-    function spawnRandomBlock() {
-        currentBlockIndex = Math.floor(Math.random() * blockData.length);
+function spawnRandomBlock() {
+        // 1. Calculer le total de tous les poids réunis
+        const totalWeight = blockData.reduce((sum, block) => sum + block.weight, 0);
+        
+        // 2. Choisir un nombre aléatoire entre 0 et le poids total
+        let randomNum = Math.random() * totalWeight;
+        
+        // 3. Parcourir les blocs pour trouver celui qui correspond au nombre tiré
+        currentBlockIndex = 0;
+        for (let i = 0; i < blockData.length; i++) {
+            if (randomNum < blockData[i].weight) {
+                currentBlockIndex = i;
+                break;
+            }
+            randomNum -= blockData[i].weight;
+        }
+
         currentHits = 0;
         const block = blockData[currentBlockIndex];
         
@@ -376,38 +429,136 @@
     }
 
     function collectBlock(id) {
-        inventory[id] = (inventory[id] || 0) + 1;
+        // Regarde si le bloc existe déjà dans une case
+        let slotIndex = inventory.findIndex(slot => slot && slot.id === id);
+        
+        if (slotIndex !== -1) {
+            inventory[slotIndex].count++;
+        } else {
+            // Sinon, trouve la première case vide
+            let emptyIndex = inventory.findIndex(slot => slot === null);
+            if (emptyIndex !== -1) {
+                inventory[emptyIndex] = { id: id, count: 1 };
+            } else {
+                alert("Inventaire plein !");
+                return;
+            }
+        }
         localStorage.setItem('amaicraft_inv', JSON.stringify(inventory));
         updateInventoryUI();
     }
 
+    /* === GESTION DU DRAG AND DROP === */
+    let draggedSlotIndex = null;
+
+    function handleDragStart(e) {
+        draggedSlotIndex = this.getAttribute('data-index');
+        e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragOver(e) {
+        if (e.preventDefault) {
+            e.preventDefault(); // Autorise le drop sur cette case
+        }
+        return false;
+    }
+
+    function handleDrop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        const targetSlotIndex = this.getAttribute('data-index');
+        
+        if (draggedSlotIndex !== null && draggedSlotIndex !== targetSlotIndex) {
+            // Échange des éléments entre les deux cases
+            const temp = inventory[draggedSlotIndex];
+            inventory[draggedSlotIndex] = inventory[targetSlotIndex];
+            inventory[targetSlotIndex] = temp;
+            
+            localStorage.setItem('amaicraft_inv', JSON.stringify(inventory));
+            updateInventoryUI();
+        }
+        return false;
+    }
+    /* === GESTION TACTILE (MOBILE) === */
+    function handleTouchStart(e) {
+        draggedSlotIndex = this.getAttribute('data-index');
+        this.style.opacity = '0.5'; // Petit effet visuel pour montrer qu'on a attrapé l'objet
+    }
+
+    function handleTouchMove(e) {
+        e.preventDefault(); // Bloque le scroll pendant qu'on déplace l'objet
+    }
+
+    function handleTouchEnd(e) {
+        this.style.opacity = '1';
+        e.preventDefault();
+        
+        // On cherche où le doigt s'est levé
+        const touch = e.changedTouches[0];
+        const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
+        
+        // On vérifie si on a relâché sur une case (.slot)
+        const targetSlot = targetElement ? targetElement.closest('.slot') : null;
+
+        if (targetSlot) {
+            const targetSlotIndex = targetSlot.getAttribute('data-index');
+            
+            if (draggedSlotIndex !== null && draggedSlotIndex !== targetSlotIndex) {
+                // Échange des éléments
+                const temp = inventory[draggedSlotIndex];
+                inventory[draggedSlotIndex] = inventory[targetSlotIndex];
+                inventory[targetSlotIndex] = temp;
+                
+                localStorage.setItem('amaicraft_inv', JSON.stringify(inventory));
+                updateInventoryUI();
+            }
+        }
+        draggedSlotIndex = null;
+    }
     function updateInventoryUI() {
         const ui = document.getElementById('inventory-ui');
         ui.innerHTML = "";
         
-        Object.keys(inventory).forEach(id => {
-            const data = blockData.find(b => b.id === id);
-            if (data && inventory[id] > 0) {
-                const slot = document.createElement('div');
-                slot.className = "slot";
-                slot.innerHTML = `
-                    <img src="${data.img}">
-                    <span class="count">${inventory[id]}</span>
-                `;
-                ui.appendChild(slot);
+        inventory.forEach((slotData, index) => {
+            const slot = document.createElement('div');
+            slot.className = "slot";
+            slot.setAttribute('data-index', index);
+            
+            // Événements PC (Souris)
+            slot.addEventListener('dragover', handleDragOver);
+            slot.addEventListener('drop', handleDrop);
+            
+            // Événements Mobile (Tactile)
+            slot.addEventListener('touchend', handleTouchEnd);
+            
+            if (slotData && slotData.count > 0) {
+                const data = blockData.find(b => b.id === slotData.id);
+                if (data) {
+                    slot.setAttribute('draggable', 'true');
+                    
+                    // Événements PC
+                    slot.addEventListener('dragstart', handleDragStart);
+                    
+                    // Événements Mobile
+                    slot.addEventListener('touchstart', handleTouchStart);
+                    slot.addEventListener('touchmove', handleTouchMove, { passive: false });
+                    
+                    slot.style.cursor = 'grab';
+                    
+                    slot.innerHTML = `
+                        <img src="${data.img}" draggable="false">
+                        <span class="count">${slotData.count}</span>
+                    `;
+                }
             }
+            ui.appendChild(slot);
         });
-
-        while(ui.children.length < 5) {
-            const empty = document.createElement('div');
-            empty.className = "slot";
-            ui.appendChild(empty);
-        }
     }
 
     function resetGame() {
         if(confirm("Delete all your progress?")) {
-            inventory = {};
+            inventory = Array(14).fill(null);
             localStorage.removeItem('amaicraft_inv');
             updateInventoryUI();
         }
@@ -415,15 +566,11 @@
 
     init();
 
-
-
+    // Animation de Steve
     const steve = document.querySelector('.steve-animation');
-
     steve.addEventListener('click', () => {
-
         if (!steve.classList.contains('jumping')) {
             steve.classList.add('jumping');
-
             setTimeout(() => {
                 steve.classList.remove('jumping');
             }, 800);
