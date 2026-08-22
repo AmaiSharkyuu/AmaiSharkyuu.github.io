@@ -1,0 +1,145 @@
+{
+  "_comment": "Recipes that are hardcoded in the game and therefore absent from the vanilla datapack: the crafting_special_* recipes and the whole brewing stand. Hand-maintained. Ingredients written as #tag_name are resolved by tools/build.mjs. Virtual items (potions) are declared in \"items\" and merged into the generated data.",
+
+  "items": {
+    "water_bottle": { "n": "Water Bottle", "c": "food" },
+    "awkward_potion": { "n": "Awkward Potion", "c": "food" },
+    "mundane_potion": { "n": "Mundane Potion", "c": "food" },
+    "thick_potion": { "n": "Thick Potion", "c": "food" },
+    "night_vision_potion": { "n": "Potion of Night Vision", "c": "food" },
+    "invisibility_potion": { "n": "Potion of Invisibility", "c": "food" },
+    "leaping_potion": { "n": "Potion of Leaping", "c": "food" },
+    "fire_resistance_potion": { "n": "Potion of Fire Resistance", "c": "food" },
+    "swiftness_potion": { "n": "Potion of Swiftness", "c": "food" },
+    "slowness_potion": { "n": "Potion of Slowness", "c": "food" },
+    "water_breathing_potion": { "n": "Potion of Water Breathing", "c": "food" },
+    "healing_potion": { "n": "Potion of Healing", "c": "food" },
+    "harming_potion": { "n": "Potion of Harming", "c": "food" },
+    "poison_potion": { "n": "Potion of Poison", "c": "food" },
+    "regeneration_potion": { "n": "Potion of Regeneration", "c": "food" },
+    "strength_potion": { "n": "Potion of Strength", "c": "food" },
+    "weakness_potion": { "n": "Potion of Weakness", "c": "food" },
+    "slow_falling_potion": { "n": "Potion of Slow Falling", "c": "food" },
+    "turtle_master_potion": { "n": "Potion of the Turtle Master", "c": "food" },
+    "oozing_potion": { "n": "Potion of Oozing", "c": "food" },
+    "weaving_potion": { "n": "Potion of Weaving", "c": "food" },
+    "wind_charged_potion": { "n": "Potion of Wind Charging", "c": "food" },
+    "infestation_potion": { "n": "Potion of Infestation", "c": "food" }
+  },
+
+  "notes": {
+    "firework_rocket_simple": "1 to 3 gunpowder sets the flight duration (1, 2 or 3). Add up to 7 firework stars to give the rocket its explosion effects.",
+    "map_cloning": "Copies a map. Both maps then update together as you explore.",
+    "netherite_ingot": "Netherite scraps come from smelting ancient debris found below Y=16 in the Nether."
+  },
+
+  "recipes": [
+    {
+      "k": "special/banner_duplicate",
+      "t": "craft",
+      "s": 1,
+      "r": "white_banner",
+      "q": 2,
+      "g": ["#banners", "#banners", null, null, null, null, null, null, null],
+      "note": "Copy a banner pattern: put the decorated banner next to a blank banner of the same colour. Works with every colour."
+    },
+    {
+      "k": "special/book_cloning",
+      "t": "craft",
+      "s": 1,
+      "r": "written_book",
+      "q": 2,
+      "g": ["written_book", "writable_book", null, null, null, null, null, null, null],
+      "note": "Add up to 8 books and quills to make up to 8 copies at once. A copy of a copy cannot be copied again."
+    },
+    {
+      "k": "special/firework_star",
+      "t": "craft",
+      "s": 1,
+      "r": "firework_star",
+      "g": ["gunpowder", "#dyes", null, null, null, null, null, null, null],
+      "note": "Use up to 8 dyes for multi-coloured stars. Shape: fire charge = large ball, gold nugget = star, feather = burst, head = creeper. Effect: glowstone dust = twinkle, diamond = trail."
+    },
+    {
+      "k": "special/firework_star_fade",
+      "t": "craft",
+      "s": 1,
+      "r": "firework_star",
+      "g": ["firework_star", "#dyes", null, null, null, null, null, null, null],
+      "note": "Adds a fade-to-colour to an existing firework star."
+    },
+    {
+      "k": "special/map_extending",
+      "t": "craft",
+      "r": "filled_map",
+      "g": ["paper", "paper", "paper", "paper", "filled_map", "paper", "paper", "paper", "paper"],
+      "note": "Zooms the map out one level (up to level 4). Can also be done at a cartography table."
+    },
+    {
+      "k": "special/shield_decoration",
+      "t": "craft",
+      "s": 1,
+      "r": "shield",
+      "g": ["shield", "#banners", null, null, null, null, null, null, null],
+      "note": "Applies a banner pattern to a shield. The banner is consumed."
+    },
+    {
+      "k": "special/repair_item",
+      "t": "craft",
+      "s": 1,
+      "r": "iron_pickaxe",
+      "g": ["iron_pickaxe", "iron_pickaxe", null, null, null, null, null, null, null],
+      "note": "Any two damaged items of the same type combine into one. Durability is added together plus a 5% bonus. Enchantments are lost - use an anvil to keep them."
+    },
+
+    {
+      "k": "brewing/water_bottle",
+      "t": "brewing",
+      "r": "water_bottle",
+      "q": 3,
+      "in": "glass_bottle",
+      "add": "water_bucket",
+      "note": "Right-click a water source or a filled cauldron with glass bottles. The brewing stand itself is not needed for this step."
+    },
+    { "k": "brewing/awkward", "t": "brewing", "r": "awkward_potion", "in": "water_bottle", "add": "nether_wart", "note": "The base of almost every useful potion." },
+    { "k": "brewing/mundane", "t": "brewing", "r": "mundane_potion", "in": "water_bottle", "add": "glistering_melon_slice", "note": "Also made with spider eye, ghast tear, blaze powder, magma cream, sugar or rabbit's foot. Has no effect." },
+    { "k": "brewing/thick", "t": "brewing", "r": "thick_potion", "in": "water_bottle", "add": "glowstone_dust", "note": "Has no effect on its own." },
+    { "k": "brewing/weakness", "t": "brewing", "r": "weakness_potion", "in": "water_bottle", "add": "fermented_spider_eye", "note": "The only potion brewed straight from a water bottle. Redstone extends it to 4:00." },
+
+    { "k": "brewing/night_vision", "t": "brewing", "r": "night_vision_potion", "in": "awkward_potion", "add": "golden_carrot", "note": "3:00 - redstone extends it to 8:00." },
+    { "k": "brewing/invisibility", "t": "brewing", "r": "invisibility_potion", "in": "night_vision_potion", "add": "fermented_spider_eye", "note": "3:00 - redstone extends it to 8:00." },
+    { "k": "brewing/leaping", "t": "brewing", "r": "leaping_potion", "in": "awkward_potion", "add": "rabbit_foot", "note": "3:00 - redstone extends it to 8:00, glowstone dust makes it Jump Boost II." },
+    { "k": "brewing/fire_resistance", "t": "brewing", "r": "fire_resistance_potion", "in": "awkward_potion", "add": "magma_cream", "note": "3:00 - redstone extends it to 8:00." },
+    { "k": "brewing/swiftness", "t": "brewing", "r": "swiftness_potion", "in": "awkward_potion", "add": "sugar", "note": "3:00 - redstone extends it to 8:00, glowstone dust makes it Speed II." },
+    { "k": "brewing/slowness", "t": "brewing", "r": "slowness_potion", "in": "swiftness_potion", "add": "fermented_spider_eye", "note": "Also brewed from a Potion of Leaping. Glowstone dust makes it Slowness IV." },
+    { "k": "brewing/water_breathing", "t": "brewing", "r": "water_breathing_potion", "in": "awkward_potion", "add": "pufferfish", "note": "3:00 - redstone extends it to 8:00." },
+    { "k": "brewing/healing", "t": "brewing", "r": "healing_potion", "in": "awkward_potion", "add": "glistering_melon_slice", "note": "Instant - glowstone dust makes it Healing II." },
+    { "k": "brewing/harming", "t": "brewing", "r": "harming_potion", "in": "healing_potion", "add": "fermented_spider_eye", "note": "Also brewed from a Potion of Poison. Glowstone dust makes it Harming II." },
+    { "k": "brewing/poison", "t": "brewing", "r": "poison_potion", "in": "awkward_potion", "add": "spider_eye", "note": "0:45 - redstone extends it to 2:00, glowstone dust makes it Poison II." },
+    { "k": "brewing/regeneration", "t": "brewing", "r": "regeneration_potion", "in": "awkward_potion", "add": "ghast_tear", "note": "0:45 - redstone extends it to 2:00, glowstone dust makes it Regeneration II." },
+    { "k": "brewing/strength", "t": "brewing", "r": "strength_potion", "in": "awkward_potion", "add": "blaze_powder", "note": "3:00 - redstone extends it to 8:00, glowstone dust makes it Strength II." },
+    { "k": "brewing/slow_falling", "t": "brewing", "r": "slow_falling_potion", "in": "awkward_potion", "add": "phantom_membrane", "note": "1:30 - redstone extends it to 4:00." },
+    { "k": "brewing/turtle_master", "t": "brewing", "r": "turtle_master_potion", "in": "awkward_potion", "add": "turtle_scute", "note": "Slowness IV + Resistance III. Redstone extends it, glowstone dust strengthens it." },
+    { "k": "brewing/oozing", "t": "brewing", "r": "oozing_potion", "in": "awkward_potion", "add": "slime_block", "note": "Spawns two slimes when you die." },
+    { "k": "brewing/weaving", "t": "brewing", "r": "weaving_potion", "in": "awkward_potion", "add": "cobweb", "note": "Leaves cobwebs behind on death." },
+    { "k": "brewing/wind_charged", "t": "brewing", "r": "wind_charged_potion", "in": "awkward_potion", "add": "breeze_rod", "note": "Releases a wind burst on death." },
+    { "k": "brewing/infestation", "t": "brewing", "r": "infestation_potion", "in": "awkward_potion", "add": "stone", "note": "Silverfish may spawn when you take damage." },
+
+    {
+      "k": "brewing/splash",
+      "t": "brewing",
+      "r": "splash_potion",
+      "in": "potion",
+      "add": "gunpowder",
+      "note": "Turns ANY potion into a splash potion you can throw at players and mobs."
+    },
+    {
+      "k": "brewing/lingering",
+      "t": "brewing",
+      "r": "lingering_potion",
+      "in": "splash_potion",
+      "add": "dragon_breath",
+      "note": "Turns any splash potion into a lingering cloud. Lingering potions are also used to craft tipped arrows."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+air	Air
+barrier	Barrier
+bedrock	Bedrock
+budding_amethyst	Budding Amethyst
+chain_command_block	Chain Command Block
+command_block	Command Block
+command_block_minecart	Minecart with Command Block
+debug_stick	Debug Stick
+dirt_path	Dirt Path
+end_portal_frame	End Portal Frame
+farmland	Farmland
+frogspawn	Frogspawn
+infested_chiseled_stone_bricks	Infested Chiseled Stone Bricks
+infested_cobblestone	Infested Cobblestone
+infested_cracked_stone_bricks	Infested Cracked Stone Bricks
+infested_deepslate	Infested Deepslate
+infested_mossy_stone_bricks	Infested Mossy Stone Bricks
+infested_stone	Infested Stone
+infested_stone_bricks	Infested Stone Bricks
+jigsaw	Jigsaw Block
+knowledge_book	Knowledge Book
+light	Light
+petrified_oak_slab	Petrified Oak Slab
+reinforced_deepslate	Reinforced Deepslate
+repeating_command_block	Repeating Command Block
+spawner	Monster Spawner
+structure_block	Structure Block
+structure_void	Structure Void
+test_block	Test Block
+trial_spawner	Trial Spawner
+vault	Vault

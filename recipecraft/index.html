@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AmaiCraft - Crafting Guide</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AmaiCraft - Minecraft Crafting Guide</title>
+    <meta name="description" content="Every Minecraft crafting recipe in one place: crafting table, furnace, blast furnace, smoker, campfire, stonecutter, smithing table and brewing stand. Browse by category or search any item.">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="../Icon.png">
+    <link rel="preload" href="data/recipes.json" as="fetch" crossorigin="anonymous">
 </head>
 <body>
 <header>
@@ -18,50 +21,85 @@
     <a href="https://www.minecraft.net/fr-fr/minecraft-tips-for-beginners" target="_blank" rel="noopener noreferrer">GUIDES</a>
 </div>
 
-
-    <div class="app-container">
-        <aside class="sidebar">
-            <input type="text" id="search" placeholder="Search items...">
-            <div id="item-list"></div>
-        </aside>
-
-        <main class="details-panel" id="details-panel">
-            <p class="placeholder-text">Select an item to view its recipe</p>
-        </main>
+<main class="app">
+    <!-- toolbar -------------------------------------------------------->
+    <div class="toolbar">
+        <div class="search-box">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input type="search" id="search" placeholder="Search an item…" autocomplete="off"
+                   spellcheck="false" aria-label="Search an item">
+            <kbd class="search-hint">/</kbd>
+        </div>
+        <label class="switch">
+            <input type="checkbox" id="only-craftable" checked>
+            <span class="switch-box" aria-hidden="true"></span>
+            <span class="switch-label">Craftable only</span>
+        </label>
+        <span class="version-badge" id="version-badge" title="Recipes generated from the vanilla game data"></span>
     </div>
 
-    <script src="script.js"></script>
+    <!-- category tabs -------------------------------------------------->
+    <nav class="tabs" id="tabs" aria-label="Categories"></nav>
 
+    <!-- item grid ------------------------------------------------------>
+    <section class="grid-panel">
+        <div class="grid-head">
+            <h2 id="grid-title">All items</h2>
+            <span id="grid-count" class="grid-count"></span>
+        </div>
+        <div id="grid" class="grid" role="listbox" aria-label="Items"></div>
+        <p id="empty" class="empty-msg" hidden>Nothing found. Try another name.</p>
+    </section>
+</main>
+
+<!-- detail panel ------------------------------------------------------->
+<div class="detail-backdrop" id="backdrop" hidden></div>
+<aside class="detail" id="detail" hidden aria-live="polite">
+    <div class="detail-bar">
+        <button class="icon-btn" id="detail-back" title="Back" aria-label="Back">‹</button>
+        <span class="detail-crumb" id="detail-crumb"></span>
+        <button class="icon-btn" id="detail-close" title="Close (Esc)" aria-label="Close">×</button>
+    </div>
+    <div class="detail-body" id="detail-body"></div>
+</aside>
+
+<!-- floating tooltip --------------------------------------------------->
+<div class="tooltip" id="tooltip" hidden></div>
 
 <footer>
-    
     <a href="https://ko-fi.com/amaicraft" target="_blank" style="color: #13c3ff; text-decoration: none;" rel="noopener noreferrer" id="Don">
         ☕ Buy me a Coffee
     </a> <br>
 
     <details style="user-select: none; -webkit-user-select: none; display: inline-block;">
         <summary style="cursor: pointer; list-style: none; outline: none; font-size: 12px;">
-            <strong>Community Page 
-            <a href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer" style="color: #85b6ee; text-decoration: none; pointer-events: auto;">Minecraft</a></strong> 
+            <strong>Community Page
+            <a href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer" style="color: #85b6ee; text-decoration: none; pointer-events: auto;">Minecraft</a></strong>
             — Unofficial website <span style="color: #5977af; font-size: 10px;">See Info</span>
         </summary>
 
-        <div style="position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: #c6c6c6; border: 3px solid #000; box-shadow: inset 3px 3px 0px #ffffff, inset -3px -3px 0px #555555; padding: 10px; z-index: 2001; cursor: default;">
-            <div style="background: #8b8b8b; border: 2px solid #000; box-shadow: inset 2px 2px 0px #373737, inset -2px -2px 0px #ffffff; padding: 15px; text-align: left; color: #3f3f3f;">
-                <h3 style="font-size: 14px; color: #ffff55; text-shadow: 2px 2px 0px #3f3f15; margin-top: 0;">AmaiCraft: Quick Reference Guide</h3>
-                <p style="font-size: 12px; margin-bottom: 10px;">
-                    Looking for specific <strong>Minecraft crafting recipes</strong>? AmaiCraft offers a direct <strong>craft list</strong> to help you build items quickly. 
+        <div class="footer-info">
+            <div class="footer-info-inner">
+                <h3>AmaiCraft: Quick Reference Guide</h3>
+                <p>
+                    Looking for specific <strong>Minecraft crafting recipes</strong>? AmaiCraft lists every
+                    <strong>craft</strong> in the game so you can build items quickly.
                 </p>
-                <p style="font-size: 12px; margin-bottom: 10px;">
-                    Our tool includes <strong>basic Minecraft commands</strong> for <strong>admin items and cheats</strong>, as well as a dedicated <strong>Jukebox</strong> section for <strong>music discs</strong>. 
+                <p>
+                    Every station is covered: <strong>crafting table</strong>, <strong>furnace</strong>,
+                    <strong>blast furnace</strong>, <strong>smoker</strong>, <strong>campfire</strong>,
+                    <strong>stonecutter</strong>, <strong>smithing table</strong> and <strong>brewing stand</strong>.
                 </p>
-                <p style="font-size: 12px; margin-bottom: 10px;">
-                    You can also explore and play all hurt <strong>mob sounds</strong> from the game or take a break with the integrated <strong>mining mini-game</strong>.
+                <p>
+                    Our tool also includes <strong>basic Minecraft commands</strong> for
+                    <strong>admin items and cheats</strong>, a dedicated <strong>Jukebox</strong> section for
+                    <strong>music discs</strong>, all <strong>mob sounds</strong> from the game and a
+                    <strong>mining mini-game</strong>.
                 </p>
-                <p style="font-size: 11px; margin-bottom: 10px;">Simple, but <strong>unofficial</strong> Website.</p>
-
-                <p style="font-size: 12px; margin: 0; color: #ffff55; text-shadow: 1px 1px 0px #3f3f15;">
-                    <strong style="color: #ff5555;">NEW!</strong> Cape Collection: Discover the history and availability of all Minecraft capes.
+                <p class="small">Simple, but <strong>unofficial</strong> Website.</p>
+                <p class="highlight">
+                    <strong style="color: #ff5555;">NEW!</strong> Cape Collection: Discover the history and
+                    availability of all Minecraft capes.
                 </p>
             </div>
         </div>
@@ -69,5 +107,7 @@
     <br>
     <a href="../mentions-legales.html" style="color: #85b6ee; text-decoration: none; font-size: 11px;">Mentions l&eacute;gales</a>
 </footer>
+
+<script src="script.js" defer></script>
 </body>
 </html>
