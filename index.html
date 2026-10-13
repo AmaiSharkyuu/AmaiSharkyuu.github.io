@@ -215,10 +215,36 @@ h2 {
     margin-top: 5px;
 }
 
+.card.horror {
+    background: #ca0101c2;
+    border-color: #000 #ffffff #ffffff #000;
+}
+
+.card.horror strong {
+    color: #520000;
+    font-size: 16px;
+    text-shadow: 2px 2px 0px #ffae00be;
+}
+
 .card:hover {
     transform: scale(1.03);
     background: #7a7a7a;
     outline: 3px solid white;
+}
+
+.page-transition {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(90deg, #0a0a0a, #4b0000 35%, #120707);
+    box-shadow: inset 0 0 30px rgba(255, 0, 0, 0.2);
+    transform: translateX(100%);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 9999;
+    pointer-events: none;
+}
+
+body.transitioning .page-transition {
+    transform: translateX(0);
 }
 
 /* LIENS */
@@ -305,6 +331,13 @@ summary:hover span {
                 <span>Cape Collection</span>
             </div>
         </a>
+
+        <a href="https://www.amaicraft.fr/Minecraft-ARGs-Website/" data-transition="page">
+            <div class="card horror">
+                <strong>ARG Archives</strong>
+                <span>ARG Documentation (Fan made)</span>
+            </div>
+        </a>
         
 
     </div>
@@ -349,6 +382,7 @@ summary:hover span {
     <br>
     <a href="mentions-legales.html" style="color: #85b6ee; text-decoration: none; font-size: 11px;">Mentions l&eacute;gales</a>
 </footer>
+    <div class="page-transition" aria-hidden="true"></div>
 </body>
 <script>
     window.onload = function() {
@@ -370,6 +404,19 @@ summary:hover span {
             Coff.appendChild(span);
         }
     };
+
+    document.addEventListener('click', function (event) {
+        const link = event.target.closest('a[data-transition="page"]');
+        if (!link) return;
+
+        event.preventDefault();
+        document.body.classList.add('transitioning');
+
+        setTimeout(() => {
+            window.location.href = link.href;
+        }, 430);
+    });
+
     const steve = document.querySelector('.steve-animation');
 
     steve.addEventListener('click', () => {
