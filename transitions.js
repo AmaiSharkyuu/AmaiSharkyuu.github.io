@@ -8,6 +8,9 @@
    - HOME alors qu'on est déjà sur l'accueil : une perle de l'Ender, une téléportation sur place,
      puis un succès Minecraft qui rappelle qu'on y est déjà
    - Mojang Studios : l'écran de chargement rouge du jeu
+   - déclaration de confidentialité de GitHub : un simple balayage sur le côté
+   - CNIL : le même balayage, de bas en haut, avec un liseré bleu-blanc-rouge
+   - autres liens GitHub : le graphique de contributions s'allume en vagues et un terminal fait git push
    - lien data-transition="void" (les Archives ARG) : la page bugue et se fait corrompre */
 (function () {
     const base = new URL('.', document.currentScript.src);
@@ -454,6 +457,126 @@ html.pt-cover-cinema::after {
     margin-top: 2px;
     font-size: 12px;
     color: #fff;
+}
+
+/* ---------- BALAYAGE (déclaration de confidentialité) ---------- */
+.pt-swipe {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #1f1f23, #121214);
+    box-shadow: -6px 0 0 #6773b4, 6px 0 0 #6773b4;
+    pointer-events: auto;
+}
+
+.pt-swipe p {
+    margin: 0;
+    padding: 0 20px;
+    font-family: 'Minecraftia', monospace;
+    font-size: clamp(13px, 2.2vw, 18px);
+    color: #fff;
+    text-align: center;
+    text-shadow: 2px 2px 0 #000;
+}
+
+/* version CNIL : de bas en haut, bord d'attaque bleu-blanc-rouge */
+.pt-swipe-up {
+    box-shadow: none;
+    border-top: 6px solid;
+    border-bottom: 6px solid;
+    border-image: linear-gradient(90deg, #000091 0 33.3%, #ffffff 33.3% 66.6%, #e1000f 66.6% 100%) 1;
+}
+
+.pt-swipe small {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.7em;
+    color: #9a9aa6;
+}
+
+/* ---------- GITHUB (graphique de contributions) ---------- */
+.pt-gh {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    overflow: hidden;
+    pointer-events: auto;
+    background: #0d1117;
+}
+
+.pt-gh-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    gap: 4px;
+    padding: 4px;
+}
+
+.pt-gh-cell {
+    background: #161b22;
+    animation: pt-gh-light 0.35s steps(3) var(--d) forwards;
+}
+
+@keyframes pt-gh-light {
+    0%   { background: #161b22; }
+    40%  { background: #39d353; }
+    100% { background: var(--g); }
+}
+
+.pt-gh-term {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(520px, 86vw);
+    box-sizing: border-box;
+    background: #010409;
+    border: 2px solid #30363d;
+    box-shadow: 0 0 0 4px #0d1117, 0 20px 50px rgba(0, 0, 0, 0.7);
+    font-family: Consolas, 'Cascadia Mono', 'Courier New', monospace;
+    font-size: clamp(13px, 1.8vw, 16px);
+    color: #e6edf3;
+}
+
+.pt-gh-bar {
+    display: flex;
+    gap: 6px;
+    padding: 8px 10px;
+    background: #161b22;
+    border-bottom: 2px solid #30363d;
+}
+
+.pt-gh-bar i {
+    width: 10px;
+    height: 10px;
+    background: #30363d;
+}
+
+.pt-gh-lines {
+    padding: 14px 16px 16px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    min-height: 4.2em;
+}
+
+.pt-gh-lines .ok {
+    color: #3fb950;
+}
+
+.pt-gh-lines .dim {
+    color: #7d8590;
+}
+
+.pt-gh-cursor::after {
+    content: '_';
+    animation: pt-gh-blink 0.8s steps(1) infinite;
+}
+
+@keyframes pt-gh-blink {
+    50% { opacity: 0; }
 }
 
 /* ---------- MOJANG STUDIOS ---------- */
@@ -1080,7 +1203,7 @@ body.pt-comic {
         root.classList.remove('pt-cover', 'pt-cover-goofy', 'pt-cover-cinema');
         sunOff(0);
         root.getAnimations().forEach((a) => a.cancel());
-        document.querySelectorAll('.pt-overlay, .pt-goofy-layer, .pt-guide, .pt-portal, .pt-coffee, .pt-cinema, .pt-mojang, .pt-pearl, .pt-flash, .pt-burst').forEach((el) => el.remove());
+        document.querySelectorAll('.pt-overlay, .pt-goofy-layer, .pt-guide, .pt-portal, .pt-coffee, .pt-cinema, .pt-swipe, .pt-gh, .pt-mojang, .pt-pearl, .pt-flash, .pt-burst').forEach((el) => el.remove());
         leaving = false;
     }
 
@@ -1578,6 +1701,88 @@ body.pt-comic {
         leaving = false;
     }
 
+    // un panneau balaie l'écran, l'onglet s'ouvre, le panneau repart de l'autre côté.
+    // vertical = de bas en haut (CNIL), sinon de droite à gauche (déclaration de confidentialité)
+    async function swipeOpen(href, title, vertical) {
+        const panel = el('div', vertical ? 'pt-swipe pt-swipe-up' : 'pt-swipe');
+        panel.setAttribute('aria-hidden', 'true');
+        const text = el('p', '', panel);
+        text.textContent = title;
+        el('small', '', text).textContent = 'in a new tab';
+        root.appendChild(panel);
+        const move = (pct) => (vertical ? `translateY(${pct}%)` : `translateX(${pct}%)`);
+        const ease = 'cubic-bezier(0.65, 0, 0.35, 1)';
+        panel.animate([{ transform: move(105) }, { transform: 'none' }], { duration: 380, easing: ease, fill: 'forwards' });
+        await sleep(650);
+        openTab(href);
+        panel.animate([{ transform: 'none' }, { transform: move(-105) }], { duration: 380, easing: ease, fill: 'forwards' });
+        await sleep(400);
+        cleanup();
+    }
+
+    // liens GitHub : le graphique de contributions s'allume en vagues depuis le lien,
+    // un terminal tape "git push", puis le site s'ouvre
+    async function githubPush(href, origin) {
+        const tone = makeSfx(4000);
+        const layer = el('div', 'pt-gh');
+        layer.setAttribute('aria-hidden', 'true');
+        const grid = el('div', 'pt-gh-grid', layer);
+        const size = Math.max(22, Math.round(window.innerWidth / 44));
+        const cols = Math.ceil(window.innerWidth / (size + 4));
+        const rows = Math.ceil(window.innerHeight / (size + 4)) + 1;
+        grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        grid.style.gridAutoRows = size + 'px';
+        const greens = ['#0e4429', '#006d32', '#26a641', '#39d353', '#161b22', '#0e4429'];
+        const maxDist = Math.hypot(window.innerWidth, window.innerHeight);
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < cols; x++) {
+                const cell = el('i', 'pt-gh-cell', grid);
+                const dist = Math.hypot(x * (size + 4) - origin.x, y * (size + 4) - origin.y);
+                cell.style.setProperty('--d', (0.1 + (dist / maxDist) * 0.7 + rand() * 0.15).toFixed(3) + 's');
+                cell.style.setProperty('--g', greens[Math.floor(rand() * greens.length)]);
+            }
+        }
+
+        const term = el('div', 'pt-gh-term', layer);
+        const bar = el('div', 'pt-gh-bar', term);
+        el('i', '', bar);
+        el('i', '', bar);
+        el('i', '', bar);
+        const lines = el('div', 'pt-gh-lines', term);
+        root.appendChild(layer);
+
+        layer.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, fill: 'both' });
+        term.animate([{ opacity: 0, transform: 'translate(-50%, -40%)' }, { opacity: 1, transform: 'translate(-50%, -50%)' }], { duration: 280, delay: 150, easing: 'ease-out', fill: 'both' });
+
+        // le terminal tape la commande lettre par lettre
+        const command = '$ git push origin amaicraft';
+        const typed = document.createElement('span');
+        typed.className = 'pt-gh-cursor';
+        lines.appendChild(typed);
+        await sleep(300);
+        for (let i = 1; i <= command.length; i++) {
+            typed.textContent = command.slice(0, i);
+            if (i % 2 === 0) tone('square', 0, 0.025, 1400 + rand() * 400, 1200, 0.025);
+            await sleep(22);
+        }
+        typed.classList.remove('pt-gh-cursor');
+        await sleep(180);
+
+        const host = new URL(href).hostname;
+        const done = document.createElement('div');
+        done.innerHTML = '<span class="dim">Enumerating objects: 100% (42/42), done.</span><br><span class="ok"></span>';
+        done.querySelector('.ok').textContent = `Opening ${host}`;
+        lines.appendChild(done);
+        tone('sine', 0, 0.12, 880, 880, 0.08);
+        tone('sine', 0.1, 0.2, 1320, 1320, 0.08);
+        await sleep(600);
+
+        openTab(href);
+        layer.animate([{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(1.04)' }], { duration: 320, easing: 'ease-in', fill: 'forwards' });
+        await sleep(330);
+        cleanup();
+    }
+
     // Mojang Studios : l'écran de chargement rouge du jeu, puis le site s'ouvre
     async function mojangLoading(href) {
         const screen = el('div', 'pt-mojang');
@@ -1698,6 +1903,35 @@ body.pt-comic {
             }
             leaving = true;
             coffeeScene(link.href);
+            return;
+        }
+
+        if (special === 'github') {
+            event.preventDefault();
+            if (leaving) return;
+            if (reduced) {
+                openTab(link.href);
+                return;
+            }
+            leaving = true;
+            const box = link.getBoundingClientRect();
+            githubPush(link.href, { x: box.left + box.width / 2, y: box.top + box.height / 2 });
+            return;
+        }
+
+        if (special === 'privacy' || special === 'cnil') {
+            event.preventDefault();
+            if (leaving) return;
+            if (reduced) {
+                openTab(link.href);
+                return;
+            }
+            leaving = true;
+            if (special === 'cnil') {
+                swipeOpen(link.href, 'Opening cnil.fr', true);
+            } else {
+                swipeOpen(link.href, "Opening GitHub's privacy statement", false);
+            }
             return;
         }
 

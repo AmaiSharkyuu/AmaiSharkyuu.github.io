@@ -21,88 +21,411 @@
     --mc-border-dark: #555555;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Minecraftia', 'Segoe UI', Arial, sans-serif;
     margin: 0;
-    background-image: url('background.png');
+    color: #fff;
+    background-color: #000;
+    background-image:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.7)),
+        url('background.png');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: #000;
-    color: white;
 }
 
+.legal {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 34px 20px 20px;
+    box-sizing: border-box;
+}
 
+/* emplacement d'inventaire qui accueille une icône */
+.slot {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: inline-grid;
+    place-items: center;
+    background: #8b8b8b;
+    box-shadow: inset 3px 3px 0 #373737, inset -3px -3px 0 #ffffff;
+}
 
+.slot img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
 
+/* ---------- EN-TÊTE DE LA PAGE ---------- */
+.legal-hero {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 26px 28px;
+    background: linear-gradient(180deg, rgba(34, 34, 40, 0.92), rgba(16, 16, 19, 0.92));
+    border: 4px solid #000;
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.08), inset 0 -3px 0 #2c2c33, 0 18px 40px rgba(0, 0, 0, 0.45);
+}
 
+.slot-big {
+    width: 84px;
+    height: 84px;
+}
 
+.slot-big img {
+    width: 56px;
+    height: 56px;
+}
 
+.legal-kicker {
+    margin: 0 0 6px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #a9a9b3;
+    text-transform: uppercase;
+}
 
+.legal-hero h1 {
+    margin: 0;
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: normal;
+    line-height: 1.3;
+    background: linear-gradient(180deg, #ffffff 0%, #e6e6e6 45%, #a8a8a8 55%, #cfcfcf 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 3px 0 #5b5b5b) drop-shadow(3px 3px 0 #161616);
+}
 
+.legal-intro {
+    margin: 14px 0 0;
+    max-width: 720px;
+    font-size: 13px;
+    line-height: 1.9;
+    color: #dcdce2;
+}
 
+.legal-intro strong {
+    color: #ffff55;
+    font-weight: normal;
+}
 
-.container {
-    max-width: 1000px;
-    margin: 30px auto;
+.legal-badges {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.legal-badges li {
+    padding: 6px 10px 4px;
+    font-size: 11px;
+    color: #fff;
+    background: #2b2b31;
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.12), inset -2px -2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.legal-badges li::before {
+    content: '\2714  ';
+    color: #55ff55;
+}
+
+/* ---------- SOMMAIRE + SECTIONS ---------- */
+.legal-layout {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.legal-toc {
+    position: sticky;
+    top: 20px;
+    padding: 18px 14px 14px;
     background: var(--mc-panel);
     border: 4px solid #000;
-    box-shadow: inset 4px 4px 0px var(--mc-border-light),
-                inset -4px -4px 0px var(--mc-border-dark);
-    padding: 30px;
+    box-shadow: inset 4px 4px 0 var(--mc-border-light), inset -4px -4px 0 var(--mc-border-dark);
     color: #3f3f3f;
 }
 
-h2 {
-    border-bottom: 3px solid #3f3f3f;
-    padding-bottom: 10px;
-    margin-top: 0;
-    font-size: 22px;
-    color: #1d1d1d;
+.legal-toc h2 {
+    margin: 0 4px 12px;
+    padding-bottom: 8px;
+    font-size: 14px;
+    font-weight: normal;
+    border-bottom: 3px solid #8b8b8b;
 }
 
-h3 {
-    font-size: 15px;
-    color: #1d1d1d;
-    margin: 30px 0 10px;
+.legal-toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 3px;
 }
 
-p, li {
+.legal-toc a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px 4px;
+    font-size: 11px;
+    color: #2b2b2b;
+    text-decoration: none;
+    border: 2px solid transparent;
+}
+
+.legal-toc a span {
+    min-width: 22px;
+    padding: 2px 0 0;
+    text-align: center;
+    font-size: 10px;
+    color: #fff;
+    background: #6b6b6b;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.35), inset -1px -1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.legal-toc a:hover,
+.legal-toc a:focus-visible {
+    background: #b3b3b3;
+    outline: none;
+}
+
+/* la section en cours de lecture, avec le bleu de survol des boutons du jeu */
+.legal-toc a.is-current {
+    color: #ffffa0;
+    text-shadow: 1px 1px 0 #2a2a55;
+    background: linear-gradient(180deg, #8e9ad8, #6773b4);
+    border-color: #000;
+}
+
+.legal-toc a.is-current span {
+    background: #2a2f5c;
+}
+
+.legal-updated {
+    margin: 14px 4px 0;
+    font-size: 10px;
+    color: #555;
+}
+
+.legal-sections {
+    display: grid;
+    gap: 18px;
+}
+
+.legal-card {
+    scroll-margin-top: 20px;
+    padding: 22px 26px 18px;
+    background: var(--mc-panel);
+    border: 4px solid #000;
+    box-shadow: inset 4px 4px 0 var(--mc-border-light), inset -4px -4px 0 var(--mc-border-dark), 0 12px 30px rgba(0, 0, 0, 0.35);
+    color: #3f3f3f;
+}
+
+.legal-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 14px;
+    padding-bottom: 12px;
+    font-size: 17px;
+    font-weight: normal;
+    color: #1d1d1d;
+    border-bottom: 3px solid #8b8b8b;
+}
+
+.legal-num {
+    font-size: 12px;
+    color: #fff;
+    padding: 4px 8px 2px;
+    background: #6b6b6b;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.35), inset -2px -2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.legal-card p,
+.legal-card li {
     font-size: 13px;
     line-height: 1.9;
 }
 
-ul { padding-left: 20px; }
+.legal-card p {
+    margin: 0 0 12px;
+}
 
-a { color: #0a4fa0; }
+.legal-card ul {
+    margin: 0 0 12px;
+    padding-left: 20px;
+}
 
-.block {
+.legal-card a {
+    color: #0a4fa0;
+}
+
+.legal-card strong {
+    color: #1d1d1d;
+}
+
+/* fiche d'identité : un emplacement sombre, clés en jaune */
+.legal-info {
+    margin: 0 0 12px;
+    padding: 6px 16px;
     background: #8b8b8b;
     border: 3px solid #000;
     border-top-color: #373737;
     border-left-color: #373737;
     border-right-color: #ffffff;
     border-bottom-color: #ffffff;
-    padding: 15px 20px;
-    color: #ffffff;
-    margin-bottom: 20px;
 }
 
-.block a { color: #13c3ff; }
+.legal-info > div {
+    display: grid;
+    grid-template-columns: minmax(150px, 34%) 1fr;
+    gap: 14px;
+    padding: 9px 0;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.18);
+}
 
-.block strong { color: #ffff55; text-shadow: 2px 2px 0px #3f3f15; }
+.legal-info > div:last-child {
+    border-bottom: none;
+}
 
-.updated {
-    font-size: 11px;
+.legal-info dt {
+    font-size: 12px;
+    color: #ffff55;
+    text-shadow: 2px 2px 0 #3f3f15;
+}
+
+.legal-info dd {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #fff;
+}
+
+.legal-info a {
+    color: #13c3ff;
+}
+
+.legal-note {
+    font-size: 11px !important;
     color: #555;
-    margin-top: 30px;
-    text-align: right;
 }
 
+/* le résumé anglais, comme une page de livre du jeu */
+.legal-book {
+    background: #f3e6c4;
+    box-shadow: inset 4px 4px 0 #fff6dc, inset -4px -4px 0 #c9b28a, 0 12px 30px rgba(0, 0, 0, 0.35);
+    color: #3a2a14;
+}
 
+.legal-book h2 {
+    color: #3a2a14;
+    border-bottom-color: #c9b28a;
+}
 
+.legal-book strong {
+    color: #3a2a14;
+}
 
+.legal-book a {
+    color: #6b3f00;
+}
+
+.legal-book .slot {
+    background: #d9c69d;
+    box-shadow: inset 3px 3px 0 #a8915f, inset -3px -3px 0 #fff6dc;
+}
+
+/* les cartes apparaissent en glissant quand on descend dans la page (site.js n'est pas requis) */
+.legal-card.is-hidden {
+    opacity: 0;
+    transform: translateY(18px);
+}
+
+.legal-card.is-shown {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+}
+
+/* ---------- PETITS ÉCRANS ---------- */
+@media (max-width: 860px) {
+    .legal-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .legal-toc {
+        position: static;
+    }
+
+    .legal-toc ol {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .legal {
+        padding: 20px 16px 10px;
+    }
+
+    .legal-hero {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 18px;
+    }
+
+    .slot-big {
+        width: 64px;
+        height: 64px;
+    }
+
+    .slot-big img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .legal-toc ol {
+        grid-template-columns: 1fr;
+    }
+
+    .legal-card {
+        padding: 18px 16px 14px;
+    }
+
+    .legal-card h2 {
+        font-size: 14px;
+        gap: 10px;
+    }
+
+    .legal-info > div {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+}
+
+/* à l'impression, toutes les cartes doivent être visibles, même celles pas encore apparues */
+@media print {
+    .legal-card.is-hidden { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .legal-card.is-hidden { opacity: 1; transform: none; }
+    .legal-card.is-shown { transition: none; }
+}
 </style>
 <script src="transitions.js"></script>
 <!-- ac:head -->
@@ -142,70 +465,116 @@ a { color: #0a4fa0; }
 </div>
 <!-- /ac:header -->
 
-<div class="container">
+<main class="legal">
 
-    <h2>Mentions légales</h2>
-
-    <p>Conformément à l'article 6 III de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN), voici les informations relatives à l'éditeur et à l'hébergeur du site <strong>www.amaicraft.fr</strong>.</p>
-
-    <h3>1. Éditeur du site</h3>
-    <div class="block">
-        <p>
-            <strong>Éditeur / Directeur de la publication :</strong> AmaiSharkyuu (pseudonyme)<br>
-            <strong>Statut :</strong> personne physique éditant un site à titre non professionnel et non lucratif<br>
-            <strong>Contact :</strong> <a href="mailto:Contact@amaicraft.fr">Contact@amaicraft.fr</a>
-        </p>
-        <p style="font-size: 11px;">En application de l'article 6 III 2 de la LCEN, l'éditeur non professionnel a choisi de rester anonyme auprès du public. Ses coordonnées complètes sont détenues par l'hébergeur et sont communicables sur réquisition de l'autorité judiciaire.</p>
+    <div class="legal-hero">
+        <span class="slot slot-big"><img src="assets/ui/writable_book.png" alt=""></span>
+        <div class="legal-hero-text">
+            <p class="legal-kicker">AmaiCraft &middot; Legal notice</p>
+            <h1>Mentions légales</h1>
+            <p class="legal-intro">Conformément à l'article 6 III de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN), voici les informations relatives à l'éditeur et à l'hébergeur du site <strong>www.amaicraft.fr</strong>.</p>
+            <ul class="legal-badges">
+                <li>Site non officiel</li>
+                <li>Aucun cookie</li>
+                <li>Aucune mesure d'audience</li>
+                <li>Hébergé par GitHub Pages</li>
+            </ul>
+        </div>
     </div>
 
-    <h3>2. Hébergeur</h3>
-    <div class="block">
-        <p>
-            <strong>GitHub Pages</strong> — GitHub, Inc.<br>
-            88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis<br>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer">github.com</a> —
-            <a href="https://support.github.com" target="_blank" rel="noopener noreferrer">support.github.com</a>
-        </p>
+    <div class="legal-layout">
+
+        <nav class="legal-toc" aria-label="Sommaire">
+            <h2>Sommaire</h2>
+            <ol>
+                <li><a href="#editeur"><span>1</span>Éditeur du site</a></li>
+                <li><a href="#hebergeur"><span>2</span>Hébergeur</a></li>
+                <li><a href="#non-officiel"><span>3</span>Site non officiel</a></li>
+                <li><a href="#propriete"><span>4</span>Propriété intellectuelle</a></li>
+                <li><a href="#donnees"><span>5</span>Données et cookies</a></li>
+                <li><a href="#dons"><span>6</span>Dons</a></li>
+                <li><a href="#liens"><span>7</span>Liens externes</a></li>
+                <li><a href="#responsabilite"><span>8</span>Responsabilité</a></li>
+                <li><a href="#droit"><span>9</span>Droit applicable</a></li>
+                <li><a href="#english"><span>EN</span>English summary</a></li>
+            </ol>
+            <p class="legal-updated">Dernière mise à jour : 22 août 2026</p>
+        </nav>
+
+        <div class="legal-sections">
+
+            <section class="legal-card" id="editeur">
+                <h2><span class="slot"><img src="assets/ui/player_head.png" alt=""></span><span class="legal-num">1</span>Éditeur du site</h2>
+                <dl class="legal-info">
+                    <div><dt>Éditeur / Directeur de la publication</dt><dd>AmaiSharkyuu (pseudonyme)</dd></div>
+                    <div><dt>Statut</dt><dd>personne physique éditant un site à titre non professionnel et non lucratif</dd></div>
+                    <div><dt>Contact</dt><dd><a href="mailto:Contact@amaicraft.fr">Contact@amaicraft.fr</a></dd></div>
+                </dl>
+                <p class="legal-note">En application de l'article 6 III 2 de la LCEN, l'éditeur non professionnel a choisi de rester anonyme auprès du public. Ses coordonnées complètes sont détenues par l'hébergeur et sont communicables sur réquisition de l'autorité judiciaire.</p>
+            </section>
+
+            <section class="legal-card" id="hebergeur">
+                <h2><span class="slot"><img src="assets/ui/ender_chest.webp" alt=""></span><span class="legal-num">2</span>Hébergeur</h2>
+                <dl class="legal-info">
+                    <div><dt>Hébergeur</dt><dd>GitHub Pages, GitHub, Inc.</dd></div>
+                    <div><dt>Adresse</dt><dd>88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis</dd></div>
+                    <div><dt>Sites</dt><dd><a href="https://github.com" data-transition="github" target="_blank" rel="noopener noreferrer">github.com</a> &middot; <a href="https://support.github.com" data-transition="github" target="_blank" rel="noopener noreferrer">support.github.com</a></dd></div>
+                </dl>
+            </section>
+
+            <section class="legal-card" id="non-officiel">
+                <h2><span class="slot"><img src="assets/ui/oak_sign.png" alt=""></span><span class="legal-num">3</span>Site non officiel</h2>
+                <p>AmaiCraft est un site communautaire de fans, <strong>sans aucun lien avec Mojang Studios ni Microsoft</strong>. Il n'est ni approuvé, ni sponsorisé, ni affilié à ces sociétés.</p>
+                <p>« Minecraft » est une marque déposée de Mojang Studios / Microsoft Corporation. Les noms, images, textures, sons et contenus du jeu cités ou reproduits sur ce site restent la propriété de leurs titulaires respectifs et sont utilisés à des fins d'information et d'illustration, dans le cadre d'un usage communautaire non commercial.</p>
+                <p>Toute demande de retrait d'un contenu émanant d'un ayant droit sera traitée dans les meilleurs délais à l'adresse de contact ci-dessus.</p>
+            </section>
+
+            <section class="legal-card" id="propriete">
+                <h2><span class="slot"><img src="assets/ui/name_tag.png" alt=""></span><span class="legal-num">4</span>Propriété intellectuelle</h2>
+                <p>Hors éléments appartenant à des tiers mentionnés ci-dessus, la structure du site, ses textes originaux, sa mise en page et son code source sont la propriété de l'éditeur. Toute reproduction ou réutilisation, totale ou partielle, sans autorisation préalable est interdite.</p>
+            </section>
+
+            <section class="legal-card" id="donnees">
+                <h2><span class="slot"><img src="assets/ui/cookie.png" alt=""></span><span class="legal-num">5</span>Données personnelles et cookies</h2>
+                <p>Ce site est un site statique : il ne comporte aucun formulaire, aucun compte utilisateur et <strong>aucun outil de mesure d'audience</strong>. Il <strong>ne dépose aucun cookie</strong> et ne collecte directement aucune donnée personnelle.</p>
+                <ul>
+                    <li><strong>Hébergement :</strong> pour des raisons techniques et de sécurité, GitHub peut enregistrer des données de connexion (adresse IP, date, page consultée) lors de l'affichage des pages. Ce traitement relève de GitHub, Inc. : voir sa <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" data-transition="privacy" target="_blank" rel="noopener noreferrer">déclaration de confidentialité</a>.</li>
+                    <li><strong>Référencement :</strong> le site est déclaré auprès de la Google Search Console afin d'apparaître dans les résultats de recherche. Cette déclaration ne consiste qu'en une balise de vérification et n'implique aucun suivi des visiteurs.</li>
+                </ul>
+                <p>Conformément au RGPD, vous pouvez exercer vos droits d'accès, de rectification et d'effacement en écrivant à l'adresse de contact ci-dessus. Vous pouvez également introduire une réclamation auprès de la <a href="https://www.cnil.fr" data-transition="cnil" target="_blank" rel="noopener noreferrer">CNIL</a>.</p>
+            </section>
+
+            <section class="legal-card" id="dons">
+                <h2><span class="slot"><img src="assets/ui/emerald.png" alt=""></span><span class="legal-num">6</span>Dons</h2>
+                <p>Le site propose un lien de soutien volontaire via la plateforme tierce <strong>Ko-fi</strong>. Les dons sont libres, facultatifs et sans contrepartie : ils ne donnent droit à aucun bien, service ni avantage. Ils sont traités intégralement par Ko-fi selon ses propres conditions et sa propre politique de confidentialité ; l'éditeur du site n'a accès à aucune donnée bancaire.</p>
+            </section>
+
+            <section class="legal-card" id="liens">
+                <h2><span class="slot"><img src="assets/ui/compass.gif" alt=""></span><span class="legal-num">7</span>Liens externes</h2>
+                <p>Le site contient des liens vers des sites tiers. L'éditeur n'exerce aucun contrôle sur leur contenu et décline toute responsabilité quant aux informations qui y sont publiées.</p>
+            </section>
+
+            <section class="legal-card" id="responsabilite">
+                <h2><span class="slot"><img src="assets/ui/shield.png" alt=""></span><span class="legal-num">8</span>Responsabilité</h2>
+                <p>Les informations publiées sont fournies à titre indicatif et peuvent évoluer avec les mises à jour du jeu. L'éditeur ne garantit ni leur exactitude, ni leur exhaustivité, ni leur actualité, et ne saurait être tenu responsable d'un dommage résultant de leur utilisation ou d'une indisponibilité du site.</p>
+            </section>
+
+            <section class="legal-card" id="droit">
+                <h2><span class="slot"><img src="assets/ui/lectern.png" alt=""></span><span class="legal-num">9</span>Droit applicable</h2>
+                <p>Les présentes mentions légales sont soumises au droit français. Tout litige relatif au site relève de la compétence des juridictions françaises.</p>
+            </section>
+
+            <section class="legal-card legal-book" id="english" lang="en">
+                <h2><span class="slot"><img src="assets/ui/writable_book.png" alt=""></span>Legal notice (English summary)</h2>
+                <p><strong>Publisher:</strong> AmaiSharkyuu (pseudonym), a private individual, non-commercial website. Contact: <a href="mailto:Contact@amaicraft.fr">Contact@amaicraft.fr</a>.<br>
+                <strong>Host:</strong> GitHub Pages, GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.</p>
+                <p>AmaiCraft is an unofficial fan-made website. It is not affiliated with, endorsed or sponsored by Mojang Studios or Microsoft. All game-related names, images and assets remain the property of their respective owners. This site sets no cookies, runs no analytics and collects no personal data. Donations through Ko-fi are voluntary and grant no benefit in return. Rights-holders may request the removal of any content at the address above.</p>
+            </section>
+
+        </div>
     </div>
 
-    <h3>3. Site non officiel</h3>
-    <p>AmaiCraft est un site communautaire de fans, <strong>sans aucun lien avec Mojang Studios ni Microsoft</strong>. Il n'est ni approuvé, ni sponsorisé, ni affilié à ces sociétés.</p>
-    <p>« Minecraft » est une marque déposée de Mojang Studios / Microsoft Corporation. Les noms, images, textures, sons et contenus du jeu cités ou reproduits sur ce site restent la propriété de leurs titulaires respectifs et sont utilisés à des fins d'information et d'illustration, dans le cadre d'un usage communautaire non commercial.</p>
-    <p>Toute demande de retrait d'un contenu émanant d'un ayant droit sera traitée dans les meilleurs délais à l'adresse de contact ci-dessus.</p>
-
-    <h3>4. Propriété intellectuelle</h3>
-    <p>Hors éléments appartenant à des tiers mentionnés ci-dessus, la structure du site, ses textes originaux, sa mise en page et son code source sont la propriété de l'éditeur. Toute reproduction ou réutilisation, totale ou partielle, sans autorisation préalable est interdite.</p>
-
-    <h3>5. Données personnelles et cookies</h3>
-    <p>Ce site est un site statique : il ne comporte aucun formulaire, aucun compte utilisateur et <strong>aucun outil de mesure d'audience</strong>. Il <strong>ne dépose aucun cookie</strong> et ne collecte directement aucune donnée personnelle.</p>
-    <ul>
-        <li><strong>Hébergement :</strong> pour des raisons techniques et de sécurité, GitHub peut enregistrer des données de connexion (adresse IP, date, page consultée) lors de l'affichage des pages. Ce traitement relève de GitHub, Inc. — voir sa <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer">déclaration de confidentialité</a>.</li>
-        <li><strong>Référencement :</strong> le site est déclaré auprès de la Google Search Console afin d'apparaître dans les résultats de recherche. Cette déclaration ne consiste qu'en une balise de vérification et n'implique aucun suivi des visiteurs.</li>
-    </ul>
-    <p>Conformément au RGPD, vous pouvez exercer vos droits d'accès, de rectification et d'effacement en écrivant à l'adresse de contact ci-dessus. Vous pouvez également introduire une réclamation auprès de la <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">CNIL</a>.</p>
-
-    <h3>6. Dons</h3>
-    <p>Le site propose un lien de soutien volontaire via la plateforme tierce <strong>Ko-fi</strong>. Les dons sont libres, facultatifs et sans contrepartie : ils ne donnent droit à aucun bien, service ni avantage. Ils sont traités intégralement par Ko-fi selon ses propres conditions et sa propre politique de confidentialité ; l'éditeur du site n'a accès à aucune donnée bancaire.</p>
-
-    <h3>7. Liens externes</h3>
-    <p>Le site contient des liens vers des sites tiers. L'éditeur n'exerce aucun contrôle sur leur contenu et décline toute responsabilité quant aux informations qui y sont publiées.</p>
-
-    <h3>8. Responsabilité</h3>
-    <p>Les informations publiées sont fournies à titre indicatif et peuvent évoluer avec les mises à jour du jeu. L'éditeur ne garantit ni leur exactitude, ni leur exhaustivité, ni leur actualité, et ne saurait être tenu responsable d'un dommage résultant de leur utilisation ou d'une indisponibilité du site.</p>
-
-    <h3>9. Droit applicable</h3>
-    <p>Les présentes mentions légales sont soumises au droit français. Tout litige relatif au site relève de la compétence des juridictions françaises.</p>
-
-    <hr style="border: none; border-top: 3px solid #3f3f3f; margin: 35px 0;">
-
-    <h3>Legal notice (English summary)</h3>
-    <p><strong>Publisher:</strong> AmaiSharkyuu (pseudonym), a private individual — non-commercial website. Contact: <a href="mailto:Contact@amaicraft.fr">Contact@amaicraft.fr</a>.<br>
-    <strong>Host:</strong> GitHub Pages — GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.</p>
-    <p>AmaiCraft is an unofficial fan-made website. It is not affiliated with, endorsed or sponsored by Mojang Studios or Microsoft. All game-related names, images and assets remain the property of their respective owners. This site sets no cookies, runs no analytics and collects no personal data. Donations through Ko-fi are voluntary and grant no benefit in return. Rights-holders may request the removal of any content at the address above.</p>
-
-    <p class="updated">Dernière mise à jour : 22 août 2026</p>
-
-</div>
+</main>
 
 <!-- ac:footer -->
 <div class="ac-footer" role="contentinfo">
@@ -249,5 +618,43 @@ a { color: #0a4fa0; }
     </div>
 </div>
 <!-- /ac:footer -->
+<script>
+    // sommaire : surligne la section en cours de lecture ; les cartes apparaissent en descendant
+    (function () {
+        const cards = [...document.querySelectorAll('.legal-card')];
+        const links = [...document.querySelectorAll('.legal-toc a')];
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!reduced && 'IntersectionObserver' in window) {
+            const reveal = new IntersectionObserver((entries) => entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-shown');
+                entry.target.classList.remove('is-hidden');
+                reveal.unobserve(entry.target);
+            }), { rootMargin: '0px 0px -8% 0px' });
+            // seules les cartes encore hors de l'écran sont cachées, pour ne rien faire clignoter au chargement
+            cards.forEach((card) => {
+                if (card.getBoundingClientRect().top > window.innerHeight) {
+                    card.classList.add('is-hidden');
+                    reveal.observe(card);
+                }
+            });
+        }
+
+        // section courante : la dernière dont le haut a dépassé le tiers de l'écran
+        const update = () => {
+            let current = cards[0];
+            cards.forEach((card) => {
+                if (card.getBoundingClientRect().top < window.innerHeight / 3) current = card;
+            });
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+                current = cards[cards.length - 1];
+            }
+            links.forEach((link) => link.classList.toggle('is-current', link.getAttribute('href') === '#' + current.id));
+        };
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+    })();
+</script>
 </body>
 </html>
