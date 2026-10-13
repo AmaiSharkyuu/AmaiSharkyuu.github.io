@@ -9,18 +9,40 @@
     <link rel="icon" type="image/png" href="../Icon.png">
     <link rel="preload" href="data/recipes.json" as="fetch" crossorigin="anonymous">
 <script src="../transitions.js"></script>
+<!-- ac:head -->
+<link rel="preload" href="../Minecraftia.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="../site.css">
+<script src="../site.js" defer></script>
+<!-- /ac:head -->
 </head>
 <body>
-<header>
-    <h1>AMAICRAFT</h1>
-    <img src="../parrotparty.gif" alt="Parrot Party">
-</header>
-
-<div class="nav">
-    <a href="../">HOME</a>
-    <a href="https://minecraft.wiki" data-transition="wiki" target="_blank" rel="noopener noreferrer">WIKI</a>
-    <a href="https://www.minecraft.net/fr-fr/minecraft-tips-for-beginners" data-transition="guide" target="_blank" rel="noopener noreferrer">GUIDES</a>
+<!-- ac:header -->
+<div class="ac-header" role="banner">
+    <div class="ac-header-inner">
+        <a class="ac-logo" href=".././" aria-label="AmaiCraft, home">
+            <span class="ac-logo-text">AMAICRAFT</span>
+            <img src="../parrotparty.gif" alt="" class="ac-parrot">
+        </a>
+        <nav class="ac-nav" aria-label="Main">
+            <a class="ac-btn" href=".././"><img src="../assets/ui/grass_block.png" alt="">HOME</a>
+            <details class="ac-menu">
+                <summary class="ac-btn">SECTIONS<span class="ac-caret" aria-hidden="true"></span></summary>
+                <div class="ac-menu-panel">
+                    <a href="../recipecraft/"><img src="../assets/ui/crafting_table.webp" alt=""><strong>Crafts</strong></a>
+                    <a href="../commands/"><img src="../assets/ui/command_block.png" alt=""><strong>Commands</strong></a>
+                    <a href="../music/"><img src="../assets/ui/jukebox.png" alt=""><strong>Jukebox</strong></a>
+                    <a href="../Mobs/"><img src="../assets/ui/creeper_head.png" alt=""><strong>Mobs</strong></a>
+                    <a href="../Game/"><img src="../assets/ui/diamond_pickaxe.png" alt=""><strong>Mining</strong></a>
+                    <a href="../Capes/"><img src="../assets/ui/elytra.png" alt=""><strong>Capes</strong></a>
+                    <a href="https://arg.amaicraft.fr/" data-transition="void" class="ac-menu-arg"><img src="../assets/ui/sculk_shrieker.gif" alt=""><strong>ARG Archives</strong></a>
+                </div>
+            </details>
+            <a class="ac-btn" href="https://minecraft.wiki" data-transition="wiki" target="_blank" rel="noopener noreferrer">WIKI</a>
+            <a class="ac-btn" href="https://www.minecraft.net/fr-fr/minecraft-tips-for-beginners" data-transition="guide" target="_blank" rel="noopener noreferrer">GUIDES</a>
+        </nav>
+    </div>
 </div>
+<!-- /ac:header -->
 
 <main class="app">
     <!-- toolbar -------------------------------------------------------->
@@ -67,48 +89,48 @@
 <!-- floating tooltip --------------------------------------------------->
 <div class="tooltip" id="tooltip" hidden></div>
 
-<footer>
-    <a href="https://ko-fi.com/amaicraft" data-transition="coffee" target="_blank" style="color: #13c3ff; text-decoration: none;" rel="noopener noreferrer" id="Don">
-        ☕ Buy me a Coffee
-    </a> <br>
-
-    <details style="user-select: none; -webkit-user-select: none; display: inline-block;">
-        <summary style="cursor: pointer; list-style: none; outline: none; font-size: 12px;">
-            <strong>Community Page
-            <a href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer" style="color: #85b6ee; text-decoration: none; pointer-events: auto;">Minecraft</a></strong>
-            — Unofficial website <span style="color: #5977af; font-size: 10px;">See Info</span>
-        </summary>
-
-        <div class="footer-info">
-            <div class="footer-info-inner">
-                <h3>AmaiCraft: Quick Reference Guide</h3>
-                <p>
-                    Looking for specific <strong>Minecraft crafting recipes</strong>? AmaiCraft lists every
-                    <strong>craft</strong> in the game so you can build items quickly.
-                </p>
-                <p>
-                    Every station is covered: <strong>crafting table</strong>, <strong>furnace</strong>,
-                    <strong>blast furnace</strong>, <strong>smoker</strong>, <strong>campfire</strong>,
-                    <strong>stonecutter</strong>, <strong>smithing table</strong> and <strong>brewing stand</strong>.
-                </p>
-                <p>
-                    Our tool also includes <strong>basic Minecraft commands</strong> for
-                    <strong>admin items and cheats</strong>, a dedicated <strong>Jukebox</strong> section for
-                    <strong>music discs</strong>, all <strong>mob sounds</strong> from the game and a
-                    <strong>mining mini-game</strong>.
-                </p>
-                <p class="small">Simple, but <strong>unofficial</strong> Website.</p>
-                <p class="highlight">
-                    <strong style="color: #ff5555;">NEW!</strong> Cape Collection: Discover the history and
-                    availability of all Minecraft capes.
-                </p>
-            </div>
+<!-- ac:footer -->
+<div class="ac-footer" role="contentinfo">
+    <div class="ac-ground">
+        <img src="../steverunning.gif" class="steve-animation ac-steve" alt="Steve running">
+    </div>
+    <div class="ac-footer-inner">
+        <div class="ac-footer-col">
+            <a class="ac-logo ac-logo-small" href=".././"><span class="ac-logo-text">AMAICRAFT</span></a>
+            <p>Unofficial Minecraft community toolbox. Not affiliated with Mojang Studios or Microsoft.</p>
+            <details class="ac-info">
+                <summary>About this website</summary>
+                <div class="ac-info-panel">
+                    <div class="ac-info-inner">
+                        <h3>AmaiCraft: Quick Reference Guide</h3>
+                        <p>Looking for specific <strong>Minecraft crafting recipes</strong>? AmaiCraft lists every <strong>craft</strong> in the game so you can build items quickly.</p>
+                        <p>It also includes <strong>basic Minecraft commands</strong> for <strong>admin items and cheats</strong>, a <strong>Jukebox</strong> for <strong>music discs</strong>, every hurt <strong>mob sound</strong> and a <strong>mining mini-game</strong>.</p>
+                        <p>Simple, but <strong>unofficial</strong> website.</p>
+                        <p class="ac-info-new"><strong>NEW!</strong> Cape Collection: discover the history and availability of all Minecraft capes.</p>
+                    </div>
+                </div>
+            </details>
         </div>
-    </details>
-    <br>
-    <a href="../mentions-legales.html" data-transition="legal" style="color: #85b6ee; text-decoration: none; font-size: 11px;">Mentions l&eacute;gales</a>
-</footer>
-
+        <nav class="ac-footer-col" aria-label="Sections">
+            <h4>Sections</h4>
+            <ul class="ac-footer-links">
+                <li><a href="../recipecraft/">Crafts</a></li>
+                <li><a href="../commands/">Commands</a></li>
+                <li><a href="../music/">Jukebox</a></li>
+                <li><a href="../Mobs/">Mobs</a></li>
+                <li><a href="../Game/">Mining</a></li>
+                <li><a href="../Capes/">Capes</a></li>
+                <li><a href="https://arg.amaicraft.fr/" data-transition="void" class="ac-footer-arg">ARG Archives</a></li>
+            </ul>
+        </nav>
+        <div class="ac-footer-col ac-footer-end">
+            <a href="https://ko-fi.com/amaicraft" data-transition="coffee" target="_blank" rel="noopener noreferrer" id="Don">☕ Buy me a Coffee</a>
+            <a href="../mentions-legales.html" data-transition="legal" class="ac-legal">Mentions l&eacute;gales</a>
+            <p class="ac-copy">&copy; AmaiCraft, made by Amai.<br>Minecraft is a trademark of <a href="https://www.minecraft.net/" data-transition="mojang" target="_blank" rel="noopener noreferrer">Mojang Studios</a>.</p>
+        </div>
+    </div>
+</div>
+<!-- /ac:footer -->
 <script src="script.js" defer></script>
 </body>
 </html>

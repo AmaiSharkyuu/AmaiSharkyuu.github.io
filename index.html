@@ -5,236 +5,232 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AmaiCraft</title>
 
-<meta name="description" content="AmaiCraft : A guide for Minecraft players. Find recipes, basic commands, mob sounds.">
+<meta name="description" content="AmaiCraft: an unofficial Minecraft toolbox. Every crafting recipe, basic commands, mob sounds, music discs, capes and a mining mini-game.">
 <meta name="google-site-verification" content="fUmGyUGjIxftiF5VJGLto4SFagO4raQHphqdCQlt-yY" />
 <link rel="icon" type="image/png" href="Icon.png">
 <style>
-/* La police Minecraft */
-@font-face {
-    font-family: 'Minecraftia';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Minecraftia'), url('Minecraftia.woff') format('woff');
-}
-
-/* ---  STEVE --- */
-.steve-animation {
-    position: fixed;
-    bottom: 70px;
-    left: -100px;
-    width: 100px;
-    z-index: 1000;
-
-    pointer-events: auto; 
-    cursor: pointer;
-    animation: walk-around 10s linear infinite;
-    transition: transform 0.1s;
-
-    user-select: none;
-    -webkit-user-drag: none;
-    touch-action: manipulation;
-}
-
-
-@keyframes jump-animation {
-    0% { bottom: 70px; animation-timing-function: ease-out; }
-    50% { bottom: 250px; animation-timing-function: ease-in; }
-    100% { bottom: 70px; }
-}
-
-
-.jumping {
-    animation: walk-around 10s linear infinite, jump-animation 0.8s ease-in-out !important;
-}
-
-@keyframes walk-around {
-    0% {
-        left: -100px;
-        transform: scaleX(-1);
-    }
-    45% {
-        transform: scaleX(-1);
-    }
-    50% {
-        left: calc(100% - 100px);
-        transform: scaleX(1);
-    }
-    95% {
-        transform: scaleX(1);
-    }
-    100% {
-        left: -100px;
-        transform: scaleX(-1);
-    }
-}
-summary:hover span {
-    text-decoration: underline;
-    color: #85b6ee !important;
-}
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    
-    padding: 15px;
-    text-align: center;
-    font-size: 12px;
-    background-color: #1a1a1a;
-    color: #aaaaaa;
-    border-top: 4px solid #000;
-    z-index: 2000;
-}
-
-
 :root {
-    --mc-bg: #313233;
     --mc-panel: #c6c6c6;
     --mc-border-light: #ffffff;
     --mc-border-dark: #555555;
-    --mc-button-hover: #7a7a7a;
-    --mc-link: #52a4ff;
 }
 
 body {
     font-family: 'Minecraftia', 'Segoe UI', Arial, sans-serif;
     margin: 0;
-    background-image: url('background.png'); 
+    color: #fff;
+    background-color: #000;
+    /* l'image du site, assombrie vers le bas pour que le panneau ressorte */
+    background-image:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.05) 35%, rgba(0, 0, 0, 0.55) 100%),
+        url('background.png');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     background-attachment: fixed;
-    color: white;
-    background-color: rgb(0, 0, 0);
-}
-header img {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-    width: auto;
 }
 
-/* HEADER */
-header {
-    background: rgba(0, 0, 0, 0.8);
-    border-bottom: 4px solid #000;
-    padding: 20px;
+a {
+    text-decoration: none;
+}
+
+.home {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 20px 30px;
+    box-sizing: border-box;
+}
+
+/* ---------- ÉCRAN TITRE ---------- */
+.hero {
+    padding: 56px 0 40px;
     text-align: center;
+}
 
+.hero-logo {
     position: relative;
-    overflow: hidden;
-    min-height: 70px;
-}
-
-header h1 {
+    display: inline-block;
     margin: 0;
-    font-size: 28px;
-    text-shadow: 3px 3px 0px #3f3f3f;
-    letter-spacing: 2px;
+    font-weight: normal;
 }
 
-.nav {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 10px;
+/* lettres de pierre en relief : dégradé dans la lettre, puis deux ombres dures empilées */
+.hero-logo-text {
+    display: block;
+    font-size: clamp(40px, 9vw, 92px);
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+    background: linear-gradient(180deg, #ffffff 0%, #e6e6e6 40%, #a8a8a8 52%, #cfcfcf 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 5px 0 #6b6b6b) drop-shadow(5px 5px 0 #1e1e1e) drop-shadow(0 0 30px rgba(0, 0, 0, 0.45));
+}
+
+/* le texte jaune de l'écran titre, qui pulse */
+.splash {
+    position: absolute;
+    right: -4%;
+    bottom: 4%;
+    font-size: clamp(12px, 1.9vw, 20px);
+    color: #ffff55;
+    text-shadow: 2px 2px 0 #3f3f00;
+    white-space: nowrap;
+    transform: rotate(-17deg);
+    transform-origin: center;
+    animation: splash 0.55s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes splash {
+    from { transform: rotate(-17deg) scale(0.94); }
+    to   { transform: rotate(-17deg) scale(1.06); }
+}
+
+.hero-tag {
+    max-width: 620px;
+    margin: 30px auto 0;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #fff;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.75);
+}
+
+.hero-actions {
+    margin-top: 26px;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.nav a {
-    background: #555;
-    border: 2px solid #000;
-    border-top-color: #ababab;
-    border-left-color: #ababab;
-    padding: 8px 15px;
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
+.hero-btn {
+    padding: 13px 20px 11px;
+    font-size: 15px;
 }
 
-.nav a:hover {
-    background: #8b8b8b;
-    border-top-color: #dbdbdb;
-    border-left-color: #dbdbdb;
+.hero-btn img {
+    width: 24px;
+    height: 24px;
 }
 
-/* CONTENEUR PRINCIPAL (Style Inventaire) */
-.container {
-    max-width: 1000px;
-    margin: 30px auto;
+/* ---------- PANNEAU D'INVENTAIRE ---------- */
+.panel {
     background: var(--mc-panel);
     border: 4px solid #000;
-
-    box-shadow: inset 4px 4px 0px var(--mc-border-light), 
-                inset -4px -4px 0px var(--mc-border-dark);
-    padding: 30px;
+    box-shadow: inset 4px 4px 0 var(--mc-border-light), inset -4px -4px 0 var(--mc-border-dark), 0 18px 40px rgba(0, 0, 0, 0.45);
+    padding: 26px 28px 30px;
     color: #3f3f3f;
 }
 
-h2 {
-    border-bottom: 3px solid #3f3f3f;
+.panel h2 {
+    margin: 0 0 20px;
     padding-bottom: 10px;
-    margin-top: 0;
-    font-size: 22px;
-    color: #1d1d1d;
+    font-size: 20px;
+    font-weight: normal;
+    color: #3f3f3f;
+    border-bottom: 3px solid #8b8b8b;
 }
 
-.grid {
+.tiles {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
 }
 
-.card:not(.horror):hover {
-    background: #7a7a7a;
-}
-
-.card {
-    background: #8b8b8b;
+/* une tuile = un bouton en relief avec un emplacement d'inventaire pour l'icône */
+.tile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    min-height: 84px;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #9d9d9d, #7c7c7c);
     border: 3px solid #000;
-    border-top-color: #373737;
-    border-left-color: #373737;
-    border-right-color: #ffffff;
-    border-bottom-color: #ffffff;
-    padding: 15px;
-    height: 80px;
+    box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5), inset -3px -3px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.slot {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    background: #8b8b8b;
+    box-shadow: inset 3px 3px 0 #373737, inset -3px -3px 0 #ffffff;
+}
+
+.slot img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.tile-text {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    transition: transform 0.1s;
-    cursor: pointer;
+    gap: 6px;
+    min-width: 0;
 }
 
-.card strong {
-    color: #ffff55;
+.tile strong {
+    font-weight: normal;
     font-size: 16px;
-    text-shadow: 2px 2px 0px #3f3f15;
+    color: #ffff55;
+    text-shadow: 2px 2px 0 #3f3f15;
 }
 
-.card span {
-    color: #e0e0e0;
-    font-size: 12px;
-    margin-top: 5px;
+.tile-text span {
+    font-size: 11px;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
 }
 
-/* CARTE ARG : écran corrompu qui grésille */
-.card.horror {
-    position: relative;
+.tile:hover,
+.tile:focus-visible {
+    transform: translateY(-3px);
+    background: linear-gradient(180deg, #8e9ad8, #6773b4);
+    box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5), inset -3px -3px 0 rgba(0, 0, 0, 0.3), 0 6px 0 rgba(0, 0, 0, 0.25);
+    outline: none;
+}
+
+.tile:hover strong {
+    color: #ffffa0;
+}
+
+.tile:hover .slot img {
+    animation: bob 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes bob {
+    from { transform: translateY(2px) rotate(-6deg); }
+    to   { transform: translateY(-3px) rotate(6deg); }
+}
+
+.tile-capes {
+    background: linear-gradient(180deg, #b693ad, #8f6c86);
+}
+
+/* ---------- CARTE ARG : écran corrompu qui grésille ---------- */
+.tile-arg {
+    grid-column: 1 / -1;
     overflow: hidden;
     background: linear-gradient(180deg, #2b0000 0%, #120000 60%, #050000 100%);
-    border-color: #000;
-    border-top-color: #1a0000;
-    border-left-color: #1a0000;
-    border-right-color: #ff3030;
-    border-bottom-color: #ff3030;
-    box-shadow: inset 0 0 22px rgba(255, 0, 0, 0.28);
+    box-shadow: inset 0 0 22px rgba(255, 0, 0, 0.28), inset -3px -3px 0 #ff3030;
     animation: horror-flicker 7s steps(1) infinite;
 }
 
+.tile-arg .slot {
+    background: #1a0000;
+    box-shadow: inset 3px 3px 0 #000, inset -3px -3px 0 #5a0000;
+}
+
 /* lignes d'écran */
-.card.horror::before {
+.tile-arg::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -243,28 +239,27 @@ h2 {
 }
 
 /* barre de balayage qui descend */
-.card.horror::after {
+.tile-arg::after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
-    top: -20%;
-    height: 18%;
-    background: linear-gradient(to bottom, transparent, rgba(255, 60, 60, 0.18), transparent);
+    top: -30%;
+    height: 30%;
+    background: linear-gradient(to bottom, transparent, rgba(255, 60, 60, 0.16), transparent);
     animation: horror-sweep 3.2s linear infinite;
     pointer-events: none;
 }
 
-.card.horror strong {
+.tile-arg strong {
     position: relative;
     color: #ff3b3b;
-    font-size: 16px;
     letter-spacing: 1px;
     text-shadow: 2px 2px 0 #3a0000, 0 0 8px rgba(255, 0, 0, 0.55);
 }
 
-.card.horror strong::before,
-.card.horror strong::after {
+.tile-arg strong::before,
+.tile-arg strong::after {
     content: attr(data-text);
     position: absolute;
     left: 0;
@@ -273,38 +268,42 @@ h2 {
     text-shadow: none;
 }
 
-.card.horror strong::before { color: #00ffff; }
-.card.horror strong::after  { color: #ff00ff; }
+.tile-arg strong::before { color: #00ffff; }
+.tile-arg strong::after  { color: #ff00ff; }
 
-.card.horror span {
-    position: relative;
+.tile-arg .tile-text span {
     color: #b48a8a;
+    text-shadow: none;
 }
 
-.card.horror .err {
+.tile-arg .err {
     position: absolute;
-    top: 6px;
-    right: 8px;
-    font-size: 9px;
+    top: 8px;
+    right: 12px;
+    font-size: 10px;
     font-style: normal;
     color: #ff3030;
     letter-spacing: 1px;
 }
 
-.card.horror .err::after {
+.tile-arg .err::after {
     content: '_';
     animation: horror-blink 0.9s steps(1) infinite;
 }
 
-.card.horror:hover {
+.tile-arg:hover,
+.tile-arg:focus-visible {
+    transform: none;
     background: linear-gradient(180deg, #4a0000 0%, #1c0000 60%, #080000 100%);
-    outline: 3px solid #ff3030;
     box-shadow: inset 0 0 28px rgba(255, 0, 0, 0.5), 0 0 18px rgba(255, 0, 0, 0.45);
+    outline: 3px solid #ff3030;
     animation: horror-shake 0.35s steps(2) infinite;
 }
 
-.card.horror:hover strong::before { opacity: 0.8; mix-blend-mode: screen; animation: horror-split 0.3s steps(2) infinite; }
-.card.horror:hover strong::after  { opacity: 0.8; mix-blend-mode: screen; animation: horror-split 0.24s steps(2) infinite reverse; }
+.tile-arg:hover strong { color: #ff3b3b; }
+.tile-arg:hover strong::before { opacity: 0.8; mix-blend-mode: screen; animation: horror-split 0.3s steps(2) infinite; }
+.tile-arg:hover strong::after  { opacity: 0.8; mix-blend-mode: screen; animation: horror-split 0.24s steps(2) infinite reverse; }
+.tile-arg:hover .slot img { animation: horror-shake 0.2s steps(2) infinite; }
 
 @keyframes horror-flicker {
     0%, 91%, 93%, 96%, 100% { filter: none; }
@@ -321,9 +320,9 @@ h2 {
 }
 
 @keyframes horror-shake {
-    0%   { transform: scale(1.03) translate(0, 0); }
-    50%  { transform: scale(1.03) translate(-1px, 1px); }
-    100% { transform: scale(1.03) translate(1px, -1px); }
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(-1px, 1px); }
+    100% { transform: translate(1px, -1px); }
 }
 
 @keyframes horror-split {
@@ -332,185 +331,174 @@ h2 {
     100% { transform: translate(-1px, -1px); clip-path: inset(20% 0 40% 0); }
 }
 
+/* ---------- PETITS ÉCRANS ---------- */
+@media (max-width: 900px) {
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+    .home { padding: 0 16px 24px; }
+    .hero { padding: 36px 0 28px; }
+    .splash { right: 0; bottom: -10%; }
+    .hero-tag { font-size: 12px; }
+    .panel { padding: 18px 14px 20px; }
+    .tiles { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-    .card.horror, .card.horror::after, .card.horror:hover,
-    .card.horror strong::before, .card.horror strong::after { animation: none; }
-}
-
-.card:hover {
-    transform: scale(1.03);
-    outline: 3px solid white;
-}
-
-/* LIENS */
-a {
-    text-decoration: none;
-}
-
-/* FOOTER */
-footer {
-    margin-top: 40px;
-    padding: 20px;
-    text-align: center;
-    font-size: 12px;
-    background-color: #1a1a1a;
-    color: #aaaaaa;
-    border-top: 4px solid #000;
-}
-
-summary:hover span {
-    text-decoration: underline;
-    color: #85b6ee !important;
+    .splash, .tile:hover .slot img,
+    .tile-arg, .tile-arg::after, .tile-arg:hover, .tile-arg:hover .slot img,
+    .tile-arg strong::before, .tile-arg strong::after { animation: none; }
 }
 </style>
 <script src="transitions.js"></script>
+<!-- ac:head -->
+<link rel="preload" href="Minecraftia.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="site.css">
+<script src="site.js" defer></script>
+<!-- /ac:head -->
 </head>
 
 <body>
 
-<header>
-    <h1>AMAICRAFT</h1>
-    <img src="parrotparty.gif" alt="Parrot Party">
-</header>
-
-<div class="nav">
-    <a href="/">HOME</a>
-    <a href="https://minecraft.wiki" data-transition="wiki" target="_blank" rel="noopener noreferrer">WIKI</a>
-    <a href="https://www.minecraft.net/fr-fr/minecraft-tips-for-beginners" data-transition="guide" target="_blank" rel="noopener noreferrer">GUIDES</a>
-</div>
-
-<div class="container">
-
-    <h2>Main Sections</h2>
-
-    <div class="grid">
-        
-        <a href="recipecraft/">
-            <div class="card">
-                <strong>Crafts</strong>
-                <span>Crafts List</span>
-            </div>
+<!-- ac:header -->
+<div class="ac-header" role="banner">
+    <div class="ac-header-inner">
+        <a class="ac-logo" href="./" aria-label="AmaiCraft, home">
+            <span class="ac-logo-text">AMAICRAFT</span>
+            <img src="parrotparty.gif" alt="" class="ac-parrot">
         </a>
-
-        <a href="commands/">
-            <div class="card">
-                <strong>Commands</strong>
-                <span>Custom Items & Cheats</span>
-            </div>
-        </a>
-        
-        <a href="music/">
-            <div class="card">
-                <strong>Jukebox</strong>
-                <span>Music Discs</span>
-            </div>
-        </a>
-
-
-        <a href="Mobs/">
-            <div class="card">
-                <strong>Mobs</strong>
-                <span>Mob Sounds</span>
-            </div>
-        </a>
-
-        <a href="Game/">
-            <div class="card">
-                <strong>Mining</strong>
-                <span>Mining Game</span>
-            </div>
-        </a>
-
-        <a href="Capes/">
-            <div class="card" style="background: #a07c95; border-color: #000 #ffffff #ffffff #000;">
-                <strong>Capes</strong>
-                <span>Cape Collection</span>
-            </div>
-        </a>
-
-        <a href="https://arg.amaicraft.fr/" data-transition="void">
-            <div class="card horror">
-                <em class="err">[ERR]</em>
-                <strong data-text="ARG Archives">ARG Archives</strong>
-                <span>ARG Documentation (Fan made)</span>
-            </div>
-        </a>
-        
-
+        <nav class="ac-nav" aria-label="Main">
+            <a class="ac-btn" href="./"><img src="assets/ui/grass_block.png" alt="">HOME</a>
+            <details class="ac-menu">
+                <summary class="ac-btn">SECTIONS<span class="ac-caret" aria-hidden="true"></span></summary>
+                <div class="ac-menu-panel">
+                    <a href="recipecraft/"><img src="assets/ui/crafting_table.webp" alt=""><strong>Crafts</strong></a>
+                    <a href="commands/"><img src="assets/ui/command_block.png" alt=""><strong>Commands</strong></a>
+                    <a href="music/"><img src="assets/ui/jukebox.png" alt=""><strong>Jukebox</strong></a>
+                    <a href="Mobs/"><img src="assets/ui/creeper_head.png" alt=""><strong>Mobs</strong></a>
+                    <a href="Game/"><img src="assets/ui/diamond_pickaxe.png" alt=""><strong>Mining</strong></a>
+                    <a href="Capes/"><img src="assets/ui/elytra.png" alt=""><strong>Capes</strong></a>
+                    <a href="https://arg.amaicraft.fr/" data-transition="void" class="ac-menu-arg"><img src="assets/ui/sculk_shrieker.gif" alt=""><strong>ARG Archives</strong></a>
+                </div>
+            </details>
+            <a class="ac-btn" href="https://minecraft.wiki" data-transition="wiki" target="_blank" rel="noopener noreferrer">WIKI</a>
+            <a class="ac-btn" href="https://www.minecraft.net/fr-fr/minecraft-tips-for-beginners" data-transition="guide" target="_blank" rel="noopener noreferrer">GUIDES</a>
+        </nav>
     </div>
-    
 </div>
+<!-- /ac:header -->
 
-<img src="steverunning.gif" class="steve-animation" alt="Steve running">
+<main class="home">
 
-<footer>
-    
-    <a href="https://ko-fi.com/amaicraft" data-transition="coffee" target="_blank" style="color: #13c3ff; text-decoration: none;" rel="noopener noreferrer" id="Don">
-        ☕ Buy me a Coffee
-    </a> <br>
-
-    <details style="user-select: none; -webkit-user-select: none; display: inline-block;">
-        <summary style="cursor: pointer; list-style: none; outline: none; font-size: 12px;">
-            <strong>Community Page 
-            <a href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer" style="color: #85b6ee; text-decoration: none; pointer-events: auto;">Minecraft</a></strong> 
-            — Unofficial website <span style="color: #5977af; font-size: 10px;">See Info</span>
-        </summary>
-
-        <div style="position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: #c6c6c6; border: 3px solid #000; box-shadow: inset 3px 3px 0px #ffffff, inset -3px -3px 0px #555555; padding: 10px; z-index: 2001; cursor: default;">
-            <div style="background: #8b8b8b; border: 2px solid #000; box-shadow: inset 2px 2px 0px #373737, inset -2px -2px 0px #ffffff; padding: 15px; text-align: left; color: #3f3f3f;">
-                <h3 style="font-size: 14px; color: #ffff55; text-shadow: 2px 2px 0px #3f3f15; margin-top: 0;">AmaiCraft: Quick Reference Guide</h3>
-                <p style="font-size: 12px; margin-bottom: 10px;">
-                    Looking for specific <strong>Minecraft crafting recipes</strong>? AmaiCraft offers a direct <strong>craft list</strong> to help you build items quickly. 
-                </p>
-                <p style="font-size: 12px; margin-bottom: 10px;">
-                    Our tool includes <strong>basic Minecraft commands</strong> for <strong>admin items and cheats</strong>, as well as a dedicated <strong>Jukebox</strong> section for <strong>music discs</strong>. 
-                </p>
-                <p style="font-size: 12px; margin-bottom: 10px;">
-                    You can also explore and play all hurt <strong>mob sounds</strong> from the game or take a break with the integrated <strong>mining mini-game</strong>.
-                </p>
-                <p style="font-size: 11px; margin-bottom: 10px;">Simple, but <strong>unofficial</strong> Website.</p>
-
-                <p style="font-size: 12px; margin: 0; color: #ffff55; text-shadow: 1px 1px 0px #3f3f15;">
-                    <strong style="color: #ff5555;">NEW!</strong> Cape Collection: Discover the history and availability of all Minecraft capes.
-                </p>
-            </div>
+    <section class="hero">
+        <h1 class="hero-logo">
+            <span class="hero-logo-text">AMAICRAFT</span>
+            <span class="splash" id="splash" aria-hidden="true">Now with portals!</span>
+        </h1>
+        <p class="hero-tag">Your unofficial Minecraft toolbox: every recipe, handy commands, mob sounds, music discs, capes and a tiny mining game.</p>
+        <div class="hero-actions">
+            <a class="ac-btn hero-btn" href="recipecraft/"><img src="assets/ui/crafting_table.webp" alt="">Find a recipe</a>
+            <a class="ac-btn hero-btn" href="Game/"><img src="assets/ui/diamond_pickaxe.png" alt="">Play Mining</a>
         </div>
-    </details>
-    <br>
-    <a href="mentions-legales.html" data-transition="legal" style="color: #85b6ee; text-decoration: none; font-size: 11px;">Mentions l&eacute;gales</a>
-</footer>
-</body>
+    </section>
+
+    <section class="panel" aria-labelledby="sections-title">
+        <h2 id="sections-title">Main Sections</h2>
+
+        <div class="tiles">
+            <a class="tile" href="recipecraft/">
+                <span class="slot"><img src="assets/ui/crafting_table.webp" alt=""></span>
+                <span class="tile-text"><strong>Crafts</strong><span>Every recipe, every station</span></span>
+            </a>
+
+            <a class="tile" href="commands/">
+                <span class="slot"><img src="assets/ui/command_block.png" alt=""></span>
+                <span class="tile-text"><strong>Commands</strong><span>Custom items &amp; cheats</span></span>
+            </a>
+
+            <a class="tile" href="music/">
+                <span class="slot"><img src="assets/ui/jukebox.png" alt=""></span>
+                <span class="tile-text"><strong>Jukebox</strong><span>Play every music disc</span></span>
+            </a>
+
+            <a class="tile" href="Mobs/">
+                <span class="slot"><img src="assets/ui/creeper_head.png" alt=""></span>
+                <span class="tile-text"><strong>Mobs</strong><span>Hear every mob sound</span></span>
+            </a>
+
+            <a class="tile" href="Game/">
+                <span class="slot"><img src="assets/ui/diamond_pickaxe.png" alt=""></span>
+                <span class="tile-text"><strong>Mining</strong><span>A tiny mining game</span></span>
+            </a>
+
+            <a class="tile tile-capes" href="Capes/">
+                <span class="slot"><img src="assets/ui/elytra.png" alt=""></span>
+                <span class="tile-text"><strong>Capes</strong><span>The cape collection</span></span>
+            </a>
+
+            <a class="tile tile-arg" href="https://arg.amaicraft.fr/" data-transition="void">
+                <span class="slot"><img src="assets/ui/sculk_shrieker.gif" alt=""></span>
+                <span class="tile-text"><strong data-text="ARG Archives">ARG Archives</strong><span>ARG documentation (fan made)</span></span>
+                <em class="err">[ERR]</em>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<!-- ac:footer -->
+<div class="ac-footer" role="contentinfo">
+    <div class="ac-ground">
+        <img src="steverunning.gif" class="steve-animation ac-steve" alt="Steve running">
+    </div>
+    <div class="ac-footer-inner">
+        <div class="ac-footer-col">
+            <a class="ac-logo ac-logo-small" href="./"><span class="ac-logo-text">AMAICRAFT</span></a>
+            <p>Unofficial Minecraft community toolbox. Not affiliated with Mojang Studios or Microsoft.</p>
+            <details class="ac-info">
+                <summary>About this website</summary>
+                <div class="ac-info-panel">
+                    <div class="ac-info-inner">
+                        <h3>AmaiCraft: Quick Reference Guide</h3>
+                        <p>Looking for specific <strong>Minecraft crafting recipes</strong>? AmaiCraft lists every <strong>craft</strong> in the game so you can build items quickly.</p>
+                        <p>It also includes <strong>basic Minecraft commands</strong> for <strong>admin items and cheats</strong>, a <strong>Jukebox</strong> for <strong>music discs</strong>, every hurt <strong>mob sound</strong> and a <strong>mining mini-game</strong>.</p>
+                        <p>Simple, but <strong>unofficial</strong> website.</p>
+                        <p class="ac-info-new"><strong>NEW!</strong> Cape Collection: discover the history and availability of all Minecraft capes.</p>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <nav class="ac-footer-col" aria-label="Sections">
+            <h4>Sections</h4>
+            <ul class="ac-footer-links">
+                <li><a href="recipecraft/">Crafts</a></li>
+                <li><a href="commands/">Commands</a></li>
+                <li><a href="music/">Jukebox</a></li>
+                <li><a href="Mobs/">Mobs</a></li>
+                <li><a href="Game/">Mining</a></li>
+                <li><a href="Capes/">Capes</a></li>
+                <li><a href="https://arg.amaicraft.fr/" data-transition="void" class="ac-footer-arg">ARG Archives</a></li>
+            </ul>
+        </nav>
+        <div class="ac-footer-col ac-footer-end">
+            <a href="https://ko-fi.com/amaicraft" data-transition="coffee" target="_blank" rel="noopener noreferrer" id="Don">☕ Buy me a Coffee</a>
+            <a href="mentions-legales.html" data-transition="legal" class="ac-legal">Mentions l&eacute;gales</a>
+            <p class="ac-copy">&copy; AmaiCraft, made by Amai.<br>Minecraft is a trademark of <a href="https://www.minecraft.net/" data-transition="mojang" target="_blank" rel="noopener noreferrer">Mojang Studios</a>.</p>
+        </div>
+    </div>
+</div>
+<!-- /ac:footer -->
 <script>
-    window.onload = function() {
-        const Coff = document.getElementById('Don');
-        const text = Coff.innerText;
-        Coff.innerHTML = '';
-
-        for (let char of text) {
-            const span = document.createElement('span');
-            span.innerText = char;
-            
-            const hue = Math.floor(Math.random() * 360);
-            const color = `hsl(${hue}, 100%, 80%)`;
-            span.style.color = color;
-            span.style.textDecoration = 'underline';
-            span.style.textDecorationColor = color;
-            span.style.textDecorationThickness = '2px';
-            
-            Coff.appendChild(span);
-        }
-    };
-
-    const steve = document.querySelector('.steve-animation');
-
-    steve.addEventListener('click', () => {
-        if (!steve.classList.contains('jumping')) {
-            steve.classList.add('jumping');
-
-            setTimeout(() => {
-                steve.classList.remove('jumping');
-            }, 800);
-        }
-    });
+    // texte jaune de l'écran titre, différent à chaque visite
+    (function () {
+        const splashes = [
+            'Now with portals!', '100% unofficial!', 'Steve approved!', 'Also try Terraria!',
+            'No milk in the coffee!', 'Click on Steve!', 'Made by Amai!', 'Legal notice: the movie!',
+            'Contains parrots!', 'Pixel perfect!', 'Do not click WIKI!', 'Square corners only!'
+        ];
+        document.getElementById('splash').textContent = splashes[Math.floor(Math.random() * splashes.length)];
+    })();
 </script>
+</body>
 </html>

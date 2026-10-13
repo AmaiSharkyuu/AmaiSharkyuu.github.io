@@ -1,0 +1,530 @@
+/* AmaiCraft : en-tête, navigation et pied de page communs à toutes les pages.
+   Les gabarits HTML sont dans layout/, recopiés dans chaque page par tools/sync-layout.py */
+
+@font-face {
+    font-family: 'Minecraftia';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Minecraftia'), url('Minecraftia.woff') format('woff');
+}
+
+:root {
+    --ac-text: #ffffff;
+    --ac-muted: #b9b9c3;
+    --ac-gold: #ffff55;
+    --ac-gold-shadow: #3f3f15;
+    --ac-link: #85b6ee;
+    --ac-btn-top: #8c8c8c;
+    --ac-btn-bottom: #6a6a6a;
+    --ac-btn-hover-top: #8e9ad8;
+    --ac-btn-hover-bottom: #6773b4;
+    --ac-bar-top: #26262b;
+    --ac-bar-bottom: #141417;
+    --ac-tooltip: rgba(16, 0, 16, 0.94);
+    --ac-tooltip-border-top: #5000ff;
+    --ac-tooltip-border-bottom: #28007f;
+}
+
+/* le pied de page reste en bas même quand la page est courte */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* dans cette colonne, un bloc centré par "margin: auto" se réduirait à la largeur de son contenu
+   (une grille "auto-fill" n'y garderait qu'une colonne) : on lui rend toute la largeur */
+body > main,
+body > .container {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ---------- EN-TÊTE ---------- */
+.ac-header {
+    position: relative;
+    z-index: 50;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, var(--ac-bar-top), var(--ac-bar-bottom));
+    border-bottom: 4px solid #000;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -3px 0 #34343b, 0 6px 18px rgba(0, 0, 0, 0.45);
+    font-family: 'Minecraftia', 'Segoe UI', Arial, sans-serif;
+}
+
+.ac-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    min-height: 64px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.ac-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+/* le logo façon écran titre : pierre claire en haut, plus sombre en bas, ombre dure */
+.ac-logo-text {
+    font-family: 'Minecraftia', monospace;
+    font-size: 26px;
+    letter-spacing: 3px;
+    line-height: 1.4;
+    color: #e8e8e8;
+    background: linear-gradient(180deg, #ffffff 0%, #e2e2e2 48%, #9d9d9d 52%, #c4c4c4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(3px 3px 0 #2c2c2c);
+}
+
+.ac-parrot {
+    height: 40px;
+    width: auto;
+    image-rendering: pixelated;
+}
+
+.ac-nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* bouton Minecraft : biseau clair en haut à gauche, sombre en bas à droite */
+.ac-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px 7px;
+    font-family: 'Minecraftia', monospace;
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--ac-text);
+    text-decoration: none;
+    text-shadow: 2px 2px 0 #3f3f3f;
+    background: linear-gradient(180deg, var(--ac-btn-top), var(--ac-btn-bottom));
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.45), inset -2px -3px 0 rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.08s;
+}
+
+.ac-btn img {
+    width: 18px;
+    height: 18px;
+    image-rendering: pixelated;
+    object-fit: contain;
+}
+
+.ac-btn:hover,
+.ac-btn:focus-visible,
+.ac-menu[open] > .ac-btn {
+    color: #ffffa0;
+    background: linear-gradient(180deg, var(--ac-btn-hover-top), var(--ac-btn-hover-bottom));
+    outline: none;
+}
+
+.ac-btn:active {
+    transform: translateY(1px);
+}
+
+/* ---------- MENU SECTIONS ---------- */
+.ac-menu {
+    position: relative;
+}
+
+.ac-menu > summary {
+    list-style: none;
+}
+
+.ac-menu > summary::-webkit-details-marker {
+    display: none;
+}
+
+.ac-caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid currentColor;
+    transition: transform 0.15s;
+}
+
+.ac-menu[open] .ac-caret {
+    transform: rotate(180deg);
+}
+
+/* infobulle Minecraft : fond violet très sombre, bordure violette en dégradé */
+.ac-menu-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 220px;
+    padding: 6px;
+    background: var(--ac-tooltip);
+    border: 2px solid transparent;
+    border-image: linear-gradient(180deg, var(--ac-tooltip-border-top), var(--ac-tooltip-border-bottom)) 1;
+    box-shadow: 0 0 0 2px var(--ac-tooltip), 0 10px 30px rgba(0, 0, 0, 0.6);
+    display: grid;
+    gap: 2px;
+    animation: ac-menu-in 0.14s ease-out;
+}
+
+@keyframes ac-menu-in {
+    from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+    to   { opacity: 1; transform: translateX(-50%); }
+}
+
+.ac-menu-panel a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    color: var(--ac-text);
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.ac-menu-panel a strong {
+    font-weight: normal;
+}
+
+.ac-menu-panel img {
+    width: 24px;
+    height: 24px;
+    image-rendering: pixelated;
+    object-fit: contain;
+}
+
+.ac-menu-panel a:hover,
+.ac-menu-panel a:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--ac-gold);
+    outline: none;
+}
+
+.ac-menu-panel .ac-menu-arg {
+    margin-top: 4px;
+    border-top: 2px solid rgba(255, 60, 60, 0.35);
+    color: #ff6b6b;
+}
+
+.ac-menu-panel .ac-menu-arg:hover {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff3b3b;
+}
+
+/* ---------- PIED DE PAGE ---------- */
+.ac-footer {
+    position: relative;
+    z-index: 40;
+    flex-shrink: 0;
+    margin-top: auto;
+    padding-top: 60px;
+    font-family: 'Minecraftia', 'Segoe UI', Arial, sans-serif;
+    color: var(--ac-muted);
+    text-align: left;
+    user-select: none;
+}
+
+/* une rangée de blocs d'herbe sur laquelle Steve court */
+.ac-ground {
+    position: relative;
+    height: 32px;
+    background: url('assets/ui/grass_side.png') 0 0 / 32px 32px repeat-x;
+    image-rendering: pixelated;
+    border-bottom: 4px solid #000;
+    box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.ac-footer-inner {
+    background: linear-gradient(180deg, #1f1f23, #121214);
+    padding: 26px 20px 22px;
+}
+
+.ac-footer-inner {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 30px;
+    max-width: none;
+}
+
+.ac-footer-inner > * {
+    min-width: 0;
+}
+
+@supports (width: min(1px, 2px)) {
+    .ac-footer-inner {
+        padding-left: max(20px, calc((100% - 1160px) / 2));
+        padding-right: max(20px, calc((100% - 1160px) / 2));
+    }
+}
+
+.ac-footer-col p {
+    margin: 10px 0 0;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.ac-footer h4 {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: normal;
+    color: var(--ac-gold);
+    text-shadow: 2px 2px 0 var(--ac-gold-shadow);
+}
+
+.ac-logo-small .ac-logo-text {
+    font-size: 18px;
+}
+
+.ac-footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 16px;
+}
+
+.ac-footer a {
+    color: var(--ac-link);
+    text-decoration: none;
+}
+
+.ac-footer-links a {
+    font-size: 12px;
+}
+
+.ac-footer-links a:hover,
+.ac-legal:hover,
+.ac-copy a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.ac-footer .ac-footer-arg {
+    color: #ff6b6b;
+}
+
+.ac-footer-end {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* le lien Coffee : ses lettres reçoivent des couleurs aléatoires (site.js) */
+#Don {
+    font-size: 16px;
+    color: #13c3ff;
+}
+
+#Don span {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+}
+
+#Don:hover span {
+    display: inline-block;
+    animation: ac-hop 0.5s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 0.05s);
+}
+
+@keyframes ac-hop {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-3px); }
+}
+
+.ac-legal {
+    font-size: 11px;
+}
+
+.ac-copy {
+    color: #77777f;
+    font-size: 10px !important;
+}
+
+/* "About this website" : un panneau d'inventaire au-dessus du lien */
+.ac-info {
+    position: relative;
+    margin-top: 10px;
+}
+
+.ac-info > summary {
+    list-style: none;
+    cursor: pointer;
+    font-size: 11px;
+    color: #5977af;
+}
+
+.ac-info > summary::-webkit-details-marker {
+    display: none;
+}
+
+.ac-info > summary::before {
+    content: '+ ';
+}
+
+.ac-info[open] > summary::before {
+    content: '- ';
+}
+
+.ac-info > summary:hover {
+    color: var(--ac-link);
+    text-decoration: underline;
+}
+
+.ac-info-panel {
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 10px);
+    width: min(500px, 88vw);
+    padding: 10px;
+    background: #c6c6c6;
+    border: 3px solid #000;
+    box-shadow: inset 3px 3px 0 #ffffff, inset -3px -3px 0 #555555, 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 60;
+    cursor: default;
+    user-select: text;
+}
+
+.ac-info-inner {
+    background: #8b8b8b;
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0 #373737, inset -2px -2px 0 #ffffff;
+    padding: 15px;
+    color: #2b2b2b;
+}
+
+.ac-info-inner h3 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: normal;
+    color: var(--ac-gold);
+    text-shadow: 2px 2px 0 var(--ac-gold-shadow);
+}
+
+.ac-info-inner p {
+    margin: 0 0 10px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.ac-info-inner .ac-info-new {
+    margin: 0;
+    color: var(--ac-gold);
+    text-shadow: 1px 1px 0 var(--ac-gold-shadow);
+}
+
+.ac-info-new strong {
+    color: #ff5555;
+}
+
+/* ---------- STEVE ---------- */
+.ac-steve {
+    position: absolute;
+    bottom: 100%;
+    left: -100px;
+    width: 100px;
+    z-index: 2;
+    cursor: pointer;
+    pointer-events: auto;
+    image-rendering: pixelated;
+    user-select: none;
+    -webkit-user-drag: none;
+    touch-action: manipulation;
+    animation: ac-walk 10s linear infinite;
+}
+
+/* il court d'un bord à l'autre sur l'herbe du pied de page */
+@keyframes ac-walk {
+    0%   { left: -100px;            transform: scaleX(-1); }
+    45%  {                          transform: scaleX(-1); }
+    50%  { left: calc(100% - 100px); transform: scaleX(1); }
+    95%  {                          transform: scaleX(1); }
+    100% { left: -100px;            transform: scaleX(-1); }
+}
+
+/* Steve sur sa chaise (page Mining) roule toujours à reculons, comme avant */
+.ac-steve[src$="Steve_Chair.gif"] {
+    animation-name: ac-walk-chair;
+}
+
+@keyframes ac-walk-chair {
+    0%   { left: -100px; transform: scaleX(-1); }
+    50%  { left: calc(100% - 100px); transform: scaleX(-1); }
+    100% { left: -100px; transform: scaleX(-1); }
+}
+
+.ac-steve[src$="Steve_Chair.gif"].jumping {
+    animation: ac-walk-chair 10s linear infinite, ac-jump 0.8s ease-in-out;
+}
+
+.ac-steve.jumping {
+    animation: ac-walk 10s linear infinite, ac-jump 0.8s ease-in-out;
+}
+
+@keyframes ac-jump {
+    0%   { bottom: 100%; animation-timing-function: ease-out; }
+    50%  { bottom: calc(100% + 180px); animation-timing-function: ease-in; }
+    100% { bottom: 100%; }
+}
+
+/* ---------- PETITS ÉCRANS ---------- */
+@media (max-width: 760px) {
+    .ac-header-inner {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 16px 12px;
+    }
+
+    .ac-logo-text {
+        font-size: 22px;
+    }
+
+    .ac-nav {
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    .ac-btn {
+        padding: 8px 10px 6px;
+        font-size: 12px;
+    }
+
+    .ac-btn img {
+        display: none;
+    }
+
+    .ac-footer-inner {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .ac-steve {
+        width: 70px;
+    }
+
+    @keyframes ac-walk {
+        0%   { left: -70px;            transform: scaleX(-1); }
+        45%  {                         transform: scaleX(-1); }
+        50%  { left: calc(100% - 70px); transform: scaleX(1); }
+        95%  {                         transform: scaleX(1); }
+        100% { left: -70px;            transform: scaleX(-1); }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ac-steve { animation: none; left: 16px; }
+    #Don:hover span { animation: none; }
+}

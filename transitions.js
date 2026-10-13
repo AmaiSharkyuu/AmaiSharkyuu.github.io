@@ -5,6 +5,9 @@
    - WIKI : un enchaînement absurde ; GUIDES : une ouverture sobre
    - Buy me a Coffee : une petite scène avec Steve, un villageois et une blague
    - Mentions légales : une bande-annonce de film beaucoup trop épique pour ce que c'est
+   - HOME alors qu'on est déjà sur l'accueil : une perle de l'Ender, une téléportation sur place,
+     puis un succès Minecraft qui rappelle qu'on y est déjà
+   - Mojang Studios : l'écran de chargement rouge du jeu
    - lien data-transition="void" (les Archives ARG) : la page bugue et se fait corrompre */
 (function () {
     const base = new URL('.', document.currentScript.src);
@@ -113,7 +116,7 @@ html.pt-cover::after {
 /* ---------- PORTAIL ---------- */
 .pt-portal {
     position: fixed;
-    inset: 0;
+    inset: -40px;
     z-index: 10000;
     overflow: hidden;
     pointer-events: auto;
@@ -386,6 +389,123 @@ html.pt-cover-cinema::after {
     white-space: nowrap;
 }
 
+/* ---------- DÉJÀ À LA MAISON ---------- */
+.pt-pearl {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    z-index: 10001;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+.pt-flash {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: radial-gradient(circle at var(--x) var(--y), rgba(197, 139, 255, 0.85), rgba(60, 0, 120, 0.55) 35%, transparent 70%);
+    pointer-events: none;
+}
+
+.pt-burst {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    pointer-events: none;
+}
+
+/* le "succès" Minecraft qui glisse en haut à droite */
+.pt-toast {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10002;
+    width: min(330px, calc(100vw - 32px));
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #212121;
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0 #5a5a5a, inset -2px -2px 0 #0d0d0d, 0 8px 24px rgba(0, 0, 0, 0.5);
+    font-family: 'Minecraftia', monospace;
+    pointer-events: none;
+}
+
+.pt-toast img {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+}
+
+.pt-toast b {
+    display: block;
+    font-weight: normal;
+    font-size: 12px;
+    color: #ffff55;
+}
+
+.pt-toast span {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    color: #fff;
+}
+
+/* ---------- MOJANG STUDIOS ---------- */
+.pt-mojang {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7vh;
+    background: #ef323d;
+    pointer-events: auto;
+}
+
+.pt-mojang-logo {
+    color: #fff;
+    font-family: 'Arial Black', 'Segoe UI Black', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 900;
+    text-align: center;
+    line-height: 0.95;
+}
+
+.pt-mojang-logo b {
+    display: block;
+    font-size: clamp(44px, 11vw, 132px);
+    letter-spacing: 0.01em;
+}
+
+.pt-mojang-logo small {
+    display: block;
+    margin-top: 0.3em;
+    font-size: clamp(14px, 3.2vw, 38px);
+    letter-spacing: 0.55em;
+    padding-left: 0.55em;
+}
+
+.pt-mojang-bar {
+    width: min(500px, 72vw);
+    height: 12px;
+    padding: 3px;
+    border: 3px solid #fff;
+}
+
+.pt-mojang-bar span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: #fff;
+}
+
 .pt-coffee-open {
     position: absolute;
     left: 50%;
@@ -520,9 +640,18 @@ body.pt-glitching > :not(.pt-overlay):not(.steve-animation):not(script):not(styl
 }
 
 html.pt-sun {
-    background: repeating-conic-gradient(from var(--pt-a) at 50% 50%, #ffe14d 0 10deg, #ff7ad9 10deg 20deg) fixed;
-    animation: pt-sunspin 0.5s linear infinite;
     overflow: hidden;
+}
+
+/* le fond rayé est un calque à part, derrière le contenu de la page : si on le posait sur <html>,
+   le fond de la page cesserait d'être "fixe" pendant l'animation et se recalerait d'un coup après */
+.pt-sun-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: repeating-conic-gradient(from var(--pt-a) at 50% 50%, #ffe14d 0 10deg, #ff7ad9 10deg 20deg);
+    animation: pt-sunspin 0.5s linear infinite;
+    pointer-events: none;
 }
 
 html.pt-cover-goofy::after {
@@ -780,9 +909,10 @@ body.pt-comic {
         return overlay;
     }
 
-    // effet "nausée" du jeu : une carte de déplacement SVG appliquée à <html>
-    // (sur la racine, un filtre ne décroche pas les éléments en position: fixed)
-    function nausea(from, to, duration) {
+    // effet "nausée" du jeu : une carte de déplacement SVG appliquée au calque du portail.
+    // Jamais à la page elle-même : un filtre sur la page décroche son fond "fixe",
+    // qui se recale d'un coup quand le filtre s'enlève.
+    function nausea(target, from, to, duration) {
         let svg = document.getElementById('pt-nausea-svg');
         if (!svg) {
             svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -799,8 +929,7 @@ body.pt-comic {
         }
         const turbulence = svg.querySelector('feTurbulence');
         const map = svg.querySelector('feDisplacementMap');
-        root.style.filter = 'url(#pt-nausea)';
-        root.style.backgroundColor = '#2c0670';
+        target.style.filter = 'url(#pt-nausea)';
         const t0 = performance.now();
         const step = (now) => {
             const k = Math.min(1, (now - t0) / duration);
@@ -808,19 +937,9 @@ body.pt-comic {
             turbulence.setAttribute('baseFrequency', `${(0.006 + 0.002 * Math.sin(now / 90)).toFixed(4)} ${(0.012 + 0.004 * Math.cos(now / 120)).toFixed(4)}`);
             if (k < 1) {
                 requestAnimationFrame(step);
-            } else if (to === 0) {
-                root.style.filter = '';
-                root.style.backgroundColor = '';
             }
         };
         requestAnimationFrame(step);
-        // si l'onglet passe en arrière-plan, requestAnimationFrame s'arrête : on retire quand même le filtre
-        if (to === 0) {
-            setTimeout(() => {
-                root.style.filter = '';
-                root.style.backgroundColor = '';
-            }, duration + 400);
-        }
     }
 
     function portalParticles(layer, count, inward) {
@@ -859,7 +978,7 @@ body.pt-comic {
         document.body.classList.add('pt-full');
         document.body.style.transformOrigin = `${window.scrollX + window.innerWidth / 2}px ${window.scrollY + window.innerHeight / 2}px`;
         document.body.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.12)' }], { duration: 950, easing: 'ease-in', fill: 'forwards' });
-        nausea(0, 45, 900);
+        nausea(layer, 0, 45, 900);
 
         // le bourdonnement du portail
         const tone = makeSfx(2000);
@@ -874,7 +993,7 @@ body.pt-comic {
         root.classList.remove('pt-cover');
         portalParticles(layer, 24, false);
         layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 650, delay: 80, easing: 'ease-out', fill: 'forwards' });
-        nausea(40, 0, 800);
+        nausea(layer, 40, 0, 800);
         setTimeout(() => layer.remove(), 900);
     }
 
@@ -958,11 +1077,10 @@ body.pt-comic {
         body.getAnimations().forEach((a) => a.cancel());
         body.classList.remove('pt-glitching', 'pt-flush', 'pt-boing', 'pt-full', 'pt-comic');
         body.style.transformOrigin = '';
-        root.classList.remove('pt-cover', 'pt-cover-goofy', 'pt-cover-cinema', 'pt-sun');
+        root.classList.remove('pt-cover', 'pt-cover-goofy', 'pt-cover-cinema');
+        sunOff(0);
         root.getAnimations().forEach((a) => a.cancel());
-        root.style.filter = '';
-        root.style.backgroundColor = '';
-        document.querySelectorAll('.pt-overlay, .pt-goofy-layer, .pt-guide, .pt-portal, .pt-coffee, .pt-cinema').forEach((el) => el.remove());
+        document.querySelectorAll('.pt-overlay, .pt-goofy-layer, .pt-guide, .pt-portal, .pt-coffee, .pt-cinema, .pt-mojang, .pt-pearl, .pt-flash, .pt-burst').forEach((el) => el.remove());
         leaving = false;
     }
 
@@ -1066,7 +1184,7 @@ body.pt-comic {
         await sleep(550);
 
         // 6. la page part en spirale, chargement du wiki... à reculons
-        root.classList.add('pt-sun');
+        sunOn();
         spin('rotate(360deg) scale(-1, 1)', 'rotate(1440deg) scale(0, 0)', 700, 'cubic-bezier(0.6, 0, 0.9, 0.6)');
         tone('triangle', 0, 0.7, 1500, 150, 0.12);
         [chicken, cow, moo, cluck].forEach((node) => node.animate(
@@ -1104,7 +1222,7 @@ body.pt-comic {
         await sleep(850);
         openTab(href);
         reveal.reverse();
-        await reveal.finished.catch(() => {});
+        await sleep(470);
         cleanup();
     }
 
@@ -1383,6 +1501,133 @@ body.pt-comic {
         setTimeout(() => layer.remove(), 1200);
     }
 
+    // un succès Minecraft en haut à droite
+    function advancement(title, text, icon) {
+        const toast = el('div', 'pt-toast');
+        toast.setAttribute('role', 'status');
+        const img = el('img', '', toast);
+        img.src = icon;
+        img.alt = '';
+        const words = el('div', '', toast);
+        el('b', '', words).textContent = title;
+        el('span', '', words).textContent = text;
+        // juste sous l'en-tête, pour ne pas cacher les boutons
+        const header = document.querySelector('.ac-header');
+        const below = header ? header.getBoundingClientRect().bottom : 0;
+        toast.style.top = Math.max(16, below + 12) + 'px';
+        root.appendChild(toast);
+        const slide = [{ transform: 'translateX(calc(100% + 24px))' }, { transform: 'none' }];
+        toast.animate(slide, { duration: 350, easing: 'cubic-bezier(0.2, 0.9, 0.3, 1)' });
+        setTimeout(() => {
+            toast.animate([...slide].reverse(), { duration: 300, easing: 'ease-in', fill: 'forwards' });
+            setTimeout(() => toast.remove(), 350);
+        }, 3600);
+        const tone = makeSfx(2500);
+        tone('sine', 0, 0.18, 660, 660, 0.12);
+        tone('sine', 0.12, 0.18, 880, 880, 0.12);
+        tone('sine', 0.24, 0.4, 1320, 1320, 0.1);
+    }
+
+    // HOME alors qu'on est déjà sur l'accueil : le bouton lance une perle de l'Ender au centre,
+    // on se téléporte... au même endroit, et un succès le fait remarquer
+    async function alreadyHome(origin) {
+        const tone = makeSfx(3000);
+        const pearl = el('img', 'pt-pearl');
+        pearl.src = asset('recipecraft/assets/items/ender_pearl.png');
+        pearl.alt = '';
+        root.appendChild(pearl);
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        const peak = Math.min(origin.y, cy) - window.innerHeight * 0.25;
+        const at = (x, y, turn) => `translate(${x - 20}px, ${y - 20}px) rotate(${turn}deg)`;
+        tone('triangle', 0, 0.25, 500, 900, 0.07);
+        pearl.animate([
+            { transform: at(origin.x, origin.y, 0), offset: 0, easing: 'ease-out' },
+            { transform: at((origin.x + cx) / 2, peak, 360), offset: 0.5, easing: 'ease-in' },
+            { transform: at(cx, cy, 720), offset: 1 }
+        ], { duration: 620, fill: 'forwards' });
+        await sleep(620);
+        pearl.remove();
+
+        // le "pouf" violet de la téléportation
+        tone('sine', 0, 0.35, 900, 180, 0.2);
+        tone('sawtooth', 0.02, 0.3, 300, 90, 0.05, 40);
+        const flash = el('div', 'pt-flash');
+        flash.style.setProperty('--x', cx + 'px');
+        flash.style.setProperty('--y', cy + 'px');
+        root.appendChild(flash);
+        flash.animate([{ opacity: 0 }, { opacity: 1, offset: 0.2 }, { opacity: 0 }], { duration: 650, fill: 'forwards' });
+        setTimeout(() => flash.remove(), 700);
+        const burst = el('div', 'pt-burst');
+        root.appendChild(burst);
+        portalParticles(burst, 40, false);
+        setTimeout(() => burst.remove(), 1400);
+
+        // la page "se téléporte" sur place : quelques sauts rapides, puis rien n'a changé
+        document.body.animate([
+            { transform: 'translate(0, 0)' },
+            { transform: 'translate(-14px, 6px)' },
+            { transform: 'translate(10px, -8px)' },
+            { transform: 'translate(-6px, -4px)' },
+            { transform: 'translate(4px, 3px)' },
+            { transform: 'translate(0, 0)' }
+        ], { duration: 380, easing: 'steps(5)' });
+
+        await sleep(450);
+        advancement('Advancement Made!', "You're already home!", asset('assets/ui/grass_block.png'));
+        leaving = false;
+    }
+
+    // Mojang Studios : l'écran de chargement rouge du jeu, puis le site s'ouvre
+    async function mojangLoading(href) {
+        const screen = el('div', 'pt-mojang');
+        screen.setAttribute('aria-hidden', 'true');
+        const logo = el('div', 'pt-mojang-logo', screen);
+        logo.innerHTML = '<b>MOJANG</b><small>STUDIOS</small>';
+        const bar = el('div', 'pt-mojang-bar', screen);
+        const fill = el('span', '', bar);
+        root.appendChild(screen);
+
+        screen.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 160, fill: 'both' });
+        logo.animate([{ opacity: 0, transform: 'scale(0.96)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: 150, easing: 'ease-out', fill: 'both' });
+        bar.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 350, fill: 'both' });
+        // une barre qui avance par à-coups, comme un vrai chargement
+        fill.animate([
+            { width: '0%' },
+            { width: '18%', offset: 0.15 },
+            { width: '22%', offset: 0.35 },
+            { width: '61%', offset: 0.55 },
+            { width: '64%', offset: 0.75 },
+            { width: '100%' }
+        ], { duration: 1500, delay: 450, easing: 'ease-out', fill: 'both' });
+        await sleep(2050);
+
+        // les minuteries avancent toujours, même si le navigateur ne dessine plus (onglet en arrière-plan)
+        screen.animate([{ filter: 'brightness(1)' }, { filter: 'brightness(2.4)' }], { duration: 180, fill: 'forwards' });
+        await sleep(180);
+        openTab(href);
+        screen.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 350, fill: 'forwards' });
+        await sleep(350);
+        cleanup();
+    }
+
+    function sunOn() {
+        root.classList.add('pt-sun');
+        if (!document.querySelector('.pt-sun-layer')) root.appendChild(el('div', 'pt-sun-layer'));
+    }
+
+    function sunOff(fade) {
+        root.classList.remove('pt-sun');
+        document.querySelectorAll('.pt-sun-layer').forEach((layer) => {
+            if (!fade) {
+                layer.remove();
+                return;
+            }
+            layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: fade, fill: 'forwards' });
+            setTimeout(() => layer.remove(), fade + 50);
+        });
+    }
+
     function goofyLeave() {
         const body = document.body;
         const layer = document.createElement('div');
@@ -1416,7 +1661,7 @@ body.pt-comic {
         // en dehors du body, sinon le calque tournerait avec la page
         root.appendChild(layer);
         body.style.transformOrigin = `${window.scrollX + window.innerWidth / 2}px ${window.scrollY + window.innerHeight / 2}px`;
-        root.classList.add('pt-sun');
+        sunOn();
         body.classList.add('pt-flush');
         goofySounds();
     }
@@ -1424,13 +1669,13 @@ body.pt-comic {
     function goofyArrive() {
         const body = document.body;
         body.style.transformOrigin = `50% ${window.innerHeight}px`;
-        root.classList.add('pt-sun');
+        sunOn();
         root.classList.remove('pt-cover-goofy');
         body.classList.add('pt-boing');
         setTimeout(() => {
             body.classList.remove('pt-boing');
             body.style.transformOrigin = '';
-            root.classList.remove('pt-sun');
+            sunOff(250);
         }, 1000);
     }
 
@@ -1453,6 +1698,18 @@ body.pt-comic {
             }
             leaving = true;
             coffeeScene(link.href);
+            return;
+        }
+
+        if (special === 'mojang') {
+            event.preventDefault();
+            if (leaving) return;
+            if (reduced) {
+                openTab(link.href);
+                return;
+            }
+            leaving = true;
+            mojangLoading(link.href);
             return;
         }
 
@@ -1480,6 +1737,21 @@ body.pt-comic {
         const isVoid = link.dataset.transition === 'void';
         const internal = link.protocol === location.protocol && link.host === location.host;
         if (!isVoid && !internal) return;
+
+        // HOME (ou le logo) alors qu'on est déjà sur l'accueil
+        if (!isVoid && isHome(link) && isHome(location) && !link.hash) {
+            event.preventDefault();
+            if (leaving) return;
+            if (reduced) {
+                advancement('Advancement Made!', "You're already home!", asset('assets/ui/grass_block.png'));
+                return;
+            }
+            leaving = true;
+            const box = link.getBoundingClientRect();
+            alreadyHome({ x: box.left + box.width / 2, y: box.top + box.height / 2 });
+            return;
+        }
+
         // simple ancre sur la même page
         if (!isVoid && link.pathname === location.pathname && link.search === location.search) return;
 
@@ -1511,7 +1783,14 @@ body.pt-comic {
             wait = 950;
         }
 
-        setTimeout(() => { window.location.href = link.href; }, wait);
+        // vers les Archives ARG : #void dit au site d'en face de rejouer la corruption à l'envers
+        let target = link.href;
+        if (isVoid && !reduced) {
+            const url = new URL(link.href);
+            url.hash = 'void';
+            target = url.href;
+        }
+        setTimeout(() => { window.location.href = target; }, wait);
     });
 
     // retour arrière : la page revient du cache, on enlève ce qui la recouvre

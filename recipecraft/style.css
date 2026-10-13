@@ -66,75 +66,23 @@ img.px { image-rendering: pixelated; }
 
 /* ---------- header / nav / footer (site chrome) -------------------- */
 
-header {
-    background: rgba(0, 0, 0, 0.82);
-    border-bottom: 4px solid #000;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    min-height: 70px;
-}
-header h1 { margin: 0; font-size: 28px; text-shadow: 3px 3px 0 #3f3f3f; letter-spacing: 2px; }
-header img { position: absolute; right: 0; top: 0; bottom: 0; height: 100%; width: auto; }
 
-.nav {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-.nav a {
-    background: #555;
-    border: 2px solid #000;
-    border-top-color: #ababab;
-    border-left-color: #ababab;
-    padding: 8px 15px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    transition: background .12s var(--ease), transform .12s var(--ease);
-}
-.nav a:hover { background: #8b8b8b; border-top-color: #dbdbdb; border-left-color: #dbdbdb; transform: translateY(-1px); }
 
-footer {
-    margin-top: auto;
-    padding: 20px;
-    text-align: center;
-    font-size: 12px;
-    background-color: #14161a;
-    color: #aaa;
-    border-top: 4px solid #000;
-}
-summary:hover span { text-decoration: underline; color: var(--blue) !important; }
 
-.footer-info {
-    position: absolute;
-    bottom: 85px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 500px;
-    background: var(--gui-bg);
-    border: 3px solid #000;
-    box-shadow: inset 3px 3px 0 #fff, inset -3px -3px 0 #555;
-    padding: 10px;
-    z-index: 60;
-    cursor: default;
-}
-.footer-info-inner {
-    background: var(--slot-bg);
-    border: 2px solid #000;
-    box-shadow: inset 2px 2px 0 var(--slot-dark), inset -2px -2px 0 #fff;
-    padding: 15px;
-    text-align: left;
-    color: #3f3f3f;
-}
-.footer-info-inner h3 { font-size: 14px; color: var(--gold); text-shadow: 2px 2px 0 #3f3f15; margin-top: 0; }
-.footer-info-inner p { font-size: 12px; margin-bottom: 10px; }
-.footer-info-inner p.small { font-size: 11px; }
-.footer-info-inner p.highlight { margin: 0; color: var(--gold); text-shadow: 1px 1px 0 #3f3f15; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ---------- app shell --------------------------------------------- */
 
@@ -595,7 +543,7 @@ body.modal-open { overflow: hidden; }
 /* ---------- responsive ------------------------------------------------ */
 
 @media (max-width: 720px) {
-    header h1 { font-size: 20px; }
+
     .app { padding: 12px 10px 30px; }
     .grid { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); }
     .grid-panel { padding: 12px; }
