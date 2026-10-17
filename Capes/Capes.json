@@ -62,11 +62,19 @@
     ],
     "Social Media Capes": [
         {
+            "name": "Aurora Cape",
+            "description": "Players could receive this cape by watching Minecraft Dungeons II livestreams for 15 minutes on Twitch or 3 minutes on TikTok. Codes already obtained can be redeemed until 31/10/2026.",
+            "image": "https://minecraft.wiki/images/Aurora_Cape_JE.png?ea72f",
+            "Obtainable": false,
+            "version": "Java and Bedrock",
+            "date": "29/09/2026 - 15/10/2026"
+        },
+        {
             "name": "Builder Cape",
             "description": "The Builder Cape was given to viewers who watched a Minecraft TikTok or Twitch livestream for at least 3 minutes on Tiktok and 5 minutes on Twitch.",
             "image": "https://minecraft.wiki/images/Builder_Cape_JE.png?c2652",
             "date": "30/05/2026 - 22/06/2026",
-            "Obtainable": true,
+            "Obtainable": false,
             "version": "Java and Bedrock"
         },
         {
@@ -89,9 +97,9 @@
             "name": "Menace Cape",
             "description": "The Menace Cape was given to viewers who watched a Minecraft TikTok livestream for at least 3 minutes.",
             "image": "https://minecraft.wiki/images/Menace_Cape_JE.png?c7b8f",
-            "date" :"18/03/2025 - 06/04/2025",
-            "Obtainable" : false,
-            "version" :"Java and Bedrock"
+            "date": "18/03/2025 - 06/04/2025",
+            "Obtainable": false,
+            "version": "Java and Bedrock"
         },
         {
             "name": "Home Cape",
@@ -101,7 +109,6 @@
             "Obtainable": false,
             "version": "Java and Bedrock"
         }
-
     ],
     "Event Capes": [
         {
@@ -149,7 +156,7 @@
             "description": "In order to get the cape, users had to go to Minecraft.net and claim it from a section on the 15th anniversary page.",
             "image": "https://minecraft.wiki/images/15th_Anniversary_Cape_JE.png?134e6",
             "version": "Java and Bedrock",
-            "date" : "17/05/2024 - 21/06/2024",
+            "date": "17/05/2024 - 21/06/2024",
             "Obtainable": false
         },
         {
@@ -157,7 +164,7 @@
             "description": "The Founder's Cape was available for free on the Minecraft Bedrock Marketplace for a limited time.",
             "image": "https://minecraft.wiki/images/Founder%27s_Cape_JE.png?c5e48",
             "version": "Java and Bedrock",
-            "date" : "28/07/2019 - 28/10/2019",
+            "date": "28/07/2019 - 28/10/2019",
             "Obtainable": false
         },
         {
@@ -165,18 +172,18 @@
             "description": "The Cherry Blossom Cape was given to players who cast their vote during the 2023 Mob Vote.",
             "image": "https://minecraft.wiki/images/Cherry_Blossom_Cape_JE.png?c11dd",
             "version": "Java and Bedrock",
-            "date" : "10/10/2023",
+            "date": "10/10/2023",
             "Obtainable": false
         }
     ],
     "Pride Capes": [
         {
             "name": "Pan Cape",
-            "description": "The Pan Cape was available for free on the Minecraft Bedrock Marketplace for a limited time on.",
+            "description": "The Pan Cape is given automatically to every player, with no time limit. It is the only cape still free for everyone.",
             "image": "https://minecraft.wiki/images/Pan_Cape_JE.png?02645",
             "version": "Java and Bedrock",
-            "Obtainable": false,
-            "date": "10/12/2021 - 31/12/2021"
+            "Obtainable": true,
+            "date": "12/02/2020"
         },
         {
             "name": "Progress Pride Cape",
@@ -211,6 +218,22 @@
             "obtainable": false,
             "version": "Java and Bedrock",
             "date": "18/03/2025 - 06/04/2025"
+        },
+        {
+            "name": "Hero Cape",
+            "description": "Players receive this cape automatically by logging into Minecraft Dungeons, then into Minecraft Dungeons II, before 31/12/2026. Refunding Dungeons II removes the cape.",
+            "image": "https://minecraft.wiki/images/Hero_Cape_JE.png?0a7c2",
+            "Obtainable": true,
+            "version": "Java and Bedrock",
+            "date": "29/09/2026 - 31/12/2026"
+        },
+        {
+            "name": "Twisted Cape",
+            "description": "This cape was a bonus for pre-ordering Minecraft Dungeons II before its release on 29/09/2026. Buying the game now does not give it, and refunding it removes the cape.",
+            "image": "https://minecraft.wiki/images/Twisted_Cape_JE.png?1e938",
+            "Obtainable": false,
+            "version": "Java and Bedrock",
+            "date": "29/09/2026"
         }
     ],
     "Personalized Capes": [
@@ -255,7 +278,7 @@
             "image": "https://minecraft.wiki/images/Turtle_Cape.png?4dce4"
         },
         {
-            "name":"Birthday Cape",
+            "name": "Birthday Cape",
             "description": "This cape was given to the account Gr8Bizzo, which is the account of Todd Baldwin.",
             "image": "https://minecraft.wiki/images/Birthday_Cape.png?5f85a"
         },
@@ -294,16 +317,16 @@
             "image": "https://minecraft.wiki/images/Mojang_Studios_Cape.png?5f85a"
         },
         {
-            "name" : "Xbox Cape",
-            "image" : "https://minecraft.wiki/images/MicrosoftXbox360_Cape.png?675f9",
-            "description" : "This cape was given out to Microsoft employees, who were also given the ability to toggle the cape's visibility."
+            "name": "Xbox Cape",
+            "image": "https://minecraft.wiki/images/MicrosoftXbox360_Cape.png?675f9",
+            "description": "This cape was given out to Microsoft employees, who were also given the ability to toggle the cape's visibility."
         }
     ],
-        "Volunteer Capes": [
+    "Volunteer Capes": [
         {
             "name": "Moderator Cape",
             "description": "This cape is given to current and past moderators on Mojira.",
-            "image": "https://minecraft.wiki/images/MicrosoftXbox360_Cape.png?675f9",
+            "image": "https://minecraft.wiki/images/Moderator_Cape.png?eb282",
             "version": "Java"
         },
         {
