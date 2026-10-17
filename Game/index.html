@@ -2,170 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/webp" href="../Icon.webp">
     <link rel="apple-touch-icon" href="../Icon.png">
-    <title>AmaiCraft - Game</title>
-    <style>
-        /* === POLICE === */
-        @font-face {
-            font-family: 'Minecraftia';
-            font-style: normal;
-            font-weight: 400;
-            src: local('Minecraftia'), url('../Minecraftia.woff') format('woff');
-        }
-        /* ---  STEVE SUR LA CHAISE --- */
-
-
-
-
-
-
-
-
-
-
-
-
-        :root {
-            --mc-gui-panel: #c6c6c6;
-            --mc-gui-button: #7e7e7e;
-            --mc-gui-shadow: #555555;
-            --mc-gui-light: #ffffff;
-            --mc-text-shadow: #3f3f3f;
-        }
-
-        body {
-            font-family: 'Minecraftia', 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            background-image: url('background.png'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            color: white;
-            user-select: none;
-            background-color: rgb(0, 0, 0);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
-        }
-
-        .mc-panel {
-            background-color: var(--mc-gui-panel);
-            border: 4px solid var(--mc-gui-light);
-            border-bottom-color: var(--mc-gui-shadow);
-            border-right-color: var(--mc-gui-shadow);
-            padding: 20px;
-            color: #333;
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.4);
-        }
-
-        #block-sprite {
-            width: 128px;
-            height: 128px;
-            margin: 20px auto;
-            cursor: pointer;
-            display: block;
-            image-rendering: pixelated;
-            transition: transform 0.05s;
-        }
-
-        #block-sprite:active {
-            transform: scale(0.9);
-        }
-
-        .progress-container {
-            width: 80%;
-            height: 10px;
-            background: #333;
-            margin: 10px auto;
-            border: 2px solid #000;
-        }
-
-        #progress-bar {
-            width: 0%;
-            height: 100%;
-            background: #4caf50;
-        }
-
-        .hotbar {
-            display: flex;
-            flex-wrap: wrap; /* Autorise les éléments à passer à la ligne */
-            gap: 5px;
-            margin: 20px auto 0 auto; /* Centre la barre dans le panel */
-            background: #8b8b8b;
-            padding: 5px;
-            border: 3px solid #373737;
-            justify-content: center;
-            max-width: 422px; /* Largeur exacte pour 7 cases (56px/case + 5px d'espacement) */
-        }
-
-        .slot {
-            width: 50px;
-            height: 50px;
-            background: #8b8b8b;
-            border: 3px solid #373737;
-            border-bottom-color: #fff;
-            border-right-color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            touch-action: none;
-        }
-
-        .slot img {
-            width: 32px;
-            height: 32px;
-            image-rendering: pixelated;
-            pointer-events: none; /* L'image devient "transparente" aux clics */
-            user-select: none; /* Empêche la sélection bleue */
-            -webkit-user-drag: none; /* Empêche le comportement par défaut de glisser l'image */
-        }
-
-        .slot .count {
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            color: white;
-            font-size: 14px;
-            text-shadow: 2px 2px 0 #000;
-        }
-
-        .reset-btn {
-            margin-top: 15px;
-            background: #aa0000;
-            color: white;
-            border: 2px solid #000;
-            padding: 5px;
-            cursor: pointer;
-            font-family: 'Minecraftia';
-            font-size: 10px;
-        }
-
-        /* FOOTER */
-
-    </style>
+    <title>Bedrock Bound: Minecraft Mining Game in your Browser | AmaiCraft</title>
+    <meta name="description" content="Bedrock Bound: a free Minecraft-style mining game in your browser. Dig 300 m down through caves, lava and the Nether, sell ores to the trader, upgrade your pickaxe and claim the Heart of the World.">
+    <link rel="canonical" href="https://www.amaicraft.fr/Game/">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#26262b">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AmaiCraft">
+    <meta property="og:title" content="Bedrock Bound: dig to the bottom of the world">
+    <meta property="og:description" content="Bedrock Bound: a free Minecraft-style mining game in your browser. Dig 300 m down through caves, lava and the Nether, sell ores to the trader, upgrade your pickaxe and claim the Heart of the World.">
+    <meta property="og:url" content="https://www.amaicraft.fr/Game/">
+    <script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "VideoGame",
+ "name": "Bedrock Bound",
+ "url": "https://www.amaicraft.fr/Game/",
+ "description": "Bedrock Bound: a free Minecraft-style mining game in your browser. Dig 300 m down through caves, lava and the Nether, sell ores to the trader, upgrade your pickaxe and claim the Heart of the World.",
+ "genre": ["Mining", "Action", "Roguelite"],
+ "gamePlatform": "Web browser",
+ "applicationCategory": "GameApplication",
+ "operatingSystem": "Any",
+ "author": { "@type": "Person", "name": "Amai" },
+ "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}
+    </script>
+    <link rel="stylesheet" href="game.css">
 <script src="../transitions.js"></script>
 <!-- ac:head -->
 <link rel="preload" href="../Minecraftia.woff" as="font" type="font/woff" crossorigin>
@@ -203,23 +68,28 @@
 </div>
 <!-- /ac:header -->
 
-<main>
-    <div class="mc-panel">
-        <h2 id="block-name">Loading...</h2>
-        
-        <img id="block-sprite" src="" alt="Bloc" onclick="handleMine()">
-        
-        <div class="progress-container">
-            <div id="progress-bar"></div>
+<main class="bb-main">
+    <div class="bb-shell" id="bb-shell">
+        <div class="bb-game" id="bb-game" tabindex="0" aria-label="Bedrock Bound game">
+            <canvas id="bb-canvas" width="400" height="225"></canvas>
         </div>
-
-        <p id="status">Click to collect!</p>
-
-        <div class="hotbar" id="inventory-ui">
-            </div>
-
-        <button class="reset-btn" onclick="resetGame()">RESET DATA</button>
     </div>
+
+    <article class="bb-about">
+        <h1>Bedrock Bound: a Minecraft mining game</h1>
+        <p>Somewhere under the grass, under the stone, the deepslate and even the Nether, the <strong>Heart of the World</strong> is waiting. Grab your wooden pickaxe and dig. Every ore you bring back to the Trader buys a better pickaxe, a bigger backpack, a brighter lantern or tougher armor, so each trip takes you deeper than the last.</p>
+        <h2>What is down there</h2>
+        <ul>
+            <li>Coal, copper, iron, lapis, redstone, gold, diamonds and emeralds, each needing the right pickaxe.</li>
+            <li>Dark caves where creepers wait for you. Light them with torches.</li>
+            <li>Lava that flows into your tunnels, gravel that falls on your head and hidden TNT.</li>
+            <li>A wall of obsidian, then the Nether: quartz, glowstone, magma cubes and Ancient Debris for a netherite pickaxe.</li>
+            <li>Treasure chests, 12 advancements, and the Heart of the World 300 m down.</li>
+        </ul>
+        <h2>Controls</h2>
+        <p>Walk with A/D (Q/D on AZERTY) or the arrows and push into a block to dig it. S digs down, W or Space jumps and climbs. Hold the left mouse button to dig any block in reach. Ladders are placed for you when you climb a shaft; click one or press R to take it back. 1 to 6 picks an item, F uses it, E opens the trade at the surface stall. It also works on phones and tablets with the touch buttons.</p>
+        <p>Your world saves itself in your browser, so you can come back and keep digging.</p>
+    </article>
 </main>
 <!-- ac:footer -->
 <div class="ac-footer" role="contentinfo">
@@ -236,7 +106,7 @@
                     <div class="ac-info-inner">
                         <h3>AmaiCraft: Quick Reference Guide</h3>
                         <p>Looking for specific <strong>Minecraft crafting recipes</strong>? AmaiCraft lists every <strong>craft</strong> in the game so you can build items quickly.</p>
-                        <p>It also includes a <a href="../commands/"><strong>Minecraft command generator</strong></a> for <strong>custom items, mob spawners and colored text</strong>, a <strong>Jukebox</strong> for <strong>music discs</strong>, every hurt <strong>mob sound</strong> and a <strong>mining mini-game</strong>.</p>
+                        <p>It also includes a <a href="../commands/"><strong>Minecraft command generator</strong></a> for <strong>custom items, mob spawners and colored text</strong>, a <strong>Jukebox</strong> for <strong>music discs</strong>, every hurt <strong>mob sound</strong> and the <strong>Bedrock Bound mining game</strong>.</p>
                         <p>Simple, but <strong>unofficial</strong> website.</p>
                         <p class="ac-info-new"><strong>NEW!</strong> Cape Collection: discover the history and availability of all Minecraft capes.</p>
                     </div>
@@ -263,240 +133,6 @@
     </div>
 </div>
 <!-- /ac:footer -->
-<script>
-const blockData = [
-        { id: "sand", name: "Sand", hits: 2, img: "../recipecraft/assets/items/sand.webp", weight: 55 },
-        { id: "grass", name: "Grass Block", hits: 3, img: "Blocks/Grass_Block.png", weight: 60 },
-        { id: "dirt", name: "Dirt", hits: 3, img: "Blocks/Dirt.png", weight: 50 },
-        { id: "stone", name: "Stone", hits: 6, img: "../recipecraft/assets/items/stone.png", weight: 45 },
-        { id: "oak", name: "Oak Log", hits: 5, img: "../recipecraft/assets/items/oak_log.png", weight: 35 },
-        { id: "coal", name: "Coal", hits: 8, img: "Blocks/Coal_Ore.png", weight: 25 },
-        { id: "iron", name: "Iron", hits: 10, img: "Blocks/Iron_Ore.png", weight: 18 },
-        { id: "diamond", name: "Diamond", hits: 15, img: "../recipecraft/assets/items/diamond_ore.png", weight: 5 },
-        { id: "amethyst", name: "Amethyst", hits: 20, img: "Blocks/Amethyst.png", weight: 4 },
-        { id: "netherrack", name: "Netherrack", hits: 1, img: "https://static.wikia.nocookie.net/minecraft_fr_gamepedia/images/7/72/Netherrack.png/revision/latest?cb=20210920162900", weight: 20 },
-        { id: "ancient_debris", name: "Ancient Debris", hits: 25, img: "Blocks/Ancient_Debris.png", weight: 1 },
-        { id: "end_stone", name: "End Stone", hits: 3, img: "Blocks/End_Stone.png", weight: 10 },
-        { id: "obsidian", name: "Obsidian", hits: 50, img: "../recipecraft/assets/items/obsidian.png", weight: 2 },
-        { id: "bedrock", name: "Bedrock", hits: 40, img: "Blocks/Bedrock.png", weight: 0.5 }
-    ];
-
-    let currentBlockIndex = 0;
-    let currentHits = 0;
-    
-    // Initialisation d'un inventaire de 14 cases vides (2 lignes de 7)
-    let inventory = Array(14).fill(null); 
-
-    // Récupération et conversion automatique de l'ancienne sauvegarde si nécessaire
-    const savedInv = localStorage.getItem('amaicraft_inv');
-    if (savedInv) {
-        try {
-            const parsed = JSON.parse(savedInv);
-            if (Array.isArray(parsed)) {
-                inventory = parsed;
-            } else {
-                // Migration de l'ancien format objet vers le nouveau format tableau
-                let index = 0;
-                Object.keys(parsed).forEach(id => {
-                    if (index < 14 && parsed[id] > 0) {
-                        inventory[index] = { id: id, count: parsed[id] };
-                        index++;
-                    }
-                });
-                localStorage.setItem('amaicraft_inv', JSON.stringify(inventory));
-            }
-        } catch(e) {
-            console.error("Erreur de chargement de l'inventaire", e);
-        }
-    }
-
-    function init() {
-        spawnRandomBlock();
-        updateInventoryUI();
-    }
-
-function spawnRandomBlock() {
-        // 1. Calculer le total de tous les poids réunis
-        const totalWeight = blockData.reduce((sum, block) => sum + block.weight, 0);
-        
-        // 2. Choisir un nombre aléatoire entre 0 et le poids total
-        let randomNum = Math.random() * totalWeight;
-        
-        // 3. Parcourir les blocs pour trouver celui qui correspond au nombre tiré
-        currentBlockIndex = 0;
-        for (let i = 0; i < blockData.length; i++) {
-            if (randomNum < blockData[i].weight) {
-                currentBlockIndex = i;
-                break;
-            }
-            randomNum -= blockData[i].weight;
-        }
-
-        currentHits = 0;
-        const block = blockData[currentBlockIndex];
-        
-        document.getElementById('block-name').innerText = block.name;
-        document.getElementById('block-sprite').src = block.img;
-        updateProgressBar();
-    }
-
-    function handleMine() {
-        const block = blockData[currentBlockIndex];
-        currentHits++;
-        
-        updateProgressBar();
-
-        if (currentHits >= block.hits) {
-            collectBlock(block.id);
-            spawnRandomBlock();
-        }
-    }
-
-    function updateProgressBar() {
-        const block = blockData[currentBlockIndex];
-        const percent = (currentHits / block.hits) * 100;
-        document.getElementById('progress-bar').style.width = percent + "%";
-    }
-
-    function collectBlock(id) {
-        // Regarde si le bloc existe déjà dans une case
-        let slotIndex = inventory.findIndex(slot => slot && slot.id === id);
-        
-        if (slotIndex !== -1) {
-            inventory[slotIndex].count++;
-        } else {
-            // Sinon, trouve la première case vide
-            let emptyIndex = inventory.findIndex(slot => slot === null);
-            if (emptyIndex !== -1) {
-                inventory[emptyIndex] = { id: id, count: 1 };
-            } else {
-                alert("Inventaire plein !");
-                return;
-            }
-        }
-        localStorage.setItem('amaicraft_inv', JSON.stringify(inventory));
-        updateInventoryUI();
-    }
-
-    /* === GESTION DU DRAG AND DROP === */
-    let draggedSlotIndex = null;
-
-    function handleDragStart(e) {
-        draggedSlotIndex = this.getAttribute('data-index');
-        e.dataTransfer.effectAllowed = 'move';
-    }
-
-    function handleDragOver(e) {
-        if (e.preventDefault) {
-            e.preventDefault(); // Autorise le drop sur cette case
-        }
-        return false;
-    }
-
-    function handleDrop(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        
-        const targetSlotIndex = this.getAttribute('data-index');
-        
-        if (draggedSlotIndex !== null && draggedSlotIndex !== targetSlotIndex) {
-            // Échange des éléments entre les deux cases
-            const temp = inventory[draggedSlotIndex];
-            inventory[draggedSlotIndex] = inventory[targetSlotIndex];
-            inventory[targetSlotIndex] = temp;
-            
-            localStorage.setItem('amaicraft_inv', JSON.stringify(inventory));
-            updateInventoryUI();
-        }
-        return false;
-    }
-    /* === GESTION TACTILE (MOBILE) === */
-    function handleTouchStart(e) {
-        draggedSlotIndex = this.getAttribute('data-index');
-        this.style.opacity = '0.5'; // Petit effet visuel pour montrer qu'on a attrapé l'objet
-    }
-
-    function handleTouchMove(e) {
-        e.preventDefault(); // Bloque le scroll pendant qu'on déplace l'objet
-    }
-
-    function handleTouchEnd(e) {
-        this.style.opacity = '1';
-        e.preventDefault();
-        
-        // On cherche où le doigt s'est levé
-        const touch = e.changedTouches[0];
-        const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
-        
-        // On vérifie si on a relâché sur une case (.slot)
-        const targetSlot = targetElement ? targetElement.closest('.slot') : null;
-
-        if (targetSlot) {
-            const targetSlotIndex = targetSlot.getAttribute('data-index');
-            
-            if (draggedSlotIndex !== null && draggedSlotIndex !== targetSlotIndex) {
-                // Échange des éléments
-                const temp = inventory[draggedSlotIndex];
-                inventory[draggedSlotIndex] = inventory[targetSlotIndex];
-                inventory[targetSlotIndex] = temp;
-                
-                localStorage.setItem('amaicraft_inv', JSON.stringify(inventory));
-                updateInventoryUI();
-            }
-        }
-        draggedSlotIndex = null;
-    }
-    function updateInventoryUI() {
-        const ui = document.getElementById('inventory-ui');
-        ui.innerHTML = "";
-        
-        inventory.forEach((slotData, index) => {
-            const slot = document.createElement('div');
-            slot.className = "slot";
-            slot.setAttribute('data-index', index);
-            
-            // Événements PC (Souris)
-            slot.addEventListener('dragover', handleDragOver);
-            slot.addEventListener('drop', handleDrop);
-            
-            // Événements Mobile (Tactile)
-            slot.addEventListener('touchend', handleTouchEnd);
-            
-            if (slotData && slotData.count > 0) {
-                const data = blockData.find(b => b.id === slotData.id);
-                if (data) {
-                    slot.setAttribute('draggable', 'true');
-                    
-                    // Événements PC
-                    slot.addEventListener('dragstart', handleDragStart);
-                    
-                    // Événements Mobile
-                    slot.addEventListener('touchstart', handleTouchStart);
-                    slot.addEventListener('touchmove', handleTouchMove, { passive: false });
-                    
-                    slot.style.cursor = 'grab';
-                    
-                    slot.innerHTML = `
-                        <img src="${data.img}" draggable="false">
-                        <span class="count">${slotData.count}</span>
-                    `;
-                }
-            }
-            ui.appendChild(slot);
-        });
-    }
-
-    function resetGame() {
-        if(confirm("Delete all your progress?")) {
-            inventory = Array(14).fill(null);
-            localStorage.removeItem('amaicraft_inv');
-            updateInventoryUI();
-        }
-    }
-
-    init();
-
-</script>
-
+<script src="game.js"></script>
 </body>
 </html>
