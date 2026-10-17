@@ -3,147 +3,139 @@
 <head>
     <link rel="icon" type="image/png" href="../Icon.png">
     <meta charset="UTF-8">
-    <title>AmaiCraft - Commands</title>
-    <style>
-        /* --- POLICE --- */
-        @font-face {
-            font-family: 'Minecraftia';
-            font-style: normal;
-            font-weight: 400;
-            src: local('Minecraftia'), url('../Minecraftia.woff') format('woff');
-        }
-
-        :root {
-            --mc-gui-panel: #c6c6c6;
-            --mc-gui-button: #7e7e7e;
-            --mc-gui-shadow: #555555;
-            --mc-gui-light: #ffffff;
-            --mc-text-shadow: #3f3f3f;
-            --mc-border-dark: #555555;
-        }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            min-height: 100%;
-            overflow-x: hidden;
-        }
-
-        body {
-            font-family: 'Minecraftia', 'Segoe UI', Arial, sans-serif;
-            background-image: url('Wallpaper.png'); 
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            color: white;
-            background-color: rgb(0, 0, 0);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            background: var(--mc-gui-panel);
-            border: 4px solid #000;
-            box-shadow: inset 4px 4px 0px var(--mc-gui-light), 
-                        inset -4px -4px 0px var(--mc-gui-shadow);
-            padding: 30px;
-            color: #3f3f3f;
-        }
-
-        h2 {
-            border-bottom: 3px solid #3f3f3f;
-            padding-bottom: 10px;
-            margin-top: 0;
-            font-size: 22px;
-            color: #1d1d1d;
-        }
-
-        .command-section {
-            margin-bottom: 25px;
-        }
-
-        .command-section h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: #555;
-        }
-
-        .command-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 10px;
-        }
-
-        .command-item {
-            background: #8b8b8b;
-            border: 2px solid #000;
-            border-top-color: #373737;
-            border-left-color: #373737;
-            border-right-color: #ffffff;
-            border-bottom-color: #ffffff;
-            padding: 10px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.1s;
-        }
-
-        .command-item:hover {
-            background: #7a7a7a;
-            outline: 3px solid white;
-        }
-
-        .command-code {
-            color: #ffff55;
-            text-shadow: 2px 2px 0px #3f3f15;
-            font-size: 14px;
-        }
-
-        .command-desc {
-            color: #eeeeee;
-            font-size: 11px;
-            margin-top: 4px;
-        }
-
-        .toast {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            width: auto;
-            box-sizing: border-box;
-            background: linear-gradient(90deg, #55ff55 0%, #2fcf2f 50%, #55ff55 100%);
-            color: #000;
-            padding: 14px 20px;
-            border-bottom: 4px solid #000;
-            display: none;
-            z-index: 9999;
-            font-size: 14px;
-            text-align: center;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* --- FOOTER --- */
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minecraft Command Generator: /give, Custom Items, Spawners | AmaiCraft</title>
+    <meta name="description" content="Free Minecraft command generator for custom /give items, mob spawners, /summon and /tellraw. Colored names, enchantments up to 255, attributes. Java 1.12.2 to the latest version.">
+    <link rel="canonical" href="https://www.amaicraft.fr/commands/">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#26262b">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AmaiCraft">
+    <meta property="og:title" content="Minecraft Command Generator: custom items, spawners and colored text">
+    <meta property="og:description" content="Free Minecraft command generator for custom /give items, mob spawners, /summon and /tellraw. Colored names, enchantments up to 255, attributes. Java 1.12.2 to the latest version.">
+    <meta property="og:url" content="https://www.amaicraft.fr/commands/">
+    <meta property="og:image" content="https://www.amaicraft.fr/commands/game-screen.jpg">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preload" href="wallpaper.jpg" as="image">
+    <script type="application/ld+json">
+[
+ {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AmaiCraft Command Generator",
+  "url": "https://www.amaicraft.fr/commands/",
+  "description": "Free Minecraft command generator for custom /give items, mob spawners, /summon and /tellraw. Colored names, enchantments up to 255, attributes. Java 1.12.2 to the latest version.",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "EUR"
+  },
+  "featureList": [
+   "Custom /give items with colored names, gradients and lore",
+   "Enchantments up to level 255 and custom attributes",
+   "Mob spawner, spawn egg and /summon generator",
+   "/tellraw and /title generator",
+   "Minecraft Java 1.12.2 to the latest version"
+  ],
+  "author": {
+   "@type": "Person",
+   "name": "Amai"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+   {
+    "@type": "ListItem",
+    "position": 1,
+    "name": "AmaiCraft",
+    "item": "https://www.amaicraft.fr/"
+   },
+   {
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Command Generator",
+    "item": "https://www.amaicraft.fr/commands/"
+   }
+  ]
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+   {
+    "@type": "Question",
+    "name": "How do I give myself a custom sword in Minecraft?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Open the Custom item tab, pick a sword, type a name and choose its colors, add enchantments like Sharpness 255, then copy the command and paste it in the chat. You need cheats turned on or operator rights."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Why does my /give command not work?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Most of the time the command was made for another Minecraft version. Since 1.20.5 items use components in square brackets instead of NBT tags in curly brackets, and 1.21.5 changed how names are written again. Choose your exact version at the top of the generator and the command follows it."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "What is the highest enchantment level in Minecraft?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "With commands, enchantments go up to level 255 in every version since 1.17, far above the normal Sharpness V or Protection IV."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How do I get a spawner of any mob?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Open the Mob spawner tab, choose the mob and keep \"A spawner that keeps making mobs\" selected. You can change how many mobs it spawns, how often and how close a player has to be. Place it in Creative mode or as an operator."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Does it work with Minecraft 1.12.2 and modpacks?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. Choose 1.12.2 in the version list: the generator writes the old syntax with numeric enchantment ids and § color codes. You can also type the id of a modded item, like create:wrench."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Does it work on Bedrock Edition?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "No. The generator makes Java Edition commands. The Bedrock /give command cannot set names, lore or enchantments."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How do I paste a command that is too long for the chat?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "The chat takes 256 characters. For longer commands, give yourself a command block with /give @p command_block, place it, paste the command inside and power it with a button."
+    }
+   }
+  ]
+ }
+]
+    </script>
 <script src="../transitions.js"></script>
 <!-- ac:head -->
 <link rel="preload" href="../Minecraftia.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="../site.css">
 <script src="../site.js" defer></script>
 <!-- /ac:head -->
+    <link rel="stylesheet" href="generator.css">
 </head>
 
 <body>
@@ -178,90 +170,453 @@
 </div>
 <!-- /ac:header -->
 
-<div class="container">
-    <h2>Useful Commands</h2>
-    <p style="font-size: 12px; color: #555; margin-bottom: 20px;">Click on a command to copy it to your game.</p>
-
-    <div class="command-section">
-        <h3>🗿 Gamemodes</h3>
-        <div class="command-list">
-            <div class="command-item" onclick="copyCmd('/gamemode creative')">
-                <span class="command-code">/gamemode creative</span>
-                <span class="command-desc">Turn to Creative</span>
-            </div>
-            <div class="command-item" onclick="copyCmd('/gamemode survival')">
-                <span class="command-code">/gamemode survival</span>
-                <span class="command-desc">Turn to Survival</span>
-            </div>
-            <div class="command-item" onclick="copyCmd('/gamemode adventure')">
-                <span class="command-code">/gamemode adventure</span>
-                <span class="command-desc">Turn to Adventure</span>
-            </div>
-            <div class="command-item" onclick="copyCmd('/gamemode spectator')">
-                <span class="command-code">/gamemode spectator</span>
-                <span class="command-desc">Turn to Spectator</span>
-            </div>
+<main class="cg">
+    <div class="cg-top">
+        <div>
+            <h1>Command Generator</h1>
+            <p>Make your own items with colored names, gradients, lore, enchantments and attributes, then paste the command in game. Minecraft Java Edition.</p>
         </div>
+        <label class="cg-version">Your Minecraft version
+            <select id="cg-version" class="cg-input"></select>
+        </label>
     </div>
 
-    <div class="command-section">
-        <h3>🛠️ Admin Items</h3>
-        <div class="command-list">
-            <div class="command-item" onclick="copyCmd('/give @p minecraft:command_block')">
-                <span class="command-code">/give @p command_block</span>
-                <span class="command-desc">Give a command block</span>
-            </div>
-            <div class="command-item" onclick="copyCmd('/give @p minecraft:barrier')">
-                <span class="command-code">/give @p barrier</span>
-                <span class="command-desc">Give an invisible block</span>
-            </div>
-            <div class="command-item" onclick="copyCmd('/give @p minecraft:light')">
-                <span class="command-code">/give @p light</span>
-                <span class="command-desc">Give a light block</span>
-            </div>
-            <div class="command-item" onclick="copyCmd('/give @p minecraft:debug_stick')">
-                <span class="command-code">/give @p debug_stick</span>
-                <span class="command-desc">Give a debug stick</span>
-            </div>
-            <div class="command-item" onclick="copyCmd('/give @p minecraft:structure_block')">
-                <span class="command-code">/give @p structure_block</span>
-                <span class="command-desc">Give a structure block</span>
-            </div>
-            <div class="command-item" onclick="copyCmd('/give @p minecraft:knowledge_book')">
-                <span class="command-code">/give @p knowledge_book</span>
-                <span class="command-desc">Give a knowledge book</span>
-            </div>
-        </div>
+    <div class="cg-tabs" role="tablist" aria-label="Generators">
+        <button type="button" class="cg-tab" role="tab" data-tab="give" aria-controls="tab-give"><img src="../assets/ui/name_tag.png" alt="">Custom item</button>
+        <button type="button" class="cg-tab" role="tab" data-tab="mob" aria-controls="tab-mob"><img id="mb-tab-icon" alt="">Mob spawner</button>
+        <button type="button" class="cg-tab" role="tab" data-tab="text" aria-controls="tab-text"><img src="../assets/ui/oak_sign.png" alt="">Chat &amp; titles</button>
+        <button type="button" class="cg-tab" role="tab" data-tab="quick" aria-controls="tab-quick"><img src="../assets/ui/command_block.png" alt="">Quick commands</button>
     </div>
 
-    <div class="command-section">
-        <h3>🌍 Secret Mobs</h3>
-        <div class="command-list">
-            <div class="command-item" onclick="copyCmd('/summon illusioner')">
-                <span class="command-code">/summon illusioner</span>
-                <span class="command-desc">Summon an illusioner</span>
-            </div>
-            <div class="command-item" onclick="copyCmd('/summon giant')">
-                <span class="command-code">/summon giant</span>
-                <span class="command-desc">Summon a giant zombie</span>
-            </div>
+    <!-- ========== /give ========== -->
+    <section id="tab-give" class="cg-panel" role="tabpanel">
+        <div class="cg-presets-box">
+            <h2>Start from a preset</h2>
+            <div id="cg-presets" class="cg-presets"></div>
         </div>
-    </div>
 
-    <div class="command-section">
-        <h3>🌍 World & Time</h3>
-        <div class="command-list">
-            <div class="command-item" onclick="copyCmd('/time set day')">
-                <span class="command-code">/time set day</span>
-                <span class="command-desc">Set the time to day</span>
+        <div class="cg-layout">
+            <div class="cg-editor">
+                <section class="cg-box">
+                    <h2>Item</h2>
+                    <div id="cg-item" class="cg-item"></div>
+                    <div class="cg-grid3">
+                        <div class="cg-field">
+                            <span>Give to</span>
+                            <div class="cg-inline">
+                                <select id="cg-target" class="cg-input" style="flex:1 1 140px">
+                                    <option value="@p">Nearest player (@p)</option>
+                                    <option value="@s">Myself (@s)</option>
+                                    <option value="@a">Everyone (@a)</option>
+                                    <option value="@r">Random player (@r)</option>
+                                    <option value="name">A player name...</option>
+                                </select>
+                                <input id="cg-player" class="cg-input" type="text" placeholder="Player name" aria-label="Player name" spellcheck="false" style="flex:1 1 140px" hidden>
+                            </div>
+                        </div>
+                        <label class="cg-field"><span>Count</span><input id="cg-count" class="cg-input" type="number" min="1" max="6400"></label>
+                    </div>
+                </section>
+
+                <section class="cg-box">
+                    <h2>Name</h2>
+                    <p class="cg-help">Split the name in parts to mix colors and styles. The color square also makes gradients and rainbows.</p>
+                    <div id="cg-name"></div>
+                </section>
+
+                <section class="cg-box">
+                    <h2>Lore</h2>
+                    <p class="cg-help">The description lines under the name.</p>
+                    <div id="cg-lore"></div>
+                </section>
+
+                <section class="cg-box">
+                    <h2>Enchantments</h2>
+                    <p class="cg-help">Any enchantment on any item, up to level 255.</p>
+                    <div id="cg-ench"></div>
+                </section>
+
+                <section class="cg-box">
+                    <h2>Attributes</h2>
+                    <p class="cg-help">Extra damage, health, speed, size... With "% of base", 0.5 means +50%.</p>
+                    <div id="cg-attr"></div>
+                </section>
+
+                <section class="cg-box" id="cg-potion" hidden>
+                    <h2>Potion</h2>
+                    <p class="cg-help">Pick a normal potion, or add your own effects with any level and duration.</p>
+                    <div id="cg-potion-body"></div>
+                </section>
+
+                <section class="cg-box" id="cg-dye-box" hidden>
+                    <h2>Leather color</h2>
+                    <div class="cg-inline">
+                        <input id="cg-dye" type="color" aria-label="Leather color">
+                        <button type="button" id="cg-dye-clear" class="cg-chip">No color</button>
+                    </div>
+                </section>
+
+                <section class="cg-box">
+                    <h2>Options</h2>
+                    <div class="cg-grid2">
+                        <label class="cg-check"><input type="checkbox" id="cg-unbreakable"><span>Unbreakable</span></label>
+                        <label class="cg-check" data-since="2"><input type="checkbox" id="cg-fire"><span>Survives fire and lava</span><em>1.20.5+</em></label>
+                        <label class="cg-check" data-since="4"><input type="checkbox" id="cg-glider"><span>Glide like an elytra (when worn)</span><em>1.21.2+</em></label>
+                        <label class="cg-field"><span>Enchantment shine</span>
+                            <select id="cg-glint" class="cg-input">
+                                <option value="">Normal</option>
+                                <option value="on">Always shiny</option>
+                                <option value="off">Never shiny (1.20.5+)</option>
+                            </select>
+                        </label>
+                        <label class="cg-field" data-since="2"><span>Rarity (name color) <em>1.20.5+</em></span>
+                            <select id="cg-rarity" class="cg-input">
+                                <option value="">Normal</option>
+                                <option value="common">Common (white)</option>
+                                <option value="uncommon">Uncommon (yellow)</option>
+                                <option value="rare">Rare (aqua)</option>
+                                <option value="epic">Epic (pink)</option>
+                            </select>
+                        </label>
+                        <label class="cg-field" data-since="2"><span>Max stack size <em>1.20.5+</em></span>
+                            <input id="cg-stack" class="cg-input" type="number" min="1" max="99" placeholder="Normal">
+                        </label>
+                        <label class="cg-field" data-since="0" data-need="1.14"><span>Custom model data <em>1.14+</em></span>
+                            <input id="cg-model" class="cg-input" type="number" placeholder="For resource packs">
+                        </label>
+                    </div>
+                    <h3>Hide from the tooltip</h3>
+                    <div class="cg-grid2">
+                        <label class="cg-check"><input type="checkbox" data-hide="ench"><span>Enchantments</span></label>
+                        <label class="cg-check"><input type="checkbox" data-hide="attr"><span>Attributes</span></label>
+                        <label class="cg-check"><input type="checkbox" data-hide="unb"><span>"Unbreakable"</span></label>
+                        <label class="cg-check" data-since="0" data-need="1.16.2"><input type="checkbox" data-hide="dye"><span>Leather color</span><em>1.16.2+</em></label>
+                        <label class="cg-check"><input type="checkbox" data-hide="other"><span>Other info (effects, trims...)</span></label>
+                        <label class="cg-check"><input type="checkbox" data-hide="all"><span>The whole tooltip</span></label>
+                    </div>
+                </section>
             </div>
-            <div class="command-item" onclick="copyCmd('/gamerule keepInventory true')">
-                <span class="command-code">/gamerule keepInventory true</span>
-                <span class="command-desc">Keep inventory after death</span>
+
+            <aside class="cg-side" aria-label="Result">
+                <div id="cg-undo" class="cg-undo" role="status" hidden>
+                    <span></span>
+                    <button type="button" class="ac-btn cg-btn-main cg-undo-btn">Undo</button>
+                    <button type="button" class="cg-x cg-undo-close" aria-label="Hide this message">×</button>
+                </div>
+                <div class="cg-box">
+                    <h2>Preview</h2>
+                    <div class="cg-preview-row">
+                        <span class="cg-slot cg-slot-big" id="cg-preview-slot"><img id="cg-icon" alt="" onerror="this.src='../assets/ui/command_block.png'"><b id="cg-count-badge"></b></span>
+                        <div id="cg-tip" class="cg-tip" aria-live="polite"></div>
+                    </div>
+                </div>
+                <div class="cg-box">
+                    <h2>Your command</h2>
+                    <pre id="cg-cmd" class="cg-cmd" tabindex="0" aria-label="Generated command"></pre>
+                    <span id="cg-len" class="cg-len"></span>
+                    <div class="cg-actions">
+                        <button type="button" id="cg-copy" class="ac-btn cg-btn-main">Copy</button>
+                        <button type="button" id="cg-share" class="ac-btn">Share link</button>
+                        <button type="button" id="cg-reset" class="ac-btn">Start over</button>
+                    </div>
+                    <ul id="cg-notes" class="cg-notes"></ul>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- ========== mobs : spawner, /summon, oeuf ========== -->
+    <section id="tab-mob" class="cg-panel" role="tabpanel" hidden>
+        <div class="cg-presets-box">
+            <h2>Start from a preset</h2>
+            <div id="mb-presets" class="cg-presets"></div>
+        </div>
+
+        <div class="cg-layout">
+            <div class="cg-editor">
+                <section class="cg-box">
+                    <h2>What do you want?</h2>
+                    <div class="cg-kinds" role="radiogroup" aria-label="Kind of command">
+                        <label class="cg-check"><input type="radio" name="mb-mode" value="spawner"><span>A spawner that keeps making mobs</span></label>
+                        <label class="cg-check"><input type="radio" name="mb-mode" value="summon"><span>Spawn one right now (/summon)</span></label>
+                        <label class="cg-check"><input type="radio" name="mb-mode" value="egg"><span>A spawn egg</span></label>
+                    </div>
+                    <div class="cg-grid3">
+                        <div class="cg-field">
+                            <span>Mob</span>
+                            <div class="cg-inline">
+                                <span class="cg-slot cg-slot-small"><img id="mb-mob-icon" alt="" onerror="this.src='../assets/ui/command_block.png'"></span>
+                                <select id="mb-mob" class="cg-input" style="flex:1 1 160px" aria-label="Mob"></select>
+                            </div>
+                        </div>
+                        <div class="cg-field" id="mb-target-box">
+                            <span>Give to</span>
+                            <select id="mb-target" class="cg-input">
+                                <option value="@p">Nearest player (@p)</option>
+                                <option value="@s">Myself (@s)</option>
+                                <option value="@a">Everyone (@a)</option>
+                                <option value="@r">Random player (@r)</option>
+                                <option value="name">A player name...</option>
+                            </select>
+                            <input id="mb-player" class="cg-input" type="text" placeholder="Player name" aria-label="Player name" spellcheck="false" hidden>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cg-box">
+                    <h2>Name</h2>
+                    <p class="cg-help">The name over its head. Colors, gradients and styles work like for items.</p>
+                    <div id="mb-name"></div>
+                    <label class="cg-check" style="margin-top:6px"><input type="checkbox" data-mb="showName"><span>Always show the name (not only when you look at it)</span></label>
+                </section>
+
+                <section class="cg-box">
+                    <h2>Mob</h2>
+                    <div class="cg-grid2">
+                        <label class="cg-field" id="mb-variant-box"><span>Color</span>
+                            <select class="cg-input" data-mb="variant">
+                                <option value="">Random</option>
+                                <option value="0">Pink (Lucy)</option>
+                                <option value="1">Brown (Wild)</option>
+                                <option value="2">Gold</option>
+                                <option value="3">Cyan</option>
+                                <option value="4">Blue (the rare one)</option>
+                            </select>
+                        </label>
+                        <label class="cg-field"><span>Health (a zombie has 20)</span><input class="cg-input" type="number" min="1" max="1024" placeholder="Normal" data-mb="health"></label>
+                        <label class="cg-field" data-since="2"><span>Size (2 = twice as big) <em>1.20.5+</em></span><input class="cg-input" type="number" min="0.0625" max="16" step="any" placeholder="1" data-mb="scale"></label>
+                        <label class="cg-check"><input type="checkbox" data-mb="baby"><span>Baby</span></label>
+                        <label class="cg-check"><input type="checkbox" data-mb="noai"><span>Frozen (no AI)</span></label>
+                        <label class="cg-check"><input type="checkbox" data-mb="silent"><span>Silent</span></label>
+                        <label class="cg-check"><input type="checkbox" data-mb="glow"><span>Glowing outline</span></label>
+                        <label class="cg-check"><input type="checkbox" data-mb="invul"><span>Can't be hurt</span></label>
+                        <label class="cg-check"><input type="checkbox" data-mb="persist"><span>Never despawns</span></label>
+                        <label class="cg-check"><input type="checkbox" data-mb="nograv"><span>No gravity (floats)</span></label>
+                    </div>
+                </section>
+
+                <section class="cg-box">
+                    <h2>Equipment</h2>
+                    <p class="cg-help">Type an item id or pick one from the list. A helmet also stops zombies and skeletons from burning in the sun.</p>
+                    <datalist id="mb-items"></datalist>
+                    <div class="cg-grid2">
+                        <label class="cg-field"><span>Main hand</span><input class="cg-input" type="text" list="mb-items" placeholder="diamond_sword" spellcheck="false" data-mb="gear.mainhand"></label>
+                        <label class="cg-field"><span>Head</span><input class="cg-input" type="text" list="mb-items" placeholder="diamond_helmet" spellcheck="false" data-mb="gear.head"></label>
+                        <label class="cg-field"><span>Chest</span><input class="cg-input" type="text" list="mb-items" placeholder="diamond_chestplate" spellcheck="false" data-mb="gear.chest"></label>
+                        <label class="cg-field"><span>Legs</span><input class="cg-input" type="text" list="mb-items" placeholder="diamond_leggings" spellcheck="false" data-mb="gear.legs"></label>
+                        <label class="cg-field"><span>Feet</span><input class="cg-input" type="text" list="mb-items" placeholder="diamond_boots" spellcheck="false" data-mb="gear.feet"></label>
+                    </div>
+                </section>
+
+                <section class="cg-box" id="mb-spawner-box">
+                    <h2>Spawner settings</h2>
+                    <p class="cg-help">Leave a box empty to keep the normal value.</p>
+                    <div class="cg-grid2">
+                        <label class="cg-field"><span>Mobs per spawn</span><input class="cg-input" type="number" min="1" max="100" placeholder="4" data-mb="sp.count"></label>
+                        <label class="cg-field"><span>Stops when this many are around</span><input class="cg-input" type="number" min="0" max="1000" placeholder="6" data-mb="sp.nearby"></label>
+                        <label class="cg-field"><span>Shortest wait (seconds)</span><input class="cg-input" type="number" min="0" max="1600" placeholder="10" data-mb="sp.min"></label>
+                        <label class="cg-field"><span>Longest wait (seconds)</span><input class="cg-input" type="number" min="0" max="1600" placeholder="40" data-mb="sp.max"></label>
+                        <label class="cg-field"><span>Works when a player is within (blocks)</span><input class="cg-input" type="number" min="1" max="1000" placeholder="16" data-mb="sp.range"></label>
+                        <label class="cg-field"><span>Spawn area around it (blocks)</span><input class="cg-input" type="number" min="1" max="100" placeholder="4" data-mb="sp.area"></label>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="cg-side" aria-label="Result">
+                <div id="mb-undo" class="cg-undo" role="status" hidden>
+                    <span></span>
+                    <button type="button" class="ac-btn cg-btn-main cg-undo-btn">Undo</button>
+                    <button type="button" class="cg-x cg-undo-close" aria-label="Hide this message">×</button>
+                </div>
+                <div class="cg-box">
+                    <h2>Preview</h2>
+                    <div class="cg-preview-row">
+                        <span class="cg-slot cg-slot-big"><img id="mb-icon" alt="" onerror="this.src='../assets/ui/command_block.png'"></span>
+                        <div id="mb-tip" class="cg-tip" aria-live="polite"></div>
+                    </div>
+                </div>
+                <div class="cg-box">
+                    <h2>Your command</h2>
+                    <pre id="mb-cmd" class="cg-cmd" tabindex="0" aria-label="Generated command"></pre>
+                    <span id="mb-len" class="cg-len"></span>
+                    <div class="cg-actions">
+                        <button type="button" id="mb-copy" class="ac-btn cg-btn-main">Copy</button>
+                        <button type="button" id="mb-share" class="ac-btn">Share link</button>
+                        <button type="button" id="mb-reset" class="ac-btn">Start over</button>
+                    </div>
+                    <ul id="mb-notes" class="cg-notes"></ul>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- ========== /tellraw et /title ========== -->
+    <section id="tab-text" class="cg-panel" role="tabpanel" hidden>
+        <div class="cg-layout">
+            <div class="cg-editor">
+                <section class="cg-box">
+                    <h2>Where</h2>
+                    <div class="cg-kinds" role="radiogroup" aria-label="Where the text shows">
+                        <label class="cg-check"><input type="radio" name="tx-kind" value="tellraw"><span>Chat message (/tellraw)</span></label>
+                        <label class="cg-check"><input type="radio" name="tx-kind" value="title"><span>Big title</span></label>
+                        <label class="cg-check"><input type="radio" name="tx-kind" value="subtitle"><span>Subtitle</span></label>
+                        <label class="cg-check"><input type="radio" name="tx-kind" value="actionbar"><span>Above the hotbar</span></label>
+                    </div>
+                    <div class="cg-field">
+                        <span>Send to</span>
+                        <div class="cg-inline">
+                            <select id="tx-target" class="cg-input" style="flex:1 1 140px">
+                                <option value="@a">Everyone (@a)</option>
+                                <option value="@p">Nearest player (@p)</option>
+                                <option value="@s">Myself (@s)</option>
+                                <option value="@r">Random player (@r)</option>
+                                <option value="name">A player name...</option>
+                            </select>
+                            <input id="tx-player" class="cg-input" type="text" placeholder="Player name" aria-label="Player name" spellcheck="false" style="flex:1 1 140px" hidden>
+                        </div>
+                    </div>
+                </section>
+                <section class="cg-box">
+                    <h2>Message</h2>
+                    <p class="cg-help">Same tools as item names: colors, gradients, rainbow, bold, italic, underlined, strikethrough and scrambled letters.</p>
+                    <div id="tx-editor"></div>
+                </section>
+            </div>
+            <aside class="cg-side" aria-label="Result">
+                <div class="cg-box">
+                    <h2>Preview</h2>
+                    <div id="tx-screen" class="cg-screen"><div id="tx-out" class="cg-screen-out"></div></div>
+                </div>
+                <div class="cg-box">
+                    <h2>Your command</h2>
+                    <pre id="tx-cmd" class="cg-cmd" tabindex="0" aria-label="Generated command"></pre>
+                    <span id="tx-len" class="cg-len"></span>
+                    <div class="cg-actions">
+                        <button type="button" id="tx-copy" class="ac-btn cg-btn-main">Copy</button>
+                        <button type="button" id="tx-share" class="ac-btn">Share link</button>
+                    </div>
+                    <ul id="tx-notes" class="cg-notes"></ul>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- ========== commandes rapides ========== -->
+    <section id="tab-quick" class="cg-panel" role="tabpanel" hidden>
+        <p class="cg-help" style="margin:0 0 16px">Click on a command to copy it.</p>
+
+        <div class="command-section">
+            <h3>🗿 Gamemodes</h3>
+            <div class="command-list">
+                <div class="command-item" role="button" tabindex="0" data-cmd="/gamemode creative"><span class="command-code">/gamemode creative</span><span class="command-desc">Turn to Creative</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/gamemode survival"><span class="command-code">/gamemode survival</span><span class="command-desc">Turn to Survival</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/gamemode adventure"><span class="command-code">/gamemode adventure</span><span class="command-desc">Turn to Adventure</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/gamemode spectator"><span class="command-code">/gamemode spectator</span><span class="command-desc">Turn to Spectator</span></div>
             </div>
         </div>
-    </div>
-</div>
+
+        <div class="command-section">
+            <h3>🛠️ Admin Items</h3>
+            <div class="command-list">
+                <div class="command-item" role="button" tabindex="0" data-cmd="/give @p minecraft:command_block"><span class="command-code">/give @p command_block</span><span class="command-desc">Give a command block</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/give @p minecraft:barrier"><span class="command-code">/give @p barrier</span><span class="command-desc">Give an invisible block</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/give @p minecraft:light"><span class="command-code">/give @p light</span><span class="command-desc">Give a light block</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/give @p minecraft:debug_stick"><span class="command-code">/give @p debug_stick</span><span class="command-desc">Give a debug stick</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/give @p minecraft:structure_block"><span class="command-code">/give @p structure_block</span><span class="command-desc">Give a structure block</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/give @p minecraft:knowledge_book"><span class="command-code">/give @p knowledge_book</span><span class="command-desc">Give a knowledge book</span></div>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h3>🌍 Secret Mobs</h3>
+            <div class="command-list">
+                <div class="command-item" role="button" tabindex="0" data-cmd="/summon illusioner"><span class="command-code">/summon illusioner</span><span class="command-desc">Summon an illusioner</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/summon giant"><span class="command-code">/summon giant</span><span class="command-desc">Summon a giant zombie</span></div>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h3>🌍 World &amp; Time</h3>
+            <div class="command-list">
+                <div class="command-item" role="button" tabindex="0" data-cmd="/time set day"><span class="command-code">/time set day</span><span class="command-desc">Set the time to day</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/time set night"><span class="command-code">/time set night</span><span class="command-desc">Set the time to night</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/weather clear"><span class="command-code">/weather clear</span><span class="command-desc">Stop the rain</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/gamerule keepInventory true"><span class="command-code">/gamerule keepInventory true</span><span class="command-desc">Keep inventory after death</span></div>
+            </div>
+        </div>
+
+        <div class="command-section">
+            <h3>✨ Player</h3>
+            <div class="command-list">
+                <div class="command-item" role="button" tabindex="0" data-cmd="/effect give @s night_vision infinite 0 true"><span class="command-code">/effect give @s night_vision infinite 0 true</span><span class="command-desc">See in the dark forever (1.19.4+)</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/effect clear @s"><span class="command-code">/effect clear @s</span><span class="command-desc">Remove all your effects</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/tp @s ~ ~100 ~"><span class="command-code">/tp @s ~ ~100 ~</span><span class="command-desc">Jump 100 blocks up</span></div>
+                <div class="command-item" role="button" tabindex="0" data-cmd="/kill @e[type=item]"><span class="command-code">/kill @e[type=item]</span><span class="command-desc">Clear every dropped item</span></div>
+            </div>
+        </div>
+    </section>
+    <!-- ========== texte pour les moteurs de recherche (et les curieux) ========== -->
+    <section class="cg-about" aria-labelledby="about-title">
+        <h2 id="about-title">A free Minecraft command generator for every version</h2>
+        <p>This generator builds <strong>/give</strong>, <strong>/summon</strong>, <strong>/tellraw</strong> and <strong>/title</strong> commands for Minecraft Java Edition, from <strong>1.12.2</strong> to the latest version. Pick your version and the command follows its syntax: NBT tags up to 1.20.4, item components from 1.20.5, and the new text format of 1.21.5. No ads, no account, and the page loads in an instant, even on a phone.</p>
+
+        <div class="cg-about-grid">
+            <div>
+                <h3>Custom items with /give</h3>
+                <p>Make your own <strong>custom sword</strong>, armor, bow or tool: colored names with <strong>gradients and rainbow text</strong>, bold, italic or scrambled letters, lore lines, <strong>any enchantment up to level 255</strong> (Sharpness 255, Knockback 255, Protection 255...), attributes for extra damage, health, speed or size, unbreakable items, custom potions and dyed leather armor. Start from a preset like the God Sword or the Flight Boots, then change anything.</p>
+            </div>
+            <div>
+                <h3>Mob spawner and /summon generator</h3>
+                <p>Choose any mob, give it a name, more health, a new size and its own weapons and armor, then get it as a <strong>mob spawner</strong>, a <strong>spawn egg</strong> or a <strong>/summon command</strong>. The spawner settings change how many mobs come out, how often, and how close a player has to be.</p>
+            </div>
+            <div>
+                <h3>Colored chat messages and titles</h3>
+                <p>Write <strong>/tellraw</strong> messages, big titles, subtitles and action bar text with the same colors and styles, and see them on a real Minecraft screen before you copy them.</p>
+            </div>
+            <div>
+                <h3>How to use a command</h3>
+                <ol>
+                    <li>Choose your Minecraft version at the top of the page.</li>
+                    <li>Build your item, mob or message. The preview shows what you will get.</li>
+                    <li>Click Copy, open the chat in game and paste. Cheats or operator rights are needed.</li>
+                    <li>Over 256 characters, paste it in a command block instead: <code>/give @p command_block</code>.</li>
+                </ol>
+            </div>
+        </div>
+
+        <h2>Questions</h2>
+            <details class="cg-faq">
+                <summary>How do I give myself a custom sword in Minecraft?</summary>
+                <p>Open the Custom item tab, pick a sword, type a name and choose its colors, add enchantments like Sharpness 255, then copy the command and paste it in the chat. You need cheats turned on or operator rights.</p>
+            </details>
+            <details class="cg-faq">
+                <summary>Why does my /give command not work?</summary>
+                <p>Most of the time the command was made for another Minecraft version. Since 1.20.5 items use components in square brackets instead of NBT tags in curly brackets, and 1.21.5 changed how names are written again. Choose your exact version at the top of the generator and the command follows it.</p>
+            </details>
+            <details class="cg-faq">
+                <summary>What is the highest enchantment level in Minecraft?</summary>
+                <p>With commands, enchantments go up to level 255 in every version since 1.17, far above the normal Sharpness V or Protection IV.</p>
+            </details>
+            <details class="cg-faq">
+                <summary>How do I get a spawner of any mob?</summary>
+                <p>Open the Mob spawner tab, choose the mob and keep "A spawner that keeps making mobs" selected. You can change how many mobs it spawns, how often and how close a player has to be. Place it in Creative mode or as an operator.</p>
+            </details>
+            <details class="cg-faq">
+                <summary>Does it work with Minecraft 1.12.2 and modpacks?</summary>
+                <p>Yes. Choose 1.12.2 in the version list: the generator writes the old syntax with numeric enchantment ids and § color codes. You can also type the id of a modded item, like create:wrench.</p>
+            </details>
+            <details class="cg-faq">
+                <summary>Does it work on Bedrock Edition?</summary>
+                <p>No. The generator makes Java Edition commands. The Bedrock /give command cannot set names, lore or enchantments.</p>
+            </details>
+            <details class="cg-faq">
+                <summary>How do I paste a command that is too long for the chat?</summary>
+                <p>The chat takes 256 characters. For longer commands, give yourself a command block with /give @p command_block, place it, paste the command inside and power it with a button.</p>
+            </details>
+    </section>
+</main>
+
+<div id="cg-mobilebar" class="cg-mobilebar"><button type="button" id="cg-mobile-copy" class="ac-btn cg-btn-main">Copy the command</button></div>
 
 <!-- ac:footer -->
 <div class="ac-footer" role="contentinfo">
@@ -278,7 +633,7 @@
                     <div class="ac-info-inner">
                         <h3>AmaiCraft: Quick Reference Guide</h3>
                         <p>Looking for specific <strong>Minecraft crafting recipes</strong>? AmaiCraft lists every <strong>craft</strong> in the game so you can build items quickly.</p>
-                        <p>It also includes <strong>basic Minecraft commands</strong> for <strong>admin items and cheats</strong>, a <strong>Jukebox</strong> for <strong>music discs</strong>, every hurt <strong>mob sound</strong> and a <strong>mining mini-game</strong>.</p>
+                        <p>It also includes a <a href="../commands/"><strong>Minecraft command generator</strong></a> for <strong>custom items, mob spawners and colored text</strong>, a <strong>Jukebox</strong> for <strong>music discs</strong>, every hurt <strong>mob sound</strong> and a <strong>mining mini-game</strong>.</p>
                         <p>Simple, but <strong>unofficial</strong> website.</p>
                         <p class="ac-info-new"><strong>NEW!</strong> Cape Collection: discover the history and availability of all Minecraft capes.</p>
                     </div>
@@ -305,18 +660,7 @@
     </div>
 </div>
 <!-- /ac:footer -->
-<script>
-
-    function copyCmd(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            const toast = document.getElementById('copyToast');
-            toast.style.display = 'block';
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 2000);
-        });
-    }
-
-</script>
+<script src="data.js"></script>
+<script src="generator.js"></script>
 </body>
 </html>

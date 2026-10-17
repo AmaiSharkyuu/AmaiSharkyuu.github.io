@@ -1,0 +1,856 @@
+/* AmaiCraft : page Commands (générateur /give, /tellraw, /title et commandes rapides) */
+
+:root {
+    --cg-panel: #c6c6c6;
+    --cg-light: #ffffff;
+    --cg-shadow: #555555;
+    --cg-ink: #3f3f3f;
+    --cg-ink-strong: #1d1d1d;
+    --cg-slot: #8b8b8b;
+    --cg-slot-dark: #373737;
+    --cg-field: #000000;
+    --cg-field-border: #a0a0a0;
+    --cg-field-text: #e0e0e0;
+}
+
+body {
+    font-family: 'Minecraftia', 'Segoe UI', Arial, sans-serif;
+    background: #000 url('wallpaper.jpg') center top / cover no-repeat fixed;
+    color: #fff;
+    margin: 0;
+}
+
+.cg {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 26px 16px 40px;
+    box-sizing: border-box;
+}
+
+.cg *, .cg *::before, .cg *::after { box-sizing: border-box; }
+
+/* hidden always wins, even over display: flex or grid */
+.cg [hidden] { display: none !important; }
+
+/* ---------- haut de page ---------- */
+.cg-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.cg-top h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: normal;
+    color: var(--ac-gold);
+    text-shadow: 3px 3px 0 var(--ac-gold-shadow);
+    line-height: 1.3;
+}
+
+.cg-top p {
+    margin: 4px 0 0;
+    max-width: 640px;
+    font-size: 12px;
+    line-height: 1.7;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.cg-version {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.cg-version select { min-width: 230px; }
+
+/* ---------- onglets ---------- */
+.cg-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: -4px;
+    position: relative;
+    z-index: 1;
+}
+
+.cg-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px 8px;
+    font: 13px 'Minecraftia', monospace;
+    color: #e0e0e0;
+    text-shadow: 2px 2px 0 #3f3f3f;
+    background: linear-gradient(180deg, #8c8c8c, #6a6a6a);
+    border: 4px solid #000;
+    border-bottom: 0;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+}
+
+.cg-tab img { width: 20px; height: 20px; image-rendering: pixelated; object-fit: contain; }
+
+.cg-tab:hover, .cg-tab:focus-visible { color: #ffffa0; outline: none; }
+
+.cg-tab[aria-selected="true"] {
+    color: var(--cg-ink-strong);
+    text-shadow: none;
+    background: var(--cg-panel);
+    box-shadow: inset 4px 4px 0 var(--cg-light);
+    padding-bottom: 12px;
+}
+
+.cg-panel {
+    background: var(--cg-panel);
+    border: 4px solid #000;
+    box-shadow: inset 4px 4px 0 var(--cg-light), inset -4px -4px 0 var(--cg-shadow);
+    padding: 22px;
+    color: var(--cg-ink);
+}
+
+.cg-panel[hidden] { display: none; }
+
+/* ---------- blocs ---------- */
+.cg-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    gap: 18px;
+    align-items: start;
+}
+
+.cg-editor { display: grid; gap: 14px; min-width: 0; }
+
+.cg-side {
+    position: sticky;
+    top: 12px;
+    display: grid;
+    gap: 14px;
+    min-width: 0;
+}
+
+.cg-box {
+    background: #b4b4b4;
+    border: 2px solid;
+    border-color: var(--cg-shadow) var(--cg-light) var(--cg-light) var(--cg-shadow);
+    padding: 14px 16px 16px;
+    min-width: 0;
+}
+
+.cg-box[hidden] { display: none; }
+
+.cg h2 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: normal;
+    color: var(--cg-ink-strong);
+    line-height: 1.4;
+}
+
+.cg h3 {
+    margin: 16px 0 8px;
+    font-size: 13px;
+    font-weight: normal;
+    color: var(--cg-ink-strong);
+}
+
+.cg-help {
+    margin: -4px 0 12px;
+    font-size: 11px;
+    line-height: 1.7;
+    color: #4a4a4a;
+}
+
+/* ---------- préréglages ---------- */
+.cg-presets-box { margin-bottom: 16px; }
+
+.cg-presets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+}
+
+.cg-preset {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px 6px;
+    font: 12px 'Minecraftia', monospace;
+    text-align: left;
+    color: #fff;
+    text-shadow: 2px 2px 0 #3f3f3f;
+    background: var(--cg-slot);
+    border: 2px solid;
+    border-color: var(--cg-slot-dark) var(--cg-light) var(--cg-light) var(--cg-slot-dark);
+    cursor: pointer;
+}
+
+.cg-preset img { width: 28px; height: 28px; image-rendering: pixelated; object-fit: contain; flex-shrink: 0; }
+
+.cg-preset:hover, .cg-preset:focus-visible {
+    background: #a0a0a0;
+    color: #ffffa0;
+    outline: 3px solid #fff;
+    outline-offset: -1px;
+}
+
+/* ---------- champs ---------- */
+.cg-input {
+    width: 100%;
+    min-width: 0;
+    height: 36px;
+    padding: 8px 9px 4px;
+    font: 13px 'Minecraftia', monospace;
+    color: var(--cg-field-text);
+    background: var(--cg-field);
+    border: 2px solid var(--cg-field-border);
+    border-radius: 0;
+    outline: none;
+}
+
+.cg-input:focus { border-color: #fff; }
+.cg-input::placeholder { color: #707070; }
+.cg-input:disabled { opacity: 0.5; }
+
+select.cg-input {
+    padding: 6px 28px 4px 9px;
+    appearance: none;
+    background: var(--cg-field) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h10v2H8v2H6v2H4V4H2V2H0z' fill='%23e0e0e0'/%3E%3C/svg%3E") right 10px center no-repeat;
+    cursor: pointer;
+}
+
+select.cg-input option { background: #1b1b1b; color: #e0e0e0; }
+
+.cg-num { width: 84px; flex-shrink: 0; }
+
+input[type="color"] {
+    width: 48px;
+    height: 36px;
+    padding: 2px;
+    background: #000;
+    border: 2px solid var(--cg-field-border);
+    border-radius: 0;
+    cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 0; }
+input[type="color"]::-moz-color-swatch { border: 0; border-radius: 0; }
+
+.cg-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    min-width: 0;
+}
+
+.cg-field > span { color: var(--cg-ink-strong); }
+
+.cg-grid2, .cg-grid3 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 14px;
+    align-items: end;
+}
+
+.cg-grid3 { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); margin-top: 12px; }
+
+.cg-inline { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.cg-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--cg-ink-strong);
+    cursor: pointer;
+    min-height: 36px;
+}
+
+.cg-check input {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    flex-shrink: 0;
+    background: var(--cg-slot);
+    border: 2px solid;
+    border-color: var(--cg-slot-dark) var(--cg-light) var(--cg-light) var(--cg-slot-dark);
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+}
+
+.cg-check input:checked::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    box-shadow: inset -2px -2px 0 #aaa;
+}
+
+.cg-check input:focus-visible { outline: 2px solid #fff; }
+.cg-check em, .cg-field em { font-style: normal; font-size: 10px; color: #6a6a6a; }
+
+/* option or row missing from the chosen version: faded, with the reason written next to it */
+.is-off > input, .is-off.cg-check > span, .is-off > select, .is-off .cg-row-name,
+.is-off .cg-mini, .is-off > .cg-chip { opacity: 0.45; }
+.is-off .cg-row-name { text-decoration: line-through; }
+
+.cg .cg-need {
+    display: inline-block;
+    padding: 4px 6px 2px;
+    font-size: 10px;
+    font-style: normal;
+    line-height: 1.5;
+    color: #3f2a00;
+    text-shadow: none;
+    background: #e8d27a;
+    border: 2px solid #8a6d00;
+}
+
+.cg-row > .cg-need { flex-basis: 100%; }
+.cg-check { flex-wrap: wrap; }
+.cg-check > span { flex: 1 1 0; min-width: 0; }
+.cg-row .cg-check > span, .cg-kinds .cg-check > span { flex: 0 1 auto; }
+.cg-check > .cg-need { flex-basis: 100%; }
+
+/* ---------- choix de l'item ---------- */
+.cg-item { display: flex; align-items: center; gap: 10px; }
+
+.cg-combo { position: relative; flex: 1; min-width: 0; }
+
+.cg-slot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: var(--cg-slot);
+    border: 2px solid;
+    border-color: var(--cg-slot-dark) var(--cg-light) var(--cg-light) var(--cg-slot-dark);
+}
+
+.cg-slot img { image-rendering: pixelated; object-fit: contain; }
+.cg-slot-small { width: 40px; height: 40px; }
+.cg-slot-small img { width: 30px; height: 30px; }
+
+.cg-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 2px);
+    z-index: 40;
+    max-height: 320px;
+    overflow-y: auto;
+    background: #1b1b1b;
+    border: 2px solid #fff;
+}
+
+.cg-list[hidden] { display: none; }
+
+.cg-opt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px 3px;
+    font-size: 12px;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+.cg-opt img { width: 24px; height: 24px; image-rendering: pixelated; object-fit: contain; flex-shrink: 0; }
+.cg-opt small { margin-left: auto; color: #808080; font-size: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cg-opt[aria-selected="true"], .cg-opt:hover { background: #3c4fa8; color: #ffffa0; }
+.cg-opt-empty { padding: 10px; font-size: 11px; color: #aaa; line-height: 1.6; }
+
+/* ---------- texte (nom, lore, message) ---------- */
+.cg-text { display: grid; gap: 6px; container-type: inline-size; }
+
+.cg-seg { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.cg-seg > .cg-input { flex: 1 1 160px; }
+.cg-seg > .cg-x { margin-left: auto; }
+
+/* colonne étroite : le texte prend toute la ligne, les boutons passent dessous */
+@container (max-width: 480px) {
+    .cg-seg > .cg-input { flex-basis: 100%; }
+}
+
+.cg-swatch {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.5), inset -2px -2px 0 rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+}
+
+.cg-swatch.is-default::after,
+.cg-pal-sw.is-default::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 44%, #e33 44%, #e33 56%, transparent 56%);
+}
+
+.cg-swatch:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+
+.cg-fmt { display: flex; }
+
+.cg-fmt button,
+.cg-mode {
+    min-width: 32px;
+    height: 36px;
+    padding: 6px 8px 2px;
+    font: 14px 'Minecraftia', monospace;
+    color: #fff;
+    text-shadow: 2px 2px 0 #3f3f3f;
+    background: linear-gradient(180deg, #8c8c8c, #6a6a6a);
+    border: 2px solid #000;
+    margin-left: -2px;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.45), inset -2px -2px 0 rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+}
+
+.cg-fmt button:first-child, .cg-mode:first-child { margin-left: 0; }
+.cg-fmt .cg-fmt-b { font-weight: bold; }
+.cg-fmt .cg-fmt-i { font-style: italic; }
+.cg-fmt .cg-fmt-u { text-decoration: underline; }
+.cg-fmt .cg-fmt-s { text-decoration: line-through; }
+
+.cg-fmt button:hover, .cg-mode:hover,
+.cg-fmt button:focus-visible, .cg-mode:focus-visible { color: #ffffa0; outline: none; position: relative; }
+
+.cg-fmt button[aria-pressed="true"],
+.cg-mode[aria-pressed="true"] {
+    color: #ffff55;
+    background: #3c3c3c;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.cg-x {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    padding: 4px 0 0;
+    font: 18px 'Minecraftia', monospace;
+    color: #fff;
+    text-shadow: 2px 2px 0 #3f1515;
+    background: linear-gradient(180deg, #b44a4a, #8a2f2f);
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.35), inset -2px -2px 0 rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+}
+
+.cg-x:hover, .cg-x:focus-visible { color: #ffffa0; outline: none; }
+
+.cg-add {
+    justify-self: start;
+    padding: 8px 12px 5px;
+    font: 12px 'Minecraftia', monospace;
+    color: var(--cg-ink-strong);
+    background: transparent;
+    border: 2px dashed #6a6a6a;
+    cursor: pointer;
+}
+
+.cg-add:hover, .cg-add:focus-visible { background: rgba(255, 255, 255, 0.3); border-color: #000; outline: none; }
+
+.cg-lore { display: grid; gap: 10px; }
+#cg-lore { display: grid; gap: 10px; }
+
+.cg-lore-line {
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.08);
+    border: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+.cg-lore-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 11px;
+}
+
+.cg-lore-head .cg-x { width: 28px; height: 28px; font-size: 14px; }
+
+/* ---------- popup couleur ---------- */
+.cg-pop {
+    position: absolute;
+    z-index: 200;
+    width: 292px;
+    padding: 12px;
+    font-family: 'Minecraftia', monospace;
+    color: var(--cg-ink);
+    background: var(--cg-panel);
+    border: 4px solid #000;
+    box-shadow: inset 3px 3px 0 var(--cg-light), inset -3px -3px 0 var(--cg-shadow), 0 8px 0 rgba(0, 0, 0, 0.35);
+}
+
+.cg-pop[hidden] { display: none; }
+.cg-modes { display: flex; margin-bottom: 4px; }
+.cg-mode { flex: 1; font-size: 11px; }
+.cg-pop-label { margin: 10px 0 4px; font-size: 11px; color: var(--cg-ink-strong); }
+
+.cg-pal { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; }
+
+.cg-pal-sw {
+    position: relative;
+    aspect-ratio: 1;
+    border: 2px solid #000;
+    cursor: pointer;
+    padding: 0;
+}
+
+.cg-pal-sw[aria-pressed="true"] { outline: 3px solid #fff; outline-offset: -1px; z-index: 1; box-shadow: 0 0 0 5px #000; }
+.cg-pal-sw:focus-visible { outline: 2px solid #ff5; }
+
+.cg-pop-custom { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 10px; cursor: pointer; }
+.cg-pop-note { margin: 10px 0 0; font-size: 10px; line-height: 1.6; color: #555; }
+
+/* ---------- lignes (enchantements, attributs, effets) ---------- */
+#cg-ench, #cg-attr, #cg-potion-body { display: grid; gap: 6px; }
+
+.cg-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+    padding: 6px 6px 6px 10px;
+    background: var(--cg-slot);
+    border: 2px solid;
+    border-color: var(--cg-slot-dark) var(--cg-light) var(--cg-light) var(--cg-slot-dark);
+}
+
+.cg-row-name {
+    flex: 1 1 140px;
+    min-width: 0;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #3f3f3f;
+}
+
+.cg-row-name.is-curse { color: #ff7a7a; }
+.cg-row select.cg-input { width: auto; flex: 0 1 150px; }
+.cg-row .cg-check { color: #fff; text-shadow: 2px 2px 0 #3f3f3f; font-size: 11px; }
+
+.cg-mini {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 0 #3f3f3f;
+}
+
+.cg-chip {
+    height: 36px;
+    padding: 6px 10px 2px;
+    font: 11px 'Minecraftia', monospace;
+    color: #fff;
+    text-shadow: 2px 2px 0 #3f3f3f;
+    background: linear-gradient(180deg, #8c8c8c, #6a6a6a);
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.45), inset -2px -2px 0 rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.cg-chip:hover, .cg-chip:focus-visible { color: #ffffa0; background: linear-gradient(180deg, var(--ac-btn-hover-top), var(--ac-btn-hover-bottom)); outline: none; }
+
+.cg-adders { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+.cg-adder { max-width: 320px; }
+#cg-potion-body .cg-grid2 { margin-bottom: 6px; }
+
+/* ---------- aperçu ---------- */
+.cg-preview-row { display: flex; gap: 14px; align-items: flex-start; }
+
+.cg-slot-big { width: 76px; height: 76px; }
+.cg-slot-big img { width: 56px; height: 56px; }
+
+.cg-slot b {
+    position: absolute;
+    right: 4px;
+    bottom: 0;
+    font: 16px 'Minecraftia', monospace;
+    font-weight: normal;
+    color: #fff;
+    text-shadow: 2px 2px 0 #3f3f3f;
+}
+
+/* reflet violet des objets enchantés, découpé à la forme de l'icône */
+.cg-slot.is-glint::after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 56px;
+    height: 56px;
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
+    background: linear-gradient(110deg, transparent 25%, rgba(165, 90, 255, 0.75) 40%, transparent 52%, transparent 65%, rgba(165, 90, 255, 0.55) 78%, transparent 90%);
+    background-size: 300% 100%;
+    animation: cg-glint 3.2s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes cg-glint {
+    from { background-position: 100% 0; }
+    to { background-position: 0 0; }
+}
+
+.cg-tip {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 10px 6px;
+    background: var(--ac-tooltip);
+    border: 4px solid;
+    border-image: linear-gradient(180deg, var(--ac-tooltip-border-top), var(--ac-tooltip-border-bottom)) 1;
+    outline: 2px solid var(--ac-tooltip);
+    font: 16px 'Minecraftia', monospace;
+    line-height: 24px;
+    overflow-wrap: anywhere;
+}
+
+.cg-tip-line { white-space: pre-wrap; }
+.cg-tip-line:first-child { margin-bottom: 4px; }
+.cg-tip-none { font-size: 11px; line-height: 1.7; color: #aaa; }
+
+/* ---------- annuler (Start over, préréglage, lien partagé) ---------- */
+.cg-undo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 10px 10px 10px 14px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #fff;
+    text-shadow: 2px 2px 0 #3f3f3f;
+    background: linear-gradient(180deg, #3c4fa8, #2c3a80);
+    border: 4px solid #000;
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+.cg-undo[hidden] { display: none; }
+.cg-undo span { flex: 1 1 160px; }
+.cg-undo .ac-btn { padding: 8px 18px 6px; }
+
+/* ---------- commande ---------- */
+.cg-cmd {
+    margin: 0;
+    max-height: 260px;
+    overflow: auto;
+    padding: 10px 12px 8px;
+    font: 13px/1.7 'Minecraftia', monospace;
+    color: #ffff55;
+    text-shadow: 2px 2px 0 #3f3f15;
+    background: #000;
+    border: 2px solid var(--cg-field-border);
+    white-space: pre-wrap;
+    word-break: break-all;
+    user-select: all;
+}
+
+.cg-cmd:focus { outline: none; border-color: #fff; }
+
+.cg-len { display: block; margin: 6px 0 10px; font-size: 10px; color: #4a4a4a; }
+.cg-len.is-long { color: #a00; }
+
+.cg-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.cg-btn-main {
+    background: linear-gradient(180deg, #5cae4f, #3b7d31);
+}
+
+.cg-btn-main:hover, .cg-btn-main:focus-visible { background: linear-gradient(180deg, #6fc860, #4a9640); }
+
+.cg-notes { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.cg-notes:empty { display: none; }
+
+.cg-notes li {
+    padding: 8px 10px 6px;
+    font-size: 10px;
+    line-height: 1.7;
+    color: #3f2a00;
+    background: #e8d27a;
+    border: 2px solid #8a6d00;
+}
+
+/* ---------- chat et titres ---------- */
+.cg-kinds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 14px; margin-bottom: 12px; }
+.cg-kinds .cg-check input { width: 20px; height: 20px; }
+
+/* une vraie capture du jeu ; les textes suivent la largeur de l'image (unités cqw) */
+.cg-screen {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    container-type: inline-size;
+    background: #78a7ff url('game-screen.jpg') center / cover no-repeat;
+    border: 2px solid #000;
+    font-family: 'Minecraftia', monospace;
+}
+
+.cg-screen-out { position: absolute; overflow-wrap: anywhere; font-size: 3.4cqw; line-height: 1.5; }
+.is-tellraw .cg-screen-out { left: 0.6cqw; bottom: 12cqw; max-width: 70%; padding: 0.4cqw 1cqw 0; background: rgba(0, 0, 0, 0.5); }
+.is-title .cg-screen-out { left: 4%; right: 4%; top: 20%; text-align: center; font-size: 8cqw; line-height: 1.3; }
+.is-subtitle .cg-screen-out { left: 4%; right: 4%; top: 40%; text-align: center; font-size: 4.2cqw; }
+.is-actionbar .cg-screen-out { left: 4%; right: 4%; bottom: 12cqw; text-align: center; }
+.cg-screen .cg-tip-line:first-child { margin: 0; }
+
+/* ---------- commandes rapides ---------- */
+.command-section { margin-bottom: 22px; }
+.command-section:last-child { margin-bottom: 0; }
+
+.command-section h3 {
+    font-size: 14px;
+    margin: 0 0 10px;
+    color: #555;
+}
+
+.command-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 10px;
+}
+
+.command-item {
+    background: var(--cg-slot);
+    border: 2px solid;
+    border-color: var(--cg-slot-dark) var(--cg-light) var(--cg-light) var(--cg-slot-dark);
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.command-item:hover, .command-item:focus-visible { background: #7a7a7a; outline: 3px solid white; }
+
+.command-code { color: #ffff55; text-shadow: 2px 2px 0 #3f3f15; font-size: 13px; word-break: break-all; }
+.command-desc { color: #eee; font-size: 11px; margin-top: 4px; }
+
+.toast {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    background: linear-gradient(90deg, #55ff55 0%, #2fcf2f 50%, #55ff55 100%);
+    color: #000;
+    padding: 14px 20px;
+    border-bottom: 4px solid #000;
+    display: none;
+    z-index: 9999;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ---------- texte sous l'outil (référencement) ---------- */
+.cg-about {
+    margin-top: 22px;
+    padding: 22px;
+    color: var(--cg-ink);
+    background: var(--cg-panel);
+    border: 4px solid #000;
+    box-shadow: inset 4px 4px 0 var(--cg-light), inset -4px -4px 0 var(--cg-shadow);
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+.cg-about h2 { font-size: 18px; margin: 0 0 8px; }
+.cg-about h2 + p { margin-top: 0; }
+.cg-about h3 { font-size: 14px; margin: 0 0 6px; }
+.cg-about p { margin: 0 0 12px; }
+.cg-about strong { font-weight: normal; color: var(--cg-ink-strong); text-decoration: underline; text-decoration-color: rgba(0, 0, 0, 0.25); }
+.cg-about ol { margin: 0; padding-left: 22px; }
+.cg-about code { padding: 2px 4px 0; font: 11px 'Minecraftia', monospace; color: #ffff55; background: #000; }
+
+.cg-about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 14px 22px;
+    margin: 18px 0 24px;
+}
+
+.cg-about-grid > div {
+    padding: 14px 16px;
+    background: #b4b4b4;
+    border: 2px solid;
+    border-color: var(--cg-shadow) var(--cg-light) var(--cg-light) var(--cg-shadow);
+}
+
+.cg-faq {
+    margin-bottom: 6px;
+    background: var(--cg-slot);
+    border: 2px solid;
+    border-color: var(--cg-slot-dark) var(--cg-light) var(--cg-light) var(--cg-slot-dark);
+}
+
+.cg-faq summary {
+    padding: 10px 12px 7px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #3f3f3f;
+    cursor: pointer;
+    list-style: none;
+}
+
+.cg-faq summary::-webkit-details-marker { display: none; }
+.cg-faq summary::before { content: '+ '; color: #ffff55; }
+.cg-faq[open] summary::before { content: '- '; }
+.cg-faq summary:hover, .cg-faq summary:focus-visible { color: #ffffa0; outline: none; }
+.cg-faq p { margin: 0; padding: 10px 12px; color: var(--cg-ink); background: #c6c6c6; }
+
+/* ---------- barre de copie sur téléphone ---------- */
+.cg-mobilebar { display: none; }
+
+@media (max-width: 900px) {
+    .cg-layout { grid-template-columns: minmax(0, 1fr); }
+    .cg-side { position: static; order: -1; }
+    .cg-mobilebar:not([hidden]) {
+        display: flex;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 60;
+        padding: 8px 16px;
+        background: rgba(20, 20, 23, 0.94);
+        border-top: 4px solid #000;
+    }
+    .cg-mobilebar .ac-btn { flex: 1; justify-content: center; }
+    .ac-footer { padding-bottom: 60px; }
+}
+
+@media (max-width: 600px) {
+    .cg { padding: 18px 10px 30px; }
+    .cg-panel { padding: 14px 12px; }
+    .cg-about { padding: 14px 12px; }
+    .cg-box { padding: 12px 10px; }
+    .cg-top h1 { font-size: 24px; }
+    .cg-version, .cg-version select { width: 100%; }
+    .cg-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+    .cg-tab { border-bottom: 4px solid #000; }
+    .cg-tab[aria-selected="true"] { border-bottom-color: var(--cg-panel); }
+    .cg-tab { justify-content: center; padding: 8px 4px 6px; font-size: 10px; text-align: center; }
+    .cg-tab[aria-selected="true"] { padding-bottom: 10px; }
+    .cg-tab img { display: none; }
+    .cg-grid2, .cg-grid3, .cg-kinds { grid-template-columns: minmax(0, 1fr); }
+    .cg-presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cg-preview-row { flex-direction: column; }
+    .cg-tip { width: 100%; }
+    .cg-row select.cg-input { flex: 1 1 130px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cg-slot.is-glint::after { animation: none; background-position: 50% 0; }
+}

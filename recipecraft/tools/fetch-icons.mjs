@@ -21,6 +21,7 @@
  *   node tools/build.mjs        # first: refresh the data + the missing list
  *   node tools/fetch-icons.mjs  # then: download what is missing
  *   node tools/fetch-icons.mjs --dry   # only report, download nothing
+ *   node tools/fetch-icons.mjs --all   # also the technical items (used by commands/)
  *
  * Anything still missing afterwards is listed in tools/missing-icons.txt -
  * drop a PNG named <item_id>.png in assets/items/ and re-run tools/build.mjs.
@@ -38,6 +39,9 @@ const UA = "AmaiCraft-RecipeCraft/1.0 (static Minecraft fan site)";
 const CONCURRENCY = 4;
 const MAX_GIF = 60 * 1024; // bigger animated sprites are not worth the bandwidth
 const DRY = process.argv.includes("--dry");
+// --all also fetches the technical items (command blocks, barrier, spawner...) that the
+// recipe pages hide but the command generator (commands/) shows
+const ALL = process.argv.includes("--all");
 
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "recipes.json"), "utf8"));
 const items = data.items;
@@ -237,7 +241,7 @@ const have = new Set(
 
 // mirrored ids never hit the network: they always follow their base item
 const todo = Object.keys(items).filter(
-  (id) => !have.has(id) && !items[id].h && !mirrorOf(id)
+  (id) => !have.has(id) && (ALL || !items[id].h) && !mirrorOf(id)
 );
 console.log(`${todo.length} icons missing (Minecraft ${MC})`);
 if (DRY) {
@@ -275,6 +279,10 @@ function aliasIds(id) {
   const strip = /^(.*?)(_slab|_stairs|_wall|_fence|_button|_pressure_plate|_bulb)$/.exec(id);
   if (strip) out.push(strip[1]);
   if (id === "enchanted_golden_apple") out.push("golden_apple");
+  // these look exactly like another item in the inventory
+  if (id.startsWith("infested_")) out.push(id.slice(9));
+  if (id === "petrified_oak_slab") out.push("oak_slab");
+  if (id === "debug_stick") out.push("stick"); // a stick with the enchantment glint
   // extended / level II potions reuse the base potion icon
   const pot = /^((?:lingering_potion|splash_potion|potion)_)(?:long_|strong_)(.*)$/.exec(id);
   if (pot) out.push(pot[1] + pot[2]);
